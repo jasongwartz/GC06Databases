@@ -2,5 +2,5 @@
 
 function sql_get_user() {
     
-    return 'SQL statement placeholder';
+    return '{"result":"SQL statement placeholder"}';
 }
