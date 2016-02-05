@@ -1,0 +1,232 @@
+{
+    "all": {
+        "POST": {
+            "return": {
+            "success": "boolean",
+            "message": "text"
+        }
+        }
+    },
+    
+    
+    "users": {
+        "self": {
+            "type": "GET",
+            "params": [
+                "user_id"
+            ],
+            "returns": "User object"
+        },
+        "create": {
+            "type": "POST",
+            "params": [
+                "username", "first_name", "last_name", "password"
+            ],
+            "returns": [              
+            ]
+        },
+        "change_password": {
+            "type": "POST",
+            "params": [
+                "username", "password"
+            ],
+            "returns": [
+            ]
+        },
+        "all_feed": {
+            "type": "GET",
+            "params": [
+            ]
+        }          
+    },
+    
+    "items": {
+        "self": {
+            "type": "GET",
+            "params": [
+                "item_id"
+            ],
+            "returns": "Single item object including hashtagory_ids property"
+        },
+        "create": {
+            "type": "POST",
+            "params": [
+                "owner_user_id", "title", "description"
+            ]
+        },
+        "update": {
+            "type": "POST",
+            "params": [
+                "item_id", "title", "description"
+            ]
+        },
+        "user_items": {
+            "type": "GET",
+            "params": [
+                "owner_user_id"
+            ],
+            "returns": "Array of item objects"
+        },
+        "delete": {
+            "type": "POST",
+            "params": [
+                "item_id"
+            ]
+        }
+    },
+    
+    "hashtagories": {
+        "create": {
+            "type": "POST",
+            "params": [
+                "text"
+            ]
+        },
+        "search": {
+            "type": "GET",
+            "params": [
+                "search_string"
+            ],
+            "returns": "Array of hashtagories"
+        }
+    },
+    
+    "auctions": {
+        
+        "self": {
+            "type": "GET",
+            "params": [
+                "auction_id"
+            ],
+            "return": "Single auction object"
+        },
+        
+        "create": {
+            "type": "POST",
+            "params": [
+                "auction_item_id",
+                "start_time",
+                "end_time",
+                "reserve_price"
+            ]            
+        },
+        "cancel": {
+            "type": "POST",
+            "params": [
+                "auction_id"
+            ]
+        },
+        "retrieve_all": {
+            "type": "GET",
+            "params": [],
+            "return": "Array of auction objects"
+        },
+        "user_auctions": {
+            "type": "GET",
+            "params": [
+                "user_id"
+            ],
+            "return": "Array of auction objects"
+        },
+        "user_feed": { // watchlist + active auctions
+            "type": "GET",
+            "params": [
+                "user_id"
+            ],
+            "return": "Array of auction objects from watchlist and bids"
+        },
+        "hashtagory": {
+            "type": "GET",
+            "params": "hashtagory_text",
+            "return": "Array of auction objects"
+        },
+        
+        // CRON task to close
+        // In SQL, checks all auctions where end_time == current_time,
+        //      sets is_complete to TRUE, creates feedback object
+        "close": {
+            "type": "POST",
+            "params": [
+                "current_time" // date, hour, minute
+            ]            
+        }  
+    },
+    
+    "bids": {
+        "self": {
+            "type": "GET",
+            "params": "bid_id",
+            "returns": "Joined bid and auction object"
+        },
+        "create": {
+            "type": "POST",
+            "params": [
+                "bidder_user_id",
+                "bid_price",
+                "bid_action_id" // bid-time calculated on server
+            ]
+        },
+        "user_bids": {
+            "type": "GET",
+            "params": [
+                "user_id"
+            ],
+            "returns": "Array of JOINed bid and auction objects"
+        },
+        "auction_bids": {
+            "params": [
+                "bid_action_id"
+            ],
+            "returns": "Array of bid objects"
+        }        
+    },
+    
+    "watches": {
+        "user_watches": {
+            "type": "GET",
+            "params": [
+                "user_id"
+            ],
+            "returns": "Array of auction objects"
+        },
+        "create": {
+            "type": "POST",
+            "params": [
+                "watch_auction_id",
+                "watch_user_id"
+            ]
+        },
+        "delete": {
+            "type": "POST",
+            "params": [
+                "watch_auction_id",
+                "watch_user_id"
+            ]
+        }
+    },
+    
+    "feedback": {
+        "for_user": {
+            "type": "GET",
+            "params": [
+                "user_id"
+            ],
+            "returns": "Array of feedback objects where user_id == buyer_id OR seller_id"
+        },
+        "for_auction": {
+            "type": "GET",
+            "params": "feedback_auction_id",
+            "returns": "Single feedback object"
+        },
+        "update": {
+            "type": "POST",
+            "params": [
+                "text",
+                "user_id",
+                "feedback_id"
+            ] // SQL will check if user_id == buyer or seller and 
+                // update the appropriate text field
+        }       
+    }
+       
+}
