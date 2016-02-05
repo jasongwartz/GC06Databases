@@ -1,5 +1,26 @@
 /* app css stylesheet */
 
+#imaginary_container{
+    margin-top: 5px !important; /* Don't copy this */
+    /*width: 40% !important;*/
+}
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+body { 
+    padding-top: 65px; 
+}
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
