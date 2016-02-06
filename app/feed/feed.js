@@ -13,9 +13,9 @@ angular.module('myApp.feed', ['ngRoute'])
 
     $scope.test = "afsdfsdf";
 
-    $http.get('/hashtagories/api/the_api/users?p=test').then(function(data){
-        alert(data.data);
-        $scope.test = data;
+    $http.get('/hashtagories/api/users?id=1').then(function(data){
+//        alert(data.data);
+        $scope.user = data.data[0];
     }, function() {
         alert("failed to find file.");
     });
