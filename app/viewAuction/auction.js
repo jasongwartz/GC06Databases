@@ -4,7 +4,7 @@ angular.module('myApp.auction', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/auction', {
-    templateUrl: 'auction/auction.html',
+    templateUrl: 'viewAuction/auction.html',
     controller: 'auctionCtrl'
   });
 }])

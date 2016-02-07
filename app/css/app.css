@@ -1,5 +1,16 @@
 /* app css stylesheet */
 
+.hash-card {
+    background: white; 
+    padding: 1em;
+    border-radius: 3px;
+}
+
+.bg-main {
+    background: whitesmoke;
+}
+
+
 #imaginary_container{
     margin-top: 5px !important; /* Don't copy this */
     /*width: 40% !important;*/

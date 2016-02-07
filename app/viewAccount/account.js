@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('myApp.feedback', ['ngRoute'])
+angular.module('myApp.account', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/feedback', {
-    templateUrl: 'feedback/feedback.html',
-    controller: 'feedbackCtrl'
+  $routeProvider.when('/account', {
+    templateUrl: 'viewAccount/account.html',
+    controller: 'AccountCtrl'
   });
 }])
 
-.controller('feedbackCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('AccountCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.test = "afsdfsdf";
 

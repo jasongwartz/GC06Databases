@@ -1,0 +1,59 @@
+<section>
+    
+    <div class="container-fluid">
+
+        <div class="col-lg-3">
+            <div class="card hash-card">
+                <div class="card-block">
+                  <h4 class="card-title">Name: {{user.firstname}} {{user.lastname}}</h4>
+
+                </div>
+            </div>
+            <br/>
+            <div class="card hash-card">
+                <div class="card-block">
+                  <h4 class="card-title">Trends</h4>
+
+                </div>
+            </div>
+       </div>        
+
+        <div class="col-lg-6">
+            <div class="card hash-card">
+                <div class="card-block">
+                  <h4 class="card-title">Here are some auctions you might enjoy following.</h4>
+                  <p class="card-text">
+                     
+                  </p>
+                </div>
+            </div>
+            <hr class="light"/>
+            
+            <div ng-repeat="auction in auctions">
+            
+                <div class="card hash-card">
+                    <div class="card-block">
+                      <h4 class="card-title">{{auction.item_name}}</h4>
+                      <p class="card-text">
+                          {{auction.item_description}}
+                      </p>
+                    </div>
+                </div>
+                <br/>
+            
+            </div>
+            
+       </div> 
+
+        <div class="col-lg-3">
+            <div class="card hash-card">
+                <div class="card-block">
+                  Licenses stuff
+                </div>
+            </div>
+        </div>  
+        
+    </div>
+
+    
+</section>

@@ -4,7 +4,7 @@ angular.module('myApp.items', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/items', {
-    templateUrl: 'items/items.html',
+    templateUrl: 'viewItems/items.html',
     controller: 'itemsCtrl'
   });
 }])

@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <title>Hashtagories</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
@@ -17,7 +17,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body class="">
+<body class="bg-main">
     
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -33,9 +33,22 @@
                            
                 <!--<a class="navbar-brand page-scroll" href=""></a>-->
             </div>
-
+            
+            <div class="col-md-3 col-md-offset-6">
+                <form class="navbar-form">
+                <div class="input-group stylish-input-group">
+                    <input type="text" class="form-control"  placeholder="Search" >
+                    <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>  
+                    </span>
+                </div>
+                </form>
+            </div>
+            
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="col-sm-3 col-md-3 pull-right">
+            <div class="col-md-2">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                 <ul class="nav navbar-nav navbar-right"> 
@@ -61,18 +74,7 @@
             </div>
             </div>
             
-            <div class="col-sm-3 col-md-3 pull-right">
-                <form class="navbar-form">
-                <div class="input-group stylish-input-group">
-                    <input type="text" class="form-control"  placeholder="Search" >
-                    <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>  
-                    </span>
-                </div>
-                </form>
-            </div>
+
         </div>
      
     </nav>
@@ -90,11 +92,11 @@
   <script src="app.js"></script>
   <script src="view1/view1.js"></script>
   <script src="view2/view2.js"></script>
-  <script src="items/items.js"></script>
-  <script src="auction/auction.js"></script>
-  <script src="feed/feed.js"></script>
-  <script src="feedback/feedback.js"></script>
-  <script src="account/account.js"></script>
+  <script src="viewItems/items.js"></script>
+  <script src="viewAuction/auction.js"></script>
+  <script src="viewFeed/feed.js"></script>
+  <script src="viewFeedback/feedback.js"></script>
+  <script src="viewAccount/account.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
