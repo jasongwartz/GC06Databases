@@ -9,6 +9,9 @@
   <title>Hashtagories</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" 
+      type="image/ico" 
+      href="img/favicon_hashtagories.ico">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="css/app.css">
@@ -34,50 +37,52 @@
                 <!--<a class="navbar-brand page-scroll" href=""></a>-->
             </div>
             
-            <div class="col-md-3 col-md-offset-6">
-                <form class="navbar-form">
-                <div class="input-group stylish-input-group">
-                    <input type="text" class="form-control"  placeholder="Search" >
-                    <span class="input-group-addon">
-                        <button ng-click="search_filter()" type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>  
-                    </span>
-                </div>
-                </form>
-            </div>
+
+            <!--<img height="4%" width="4%" src="img/hashtagories.png"/>-->
+
             
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="col-md-2 pull-right">
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="col-lg-5 pull-right">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                <ul class="nav navbar-nav navbar-right"> 
+                    <ul class="nav navbar-nav navbar-right"> 
 
-                    <li >
-                        <a class="page-scroll" href="#/feed">Home</a>
-                    </li>
-                    <li >
-                        
-                        <a ng-if="logged_in" id="menu" class="page-scroll dropdown" href="" data-toggle="dropdown">
-                            Account
-                            
-                            <ul class="dropdown-menu">
-                              <li><a href="#/account">Personal Details</a></li>
-                              <li><a href="#/items">Items</a></li>
-                              <li><a href="#/feedback">Feedback</a></li>
-                              <li class="divider"></li>
-                              <li><a href="#" ng-click="log_out()">Log out</a></li>
-                            </ul>
-                        
-                        </a>
-                        
-                        <a ng-if="!logged_in" href="#/login">Log in</a>
-                    </li>
-                    
-                </ul>
+                    <form class="navbar-form navbar-left">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control"  placeholder="Search" >
+                        <span class="input-group-addon">
+                            <button ng-click="search_filter()" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>  
+                        </span>
+                    </div>
+                    </form> 
+
+                        <li >
+                            <a class="page-scroll" href="#/feed">Home</a>
+                        </li>
+                        <li >
+
+                            <a ng-if="logged_in" id="menu" class="page-scroll dropdown" href="" data-toggle="dropdown">
+                                Account
+
+                                <ul class="dropdown-menu">
+                                  <li><a href="#/account">Personal Details</a></li>
+                                  <li><a href="#/items">Items</a></li>
+                                  <li><a href="#/feedback">Feedback</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="#" ng-click="log_out()">Log out</a></li>
+                                </ul>
+
+                            </a>
+
+                            <a ng-if="!logged_in" href="#/login">Log in</a>
+                        </li>
+
+                    </ul>
+                </div>
             </div>
-            </div>
-            
+        
 
         </div>
      

@@ -22,5 +22,9 @@ angular.module('myApp.items', ['ngRoute'])
 
     }
 
+    $scope.edit_item = function() {
+        
+        alert("editing");
+    };
     
 }]);
