@@ -1,9 +1,10 @@
 'use strict';
-
+var PATH_TO_API = '/hashtagories/api/';
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
   'myApp.feed',
+  'myApp.login',
   'myApp.account',
   'myApp.auction',
   'myApp.feedback',

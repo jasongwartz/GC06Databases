@@ -9,27 +9,24 @@ angular.module('myApp.feed', ['ngRoute'])
   });
 }])
 
-.controller('feedCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('feedCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 
+    $rootScope.logged_in = false;
     $scope.test = "afsdfsdf";
-$scope.auctions = [];
-    $http.get('/hashtagories/api/users?id=1').then(function(data){
-//        alert(data.data);
-        $scope.auctions = [
-            {
-                item_name: "mug",
-                item_description: "its a mug"
-            },
-            {
-                item_name: "cup",
-                item_description: "its a cup"
-            }
-        ];
+    $scope.auctions = [];
+//    alert(sessionStorage.getItem('user_id'))
+    $http.get(PATH_TO_API + 'users?id='+ sessionStorage.getItem('user_id') +'&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
 
         $scope.user = data.data[0];
     }, function() {
         alert("failed to find file.");
     });
 
+    $http.get(PATH_TO_API + 'auctions/retrieve_all').then(function(data){
+//        alert(data.data);
+        $scope.auctions = data.data;
+    }, function() {
+        alert("failed to find file.");
+    });
     
 }]);

@@ -57,7 +57,8 @@
                         <a class="page-scroll" href="#/feed">Home</a>
                     </li>
                     <li >
-                        <a class="page-scroll dropdown" href="" data-toggle="dropdown">
+                        
+                        <a ng-if="logged_in" class="page-scroll dropdown" href="" data-toggle="dropdown">
                             Account
                             
                         <ul class="dropdown-menu">
@@ -67,7 +68,8 @@
                           <li class="divider"></li>
                           <li><a href="#">Log out</a></li>
                         </ul></a>
-                    
+                        
+                        <a ng-if="!logged_in" href="#/login">Log in</a>
                     </li>
                     
                 </ul>
@@ -92,6 +94,7 @@
   <script src="app.js"></script>
   <script src="view1/view1.js"></script>
   <script src="view2/view2.js"></script>
+  <script src="viewLogin/login.js"></script>
   <script src="viewItems/items.js"></script>
   <script src="viewAuction/auction.js"></script>
   <script src="viewFeed/feed.js"></script>
