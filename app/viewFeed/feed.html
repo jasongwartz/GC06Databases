@@ -11,8 +11,11 @@
             </div>
             <br/>-->
             <div class="card hash-card">
+                <img height="100%" width="110%" src="img/hashtagories.png"/>
                 <div class="card-block">
-                  <h4 class="card-title">Trends</h4>
+                    <br/>
+                    
+                  <h4 class="card-title" style="color: #6BB0FF">Trends</h4>
 
                 </div>
             </div>
@@ -33,7 +36,7 @@
             
                 <div class="card hash-card">
                     <div class="card-block">
-                      <h4 class="card-title">{{auction.auction_item_id}}</h4>
+                        <a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">{{auction.auction_item_id}}</h4></a>
                       <p class="card-text">
                           {{auction.end_time}}
                       </p>
@@ -47,9 +50,12 @@
 
         <div class="col-lg-3">
             <div class="card hash-card">
-                <div class="card-block">
+                
+                
+                <br/>
+                <br/>
                   Licenses stuff
-                </div>
+               
             </div>
         </div>  
         
