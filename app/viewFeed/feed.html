@@ -3,13 +3,13 @@
     <div class="container-fluid">
 
         <div class="col-lg-3">
-            <div class="card hash-card">
+<!--            <div class="card hash-card">
                 <div class="card-block">
                   <h4 class="card-title">Name: {{user.first_name}} {{user.last_name}}</h4>
 
                 </div>
             </div>
-            <br/>
+            <br/>-->
             <div class="card hash-card">
                 <div class="card-block">
                   <h4 class="card-title">Trends</h4>
@@ -19,7 +19,7 @@
        </div>        
 
         <div class="col-lg-6">
-            <div class="card hash-card">
+            <div ng-if="logged_in" class="card hash-card">
                 <div class="card-block">
                   <h4 class="card-title">Here are some auctions you might enjoy following.</h4>
                   <p class="card-text">

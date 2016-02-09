@@ -9,13 +9,17 @@ angular.module('myApp.login', ['ngRoute'])
   });
 }])
 
-.controller('loginCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('loginCtrl', ['$scope', '$http', '$rootScope',function($scope, $http, $rootScope) {
 
     $scope.login = function() {
         
         $http.get(PATH_TO_API + 'auth').then(function(data){
 
-            alert(data.data);
+            $rootScope.logged_in = true;
+
+//            alert(data.data + ' ' + $rootScope.logged_in);
+            
+            sessionStorage.setItem('logged_in', JSON.stringify(true));
             
             sessionStorage.setItem('access_token', data.data.access_token);
             sessionStorage.setItem('user_id', JSON.stringify(data.data.user_id));

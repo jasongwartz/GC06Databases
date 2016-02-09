@@ -11,14 +11,17 @@ angular.module('myApp.account', ['ngRoute'])
 
 .controller('AccountCtrl', ['$scope', '$http', function($scope, $http) {
 
-    $scope.test = "afsdfsdf";
+    if (logged_in()) {
 
-    $http.get('/hashtagories/api/api_calls/get_user.php').then(function(data){
-        alert(data.data);
-        $scope.test = data.data.result;
-    }, function() {
-        alert("failed to find file.");
-    });
+//    alert(sessionStorage.getItem('user_id'))
+        $http.get(PATH_TO_API + 'users?id='+ sessionStorage.getItem('user_id') +'&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
 
+            $scope.user = data.data[0];
+        }, function() {
+            alert("failed to find file.");
+        });
+
+
+    }
     
 }]);
