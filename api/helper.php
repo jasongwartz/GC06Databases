@@ -3,8 +3,6 @@
 
 include 'config.php';
 
-header("Access-Control-Allow-Origin: http://*");
-
 //Returns boolean
 function db_cud_function($sql) {
 
