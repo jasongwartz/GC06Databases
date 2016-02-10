@@ -31,7 +31,7 @@ function db_r_function($sql) {
             $data[$index] = $row;
             $index++;
         }
-        $return = json_encode($data);
+        $return = json_encode($data, JSON_NUMERIC_CHECK);
         
     } else {
 
