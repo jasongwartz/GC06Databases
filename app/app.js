@@ -1,6 +1,6 @@
 'use strict';
 
-var PATH_TO_API = '/hashtagories/api/';
+var PATH_TO_API = '/api/';
 function logged_in(set) {
     if (set === undefined) {
         return JSON.parse(sessionStorage.getItem('logged_in'));
