@@ -24,17 +24,18 @@
                         <button class="btn btn-info pull-right">Button</button>
                       </div>-->
                     <div class="card-block">
-                        <h3>£{{bids[0].bid_price}} 
-                        <input-popup class="pull-right" popup-id="bids" title="popupTitle" inputs="inputs"
-                            submit-name="submitName" submit-fn="submitForm()"
-                            btn-class="btn btn-info glyphicon glyphicon glyphicon-plus-sign">     
-                        </input-popup>
-                            </h3>
-                        <h4><time-difference date="auction.end_time"></time-difference> <small>{{auction.end_time}}</small></h4>
+                        <h3>Highest Bid: £{{bids[0].bid_price}}</h3>
+                        <h4><time-difference date="auction.end_time"></time-difference> <small>at {{auction_end_time}}</small></h4>
                         
                         <div class="card-text text-center">
 
                         </div>
+                    </div>
+                    <div class="card-footer">
+                        <input-popup popup-id="bids" title="popupTitle" inputs="inputs"
+                            submit-name="submitName" submit-fn="submitForm()"
+                            btn-class="btn btn-block btn-info glyphicon glyphicon glyphicon-plus-sign">     
+                        </input-popup>
                     </div>
                 </div>
 

@@ -24,13 +24,20 @@ angular.module('myApp.auction', ['ngRoute'])
     };
     
 
-    $scope.date
+    function dateFormatter(date){
+//        alert(date);
+        date = new Date(date);
+        return date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() 
+            + " " + date.getHours()+":"+ date.getMinutes()+":"+date.getSeconds();
+    }
 
     var auction_id = window.location.href.split('?')[1];
     alert(auction_id);
     $http.get(PATH_TO_API + 'auctions/?auction_id='+ auction_id ).then(function(data){
 
         $scope.auction = data.data[0];
+        $scope.auction_end_time = dateFormatter($scope.auction.end_time);
+        alert(dateFormatter($scope.auction.end_time));
 //        $scope.bids = [{bid:"asdasd"}];
 
     }, function(data) { requestFailureFunction(data); });
