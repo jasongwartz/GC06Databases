@@ -41,8 +41,8 @@ angular.module('myApp.items', ['ngRoute'])
         }
     ];
 
-    $scope.edit_submitName = "Auction item!";
-    $scope.edit_popupTitle = "Auction an item!";
+    $scope.edit_submitName = "Edit item!";
+    $scope.edit_popupTitle = "Edit an item!";
     $scope.edit_inputs = [];    
 
     if (logged_in()) {

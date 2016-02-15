@@ -23,24 +23,23 @@
 
                 <div class="col-lg-10 col-lg-offset-1">
                     <div class="card hash-card">
+                        <input-popup class="pull-right" popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
+                            submit-name="edit_submitName" submit-fn="edit_item(item)"
+                            btn-class="btn btn-info glyphicon glyphicon-edit">     
+                        </input-popup>
+
+                        <input-popup ng-if="!item.isAuction" class="pull-right" popup-id="auction" title="auction_popupTitle" inputs="auction_inputs"
+                            submit-name="auction_submitName" submit-fn="auction_item(item)"
+                            btn-class="btn btn-info fa fa-gavel">     
+                        </input-popup>
                         <div class="row">
                             <div class="col-sm-2">
                                 <img  height="100%" width="100%" src="img/hashtagories.png"/>
                             </div>
                             <div class="col-sm-8">
-                                <h4>{{item.title}}   
-                                        <input-popup class="pull-right" popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
-                                            submit-name="edit_submitName" submit-fn="edit_item(item)"
-                                            btn-class="btn btn-info glyphicon glyphicon-edit">     
-                                        </input-popup>
-                                        <small ng-if="item.isAuction">(at auction!!!)</small>                                   
-                                        <small ng-if="!item.isAuction">
-                                            <input-popup class="pull-right" popup-id="auction" title="auction_popupTitle" inputs="auction_inputs"
-                                                submit-name="auction_submitName" submit-fn="auction_item(item)"
-                                                btn-class="btn btn-info fa fa-gavel">     
-                                            </input-popup>
-                                        </small>                                   
-                                </h4>
+                                <h4>{{item.title}} <small class="text-muted" ng-if="item.isAuction">(at auction!!!)</small></h4>
+
+                                  
                                 <p class="card-text">
                                     {{item.description}}
                                 </p>
