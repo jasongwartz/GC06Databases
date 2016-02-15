@@ -3,13 +3,7 @@
     <div class="container-fluid">    
         <div class="row">
             <div class="col-lg-3">
-    <!--            <div class="card hash-card">
-                    <div class="card-block">
-                      <h4 class="card-title">Name: {{user.first_name}} {{user.last_name}}</h4>
 
-                    </div>
-                </div>
-                <br/>-->
                 <div class="card hash-card">
                     <img height="100%" width="100%" src="img/item_image.png" alt="item image"/>
                     <div class="card-block">
@@ -26,13 +20,15 @@
 
                 <div class="card hash-card">
                     <div class="card-block">
-                         <h3>(Top bid value) {{auction.end_time}}</h3>
-
+                        <h3>£{{bids[0].bid_prices}} </h3>
+                        <h4><time-difference date="auction.end_time"></time-difference> <small>{{auction.end_time}}</small></h4>
+                        
+                        <div class="card-text text-center">
                         <input-popup popup-id="bids" title="popupTitle" inputs="inputs"
                             submit-name="submitName" submit-fn="submitForm()"
                             btn-class="btn btn-info glyphicon glyphicon glyphicon-plus-sign">     
                         </input-popup>
-                        
+                        </div>
                     </div>
                 </div>
 

@@ -24,6 +24,8 @@ angular.module('myApp.auction', ['ngRoute'])
     };
     
 
+    $scope.date
+
     var auction_id = window.location.href.split('?')[1];
     alert(auction_id);
     $http.get(PATH_TO_API + 'auctions/?auction_id='+ auction_id ).then(function(data){
