@@ -14,9 +14,9 @@
                 <img height="100%" width="110%" src="img/item_image.png" alt="item image"/>
                 <div class="card-block">
                     <br/>
-                    
-                    <p>{{auction.description}}
-                        
+                    <h1>{{auction.title}} </h1>
+                    <p>
+                        {{auction.description}}
                     </p>
 
                 </div>
@@ -28,7 +28,7 @@
 
                 <div class="card hash-card">
                     <div class="card-block">
-                        <h1>{{auction.title}} </h1> <h3>{{auction.end_time}}</h3>
+                         <h3>(Top bid value) {{auction.end_time}}</h3>
                         <!--<a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">{{auction.auction_item_id}}</h4></a>-->
                       <p class="card-text">
                          
@@ -47,7 +47,7 @@
 
                 <div class="card hash-card">
                     <div class="card-block">
-                        <h1>bid.bid_user_id - bid.bid_price</h1> <h3>bid.bid_time</h3>
+                        <h1>{{bid.bid_user_id}} - {{bid.bid_price}}</h1> <h3>{{bid.bid_time}}</h3>
                         <!--<a href="#/auction?{{auction.auction_id}}"><h4 class="card-title"></h4></a>-->
                       <p class="card-text">
 
