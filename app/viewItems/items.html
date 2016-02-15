@@ -28,22 +28,23 @@
                                 <img  height="100%" width="100%" src="img/hashtagories.png"/>
                             </div>
                             <div class="col-sm-8">
-                                <h4>{{item.title}} 
-                                    <div ng-switch="item.isAuction">
-                                        <small ng-switch-when="true">(at auction!!!)</small>                                   
-                                        <small ng-switch-when="false">
-                                            <input-popup popup-id="auction" title="auction_popupTitle" inputs="auction_inputs"
-                                                submit-name="auction_submitName" submit-fn="auction_item()"
+                                <h4>{{item.title}}   
+                                        <input-popup class="pull-right" popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
+                                            submit-name="edit_submitName" submit-fn="edit_item(item)"
+                                            btn-class="btn btn-info glyphicon glyphicon-edit">     
+                                        </input-popup>
+                                        <small ng-if="item.isAuction">(at auction!!!)</small>                                   
+                                        <small ng-if="!item.isAuction">
+                                            <input-popup class="pull-right" popup-id="auction" title="auction_popupTitle" inputs="auction_inputs"
+                                                submit-name="auction_submitName" submit-fn="auction_item(item)"
                                                 btn-class="btn btn-info fa fa-gavel">     
                                             </input-popup>
                                         </small>                                   
-                                    </div>
-                                    
                                 </h4>
                                 <p class="card-text">
                                     {{item.description}}
                                 </p>
-                                <span ng-click="edit_item()" class="glyphicon glyphicon-edit "></span>
+                                
                             </div>
                         </div>
                     </div>

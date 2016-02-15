@@ -24,8 +24,7 @@ angular.module('myApp.items', ['ngRoute'])
         },
         {
             label: "Item image",
-            type: "file",
-            class: "btn"
+            type: "file"
         }
     ];
 
@@ -41,7 +40,10 @@ angular.module('myApp.items', ['ngRoute'])
             type: "date"
         }
     ];
-    
+
+    $scope.edit_submitName = "Auction item!";
+    $scope.edit_popupTitle = "Auction an item!";
+    $scope.edit_inputs = [];    
 
     if (logged_in()) {
 
@@ -62,9 +64,24 @@ angular.module('myApp.items', ['ngRoute'])
             alert("auction item");
         };
         
-        $scope.edit_item = function() {
-        
-            alert("editing");
+        $scope.edit_item = function(item) {
+            $scope.edit_inputs = [
+                {
+                    label: "Item title",
+                    type: "text",
+                    value: item.title
+                },
+                {
+                    label: "Item description",
+                    type: "textarea",
+                    value: item.description
+                },
+                {
+                    label: "Item image",
+                    type: "file"
+                }
+            ];
+//            alert("editing");
         };
         
         $scope.add_item = function() {

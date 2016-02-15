@@ -19,15 +19,21 @@
             <div class="col-lg-6">
 
                 <div class="card hash-card">
+<!--                      <div class="card-header">
+                        Featured
+                        <button class="btn btn-info pull-right">Button</button>
+                      </div>-->
                     <div class="card-block">
-                        <h3>£{{bids[0].bid_prices}} </h3>
-                        <h4><time-difference date="auction.end_time"></time-difference> <small>{{auction.end_time}}</small></h4>
-                        
-                        <div class="card-text text-center">
-                        <input-popup popup-id="bids" title="popupTitle" inputs="inputs"
+                        <h3>£{{bids[0].bid_price}} 
+                        <input-popup class="pull-right" popup-id="bids" title="popupTitle" inputs="inputs"
                             submit-name="submitName" submit-fn="submitForm()"
                             btn-class="btn btn-info glyphicon glyphicon glyphicon-plus-sign">     
                         </input-popup>
+                            </h3>
+                        <h4><time-difference date="auction.end_time"></time-difference> <small>{{auction.end_time}}</small></h4>
+                        
+                        <div class="card-text text-center">
+
                         </div>
                     </div>
                 </div>

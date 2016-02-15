@@ -16,8 +16,8 @@
                 <div class="col-sm-10 col-sm-offset-1 input-group">
                     <span class="input-group-addon">{{input.label}}</span>
                     <div ng-switch="input.type">
-                        <textarea ng-model="input.ngModel" ng-switch-when="textarea" class="form-control" rows="5"></textarea>                    
-                        <input ng-model="input.ngModel" ng-switch-default type="{{input.type}}" class="form-control" aria-label="">
+                        <textarea ng-model="input.ngModel" ng-switch-when="textarea" value="{{input.value}}" class="form-control" rows="5"></textarea>                    
+                        <input ng-model="input.ngModel" ng-switch-default type="{{input.type}}" value="{{input.value}}" class="form-control" aria-label="">
                     </div>
                 </div>           
             </div>
