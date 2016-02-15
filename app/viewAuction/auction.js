@@ -11,6 +11,20 @@ angular.module('myApp.auction', ['ngRoute'])
 
 .controller('auctionCtrl', ['$scope', '$http', function($scope, $http) {
 
+    $scope.submitName = "Place bid!";
+
+    $scope.popupTitle = "Make a bid!";
+    $scope.inputs = [
+        {
+            label: "£",
+            type: "number"
+        }
+    ];
+
+    $scope.submitForm = function() {
+        alert("Submitting form! " + $scope.inputs[0].ngModel);
+    };
+
     var auction_id = window.location.href.split('?')[1];
     alert(auction_id);
     $http.get(PATH_TO_API + 'auctions/?auction_id='+ auction_id ).then(function(data){
@@ -26,5 +40,12 @@ angular.module('myApp.auction', ['ngRoute'])
         $scope.bids = data.data;
 
     }, function(data) { requestFailureFunction(data); });
+    
+    
+    $scope.add_bid = function() {
+        
+        alert("Adding a bid");
+        //Has a popup with input fields
+    }
     
 }]);
