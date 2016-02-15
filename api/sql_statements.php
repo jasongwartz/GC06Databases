@@ -1,8 +1,8 @@
 <?php
 
-function retrieve_all() {  
-    return "SELECT * FROM `auctions`";
-}
+//function retrieve_all() {  
+//    return "SELECT * FROM `auctions`";
+//}
 
 function users_self($id) {  
     return "CALL users_self({$id});";
