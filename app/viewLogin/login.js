@@ -25,9 +25,8 @@ angular.module('myApp.login', ['ngRoute'])
             sessionStorage.setItem('user_id', JSON.stringify(data.data.user_id));
             
             window.location.href = '#/feed';
-        }, function() {
-            alert("failed to find file.");
-        });   
+        
+        }, function(data) { requestFailureFunction(data); });
         
     };
     
