@@ -15,10 +15,16 @@ angular.module('myApp.auction', ['ngRoute'])
     alert(auction_id);
     $http.get(PATH_TO_API + 'auctions/?auction_id='+ auction_id ).then(function(data){
 
-        $scope.user = data.data[0];
+        $scope.auction = data.data[0];
+//        $scope.bids = [{bid:"asdasd"}];
 
     }, function(data) { requestFailureFunction(data); });
 
 
+    $http.get(PATH_TO_API + 'bids/auction_bids?auction_id='+ auction_id ).then(function(data){
+
+        $scope.bids = data.data[0];
+
+    }, function(data) { requestFailureFunction(data); });
     
 }]);

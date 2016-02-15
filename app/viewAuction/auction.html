@@ -1,6 +1,7 @@
 <section>
     
     <div class="container-fluid">    
+        <div class="row">
         <div class="col-lg-3">
 <!--            <div class="card hash-card">
                 <div class="card-block">
@@ -14,7 +15,7 @@
                 <div class="card-block">
                     <br/>
                     
-                    <p>Item description etc..
+                    <p>{{auction.description}}
                         
                     </p>
 
@@ -27,8 +28,8 @@
 
                 <div class="card hash-card">
                     <div class="card-block">
-                        <h1>Item name and auction end date  {{auction.end_time}} </h1>
-                        <a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">{{auction.auction_item_id}}</h4></a>
+                        <h1>{{auction.title}} </h1> <h3>{{auction.end_time}}</h3>
+                        <!--<a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">{{auction.auction_item_id}}</h4></a>-->
                       <p class="card-text">
                          
                       </p>
@@ -36,8 +37,27 @@
                 </div>
 
             
-       </div> 
-        
+        </div> 
+        </div>
+        <hr class="light"/>
+        <div class="row" ng-repeat="bid in bids">
+            <div class="col-lg-6 col-lg-offset-3">
+
+
+
+                <div class="card hash-card">
+                    <div class="card-block">
+                        <h1>bid.bid_user_id - bid.bid_price</h1> <h3>bid.bid_time</h3>
+                        <!--<a href="#/auction?{{auction.auction_id}}"><h4 class="card-title"></h4></a>-->
+                      <p class="card-text">
+
+                      </p>
+                    </div>
+                </div>
+
+
+            </div> 
+        </div>
     </div>
 
     

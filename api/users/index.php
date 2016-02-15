@@ -1,9 +1,9 @@
 <?php
 // users/self
 
-    include '../../auth.php';
-    include '../../sql_statements.php';
-    include '../../helper.php';
+    include '../auth.php';
+    include '../sql_statements.php';
+    include '../helper.php';
 
     $id = intval($_GET['user_id']);
 
