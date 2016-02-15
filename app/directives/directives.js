@@ -5,6 +5,8 @@ angular.module('directives', [])
         restrict: 'E',
         transclude: true,
         scope: {
+            popupId: '@',
+            
             submitName: '=', 
             submitFn: '&',
             

@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-block">
                       <h1 class="card-title">Items</h1>
-                        <input-popup title="popupTitle" inputs="inputs"
+                        <input-popup popup-id="auction" title="popupTitle" inputs="inputs"
                             submit-name="submitName" submit-fn="add_item()"
                             btn-class="btn btn-info glyphicon glyphicon glyphicon-plus-sign">     
                         </input-popup>
@@ -32,7 +32,7 @@
                                     <div ng-switch="item.isAuction">
                                         <small ng-switch-when="true">(at auction!!!)</small>                                   
                                         <small ng-switch-when="false">
-                                            <input-popup title="auction_popupTitle" inputs="auction_inputs"
+                                            <input-popup popup-id="auction" title="auction_popupTitle" inputs="auction_inputs"
                                                 submit-name="auction_submitName" submit-fn="auction_item()"
                                                 btn-class="btn btn-info fa fa-gavel">     
                                             </input-popup>
