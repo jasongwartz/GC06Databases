@@ -8,6 +8,12 @@ function logged_in(set) {
     }
 } 
 
+function requestFailureFunction(data) {
+    
+    
+    alert(JSON.stringify(data));
+} 
+
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',

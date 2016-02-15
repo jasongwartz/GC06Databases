@@ -16,9 +16,8 @@ angular.module('myApp.auction', ['ngRoute'])
         $http.get(PATH_TO_API + 'auctions?id='+ auction_id ).then(function(data){
 
             $scope.user = data.data[0];
-        }, function() {
-            alert("failed to find file.");
-        });
+            
+        }, function(data) { requestFailureFunction(data); });
 
 
     
