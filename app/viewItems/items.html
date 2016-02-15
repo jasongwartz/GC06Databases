@@ -6,6 +6,10 @@
                 <div class="card">
                     <div class="card-block">
                       <h1 class="card-title">Items</h1>
+                        <input-popup title="popupTitle" inputs="inputs"
+                            submit-name="submitName" submit-fn="submitForm()"
+                            btn-class="btn btn-info glyphicon glyphicon glyphicon-plus-sign">     
+                        </input-popup>
                       <hr class="light">
                     </div>
                   </div>
@@ -22,7 +26,13 @@
                                 <img  height="100%" width="100%" src="img/hashtagories.png"/>
                             </div>
                             <div class="col-sm-8">
-                                <h4>{{item.title}} (at auction!!!)</h4>
+                                <h4>{{item.title}} 
+                                    <div ng-switch="item.isAuction">
+                                        <small ng-switch-when="true">(at auction!!!)</small>                                   
+                                        <small ng-switch-when="false">Icon to auction</small>                                   
+                                    </div>
+                                    
+                                </h4>
                                 <p class="card-text">
                                     {{item.description}}
                                 </p>

@@ -26,6 +26,7 @@ angular.module('directives', [])
 //        },
         templateUrl: 'directives/input_popup.html',
         link: function (scope) {
+            
 //            scope.name = inputs;
         }
     };
