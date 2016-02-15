@@ -1,7 +1,7 @@
 <?php
 // auctions
 
-include '../auth.php';
+//include '../auth.php';
     include '../sql_statements.php';
     include '../helper.php';
 

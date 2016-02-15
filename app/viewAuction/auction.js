@@ -12,12 +12,12 @@ angular.module('myApp.auction', ['ngRoute'])
 .controller('auctionCtrl', ['$scope', '$http', function($scope, $http) {
 
     var auction_id = window.location.href.split('?')[1];
+    alert(auction_id);
+    $http.get(PATH_TO_API + 'auctions/?auction_id='+ auction_id ).then(function(data){
 
-        $http.get(PATH_TO_API + 'auctions?auction_id='+ auction_id ).then(function(data){
+        $scope.user = data.data[0];
 
-            $scope.user = data.data[0];
-            
-        }, function(data) { requestFailureFunction(data); });
+    }, function(data) { requestFailureFunction(data); });
 
 
     
