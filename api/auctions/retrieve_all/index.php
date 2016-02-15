@@ -2,8 +2,8 @@
 // auctions/retrieve_all
 
 //    include '../auth.php';
-    include '../sql_statements.php';
-    include '../helper.php';
+    include '../../sql_statements.php';
+    include '../../helper.php';
 
     //$id = intval($_GET['id']);
     $result = db_r_function(auctions_retrieve_all());
