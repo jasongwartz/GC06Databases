@@ -13,7 +13,7 @@ angular.module('myApp.auction', ['ngRoute'])
 
     var auction_id = window.location.href.split('?')[1];
 
-        $http.get(PATH_TO_API + 'auctions?id='+ auction_id ).then(function(data){
+        $http.get(PATH_TO_API + 'auctions?auction_id='+ auction_id ).then(function(data){
 
             $scope.user = data.data[0];
             

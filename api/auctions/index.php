@@ -5,8 +5,8 @@ include '../auth.php';
     include '../sql_statements.php';
     include '../helper.php';
 
-    //$id = intval($_GET['id']);
-    //$result = db_r_function(user($id));
+    $auction_id = intval($_GET['auction_id']);
+    $result = db_r_function(auctions_self($auction_id));
 
     if ($result) {
         http_response_code(200);
