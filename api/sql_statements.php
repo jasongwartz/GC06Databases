@@ -4,8 +4,8 @@
 //    return "SELECT * FROM `auctions`";
 //}
 
-function users_self($id) {  
-    return "CALL users_self({$id});";
+function users_self($user_id) {  
+    return "CALL users_self({$user_id});";
 }
 
 function users_create($username, $first_name, $last_name, $email, $pass) {

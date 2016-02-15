@@ -6,7 +6,7 @@ include '../auth.php';
     include '../helper.php';
 
     //$id = intval($_GET['id']);
-    //$result = db_r_function(user($id));
+    $result = db_r_function(watches_create($_POST['user_id'],$_POST['auction_id']));
 
     if ($result) {
         http_response_code(200);
