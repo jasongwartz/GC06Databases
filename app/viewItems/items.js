@@ -11,6 +11,7 @@ angular.module('myApp.items', ['ngRoute'])
 
 .controller('itemsCtrl', ['$scope', '$http', function($scope, $http) {
 
+    $scope.submitName = "Add item!";
     $scope.popupTitle = "Add an item!";
     $scope.inputs = [
         {
@@ -27,11 +28,20 @@ angular.module('myApp.items', ['ngRoute'])
             class: "btn"
         }
     ];
+
+    $scope.auction_submitName = "Auction item!";
+    $scope.auction_popupTitle = "Auction an item!";
+    $scope.auction_inputs = [
+        {
+            label: "Auction reserve price",
+            type: "text"
+        },
+        {
+            label: "End date",
+            type: "date"
+        }
+    ];
     
-    $scope.submitName = "Add item!";
-    $scope.submitForm = function() {
-        alert("Submitting form! " + $scope.inputs[0].ngModel);
-    };
 
     if (logged_in()) {
 
@@ -47,11 +57,21 @@ angular.module('myApp.items', ['ngRoute'])
             
         }, function(data) { requestFailureFunction(data); });
 
+
+        $scope.auction_item = function() {
+            alert("auction item");
+        };
+        
+        $scope.edit_item = function() {
+        
+            alert("editing");
+        };
+        
+        $scope.add_item = function() {
+            alert("Submitting form! " + $scope.inputs[0].ngModel);
+        };
     }
 
-    $scope.edit_item = function() {
-        
-        alert("editing");
-    };
+
     
 }]);
