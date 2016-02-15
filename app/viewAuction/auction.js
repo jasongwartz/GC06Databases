@@ -11,8 +11,6 @@ angular.module('myApp.auction', ['ngRoute'])
 
 .controller('auctionCtrl', ['$scope', '$http', function($scope, $http) {
 
-    $scope.submitName = "Place bid!";
-
     $scope.popupTitle = "Make a bid!";
     $scope.inputs = [
         {
@@ -20,10 +18,11 @@ angular.module('myApp.auction', ['ngRoute'])
             type: "number"
         }
     ];
-
+    $scope.submitName = "Place bid!";
     $scope.submitForm = function() {
         alert("Submitting form! " + $scope.inputs[0].ngModel);
     };
+    
 
     var auction_id = window.location.href.split('?')[1];
     alert(auction_id);
