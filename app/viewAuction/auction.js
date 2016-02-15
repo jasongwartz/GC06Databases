@@ -23,7 +23,7 @@ angular.module('myApp.auction', ['ngRoute'])
 
     $http.get(PATH_TO_API + 'bids/auction_bids?auction_id='+ auction_id ).then(function(data){
 
-        $scope.bids = data.data[0];
+        $scope.bids = data.data;
 
     }, function(data) { requestFailureFunction(data); });
     
