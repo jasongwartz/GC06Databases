@@ -27,16 +27,11 @@
                 <div class="card hash-card">
                     <div class="card-block">
                          <h3>(Top bid value) {{auction.end_time}}</h3>
-                         <!--<button ng-click="add_bid()" class="btn btn-info glyphicon glyphicon glyphicon-plus-sign"></button>-->
-                        <!--<a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">{{auction.auction_item_id}}</h4></a>-->
-<!--                      <p class="card-text">
 
-                      </p>-->
-                      <input-popup title="popupTitle" inputs="inputs"
+                        <input-popup title="popupTitle" inputs="inputs"
                             submit-name="submitName" submit-fn="submitForm()"
-                            btn-class="btn btn-info glyphicon glyphicon glyphicon-plus-sign">
-                                
-                      </input-popup>
+                            btn-class="btn btn-info glyphicon glyphicon glyphicon-plus-sign">     
+                        </input-popup>
                         
                     </div>
                 </div>
@@ -44,8 +39,8 @@
                 <hr class="light"/>
 
                 <div class="card hash-card" ng-repeat="bid in bids">
-                    <div class="card-block">{{bid}}
-                        <h3>{{bid.bid_price}} <small>at {{bid.bid_time}} by {{bid.bidder_user_id}}</small></h3>
+                    <div class="card-block">
+                        <h4>£{{bid.bid_price}} <small>at {{bid.bid_time}} by {{bid.bidder_user_id}}</small></h4>
                     </div>
                 </div>            
             </div> 

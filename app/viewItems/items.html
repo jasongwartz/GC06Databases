@@ -12,27 +12,29 @@
            </div>
         </div> 
         
-        <div class="row">   
+        <div ng-repeat="item in items">
+            <div class="row">   
 
-            <div class="col-lg-10 col-lg-offset-1">
-                <div class="card hash-card">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <img  height="100%" width="100%" src="img/hashtagories.png"/>
-                        </div>
-                        <div class="col-sm-8">
-                            <h4>Item name (at auction!!!)</h4>
-                            <p class="card-text">
-                                    sadadasdasdasdassd
-                            </p>
-                            <span ng-click="edit_item()" class="glyphicon glyphicon-edit "></span>
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="card hash-card">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img  height="100%" width="100%" src="img/hashtagories.png"/>
+                            </div>
+                            <div class="col-sm-8">
+                                <h4>{{item.title}} (at auction!!!)</h4>
+                                <p class="card-text">
+                                    {{item.description}}
+                                </p>
+                                <span ng-click="edit_item()" class="glyphicon glyphicon-edit "></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-            </div> 
+
+                </div> 
+            </div>
+            <br/>
         </div>
-        
 
         
        
