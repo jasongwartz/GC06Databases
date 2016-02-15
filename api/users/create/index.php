@@ -7,8 +7,9 @@
     include '../sql_statements.php';
     include '../helper.php';
 
-    //$id = intval($_GET['id']);
-    //$result = db_r_function(user($id));
+    $result = db_r_function(users_create(
+        $_POST['username'],$_POST['first_name'],$_POST['last_name'],$_POST['email'],$_POST['password']) 
+    );
 
     if ($result) {
         http_response_code(200);

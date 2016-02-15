@@ -5,8 +5,7 @@ include '../auth.php';
     include '../sql_statements.php';
     include '../helper.php';
 
-    //$id = intval($_GET['id']);
-    //$result = db_r_function(user($id));
+    $result = db_r_function(user_feed($_GET['user_id']));
 
     if ($result) {
         http_response_code(200);
