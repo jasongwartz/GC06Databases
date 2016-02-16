@@ -50,7 +50,19 @@ angular.module('myApp.auction', ['ngRoute'])
     }, function(data) { requestFailureFunction(data); });
     
     
-    $scope.add_bid = function() {
+    $scope.place_bid = function() {
+        
+        var post_data = {
+            bidder_user_id: sessionStorage.getItem("user_id"),
+            bid_auction_id: auction_id,
+            bid_price: $scope.inputs[0].ngModel      
+        };
+        
+        $http.post(PATH_TO_API + 'bids/create?auction_id='+ auction_id, post_data).then(function(data){
+
+            alert("successful post!");
+
+        }, function(data) { requestFailureFunction(data); });
         
         alert("Adding a bid");
         //Has a popup with input fields

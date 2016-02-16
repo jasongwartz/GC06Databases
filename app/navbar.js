@@ -56,6 +56,8 @@ angular.module('myApp.navbar', ['ngRoute'])
             sessionStorage.setItem('access_token', data.data.access_token);
             sessionStorage.setItem('user_id', JSON.stringify(data.data.user_id));
             
+            $rootScope.root_user_id = data.data.user_id;
+            
             window.location.href = '#/feed';
         
         }, function(data) { requestFailureFunction(data); });

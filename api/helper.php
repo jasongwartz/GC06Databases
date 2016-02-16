@@ -5,7 +5,29 @@ include 'config.php';
 
 //Returns boolean
 function db_cud_function($sql) {
+    // Create connection
+    $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DBNAME);
+    
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    } 
 
+    $result = $conn->query($sql);
+
+    if ($result === TRUE) {
+
+        $return = TRUE;
+        
+    } else {
+
+        $return = FALSE;
+    }
+
+
+    $conn->close();     
+    
+    return $return;   
     
 }
 
