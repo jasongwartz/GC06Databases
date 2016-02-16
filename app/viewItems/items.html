@@ -15,16 +15,17 @@
                   </div>
            </div>
         </div> 
-        
-   
-        
-        <div ng-repeat="item in items">
+        <div ng-repeat="item in auction_items">
+            
             <div class="row">   
 
                 <div class="col-lg-10 col-lg-offset-1">
+                    <a style="color:#000000 !important;
+                        text-decoration:none;"
+                        ng-href="#/auction?{{item.auction_id}}">
                     <div class="card hash-card">
                         
-                            <div class="pull-right " style="padding: 0.25em">
+<!--                            <div class="pull-right " style="padding: 0.25em">
                                 <button ng-click="delete_item(item)" type="button" class="btn btn-info fa fa-times-circle-o"></button>    
                             </div>
                         
@@ -37,6 +38,53 @@
                             <input-popup class="pull-right" ng-if="!item.isAuction" popup-id="auction" title="auction_popupTitle" inputs="auction_inputs"
                                 submit-name="auction_submitName" submit-fn="auction_item(item)"
                                 btn-class="btn btn-info fa fa-gavel">     
+                            </input-popup>-->
+                     
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img  height="100%" width="100%" src="img/hashtagories.png"/>
+                            </div>
+                            <div class="col-sm-8">
+                                <h4>{{item.title}} <small class="text-muted">
+                                        (at auction ends in <time-difference date="item.end_time">
+                                            
+                                        </time-difference>)</small></h4>
+
+                                  
+                                <p class="card-text">
+                                    {{item.description}}
+                                </p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div> 
+            </div>
+            
+            <br/>
+        </div>        
+   
+        <hr class="light">
+        <div ng-repeat="item in items">
+            <div class="row">   
+
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="card hash-card">
+                        
+                            <div class="pull-right " style="padding: 0.25em">
+                                <button ng-click="delete_item(item)" type="button" class="btn btn-info fa fa-times"></button>    
+                            </div>
+                        
+                            <input-popup class="pull-right" popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
+                                submit-name="edit_submitName" submit-fn="edit_item(item)"
+                                setup-fn="setup_edit(item)"
+                                btn-class="btn btn-info fa fa-edit">     
+                            </input-popup>
+                        
+                            <input-popup class="pull-right" popup-id="auction" title="auction_popupTitle" inputs="auction_inputs"
+                                submit-name="auction_submitName" submit-fn="auction_item(item)"
+                                btn-class="btn btn-info fa fa-gavel">     
                             </input-popup>
 
                         
@@ -47,7 +95,7 @@
                                 <img  height="100%" width="100%" src="img/hashtagories.png"/>
                             </div>
                             <div class="col-sm-8">
-                                <h4>{{item.title}} <small class="text-muted" ng-if="item.isAuction">(at auction!!!)</small></h4>
+                                <h4>{{item.title}}</h4>
 
                                   
                                 <p class="card-text">

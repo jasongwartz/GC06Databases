@@ -45,26 +45,39 @@ angular.module('myApp.items', ['ngRoute'])
     $scope.edit_popupTitle = "Edit an item!";
     $scope.edit_inputs = [];    
 
-    $scope.items = [
-        {
-            title: "asdasd",
-            description: "asdadasdasd"
-        }
-    ];
+//    $scope.items = [
+//        {
+//            title: "asdasd",
+//            description: "asdadasdasd"
+//        }
+//    ];
 
     if (logged_in()) {
 
 
+        $http.get(PATH_TO_API + 'auctions/user_auctions?user_id='+ sessionStorage.getItem('user_id') +'&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
 
-        $http.get(PATH_TO_API + 'items/user_items?user_id='+ sessionStorage.getItem('user_id') +'&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
+//            alert(JSON.stringify(data));
+            $scope.auction_items = data.data;
+           
+            $http.get(PATH_TO_API + 'items/user_items?user_id='+ sessionStorage.getItem('user_id') +'&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
 
-            for (var i=0; i<data.data.length; i++) {
-                data.data[i].isAuction = false;
-            }
-             data.data[0].isAuction = true;
-            $scope.items = data.data;
-            
+                for (var i=0; i<data.data.length; i++) {
+                    for (var j=0; j<$scope.auction_items.length; j++) {
+                        if (data.data[i].item_id === $scope.auction_items[j].item_id) {
+                            data.data.splice(i, 1);
+                        }
+                    
+                    }
+                }
+    //             data.data[0].isAuction = true;
+        
+                $scope.items = data.data;
+
+            }, function(data) { requestFailureFunction(data); });
         }, function(data) { requestFailureFunction(data); });
+
+
 
 
 

@@ -17,17 +17,27 @@
             <div class="col-lg-5 col-lg-offset-1">
                 <div class="card hash-card">
                     <div class="card-block">
-                      <h4 class="card-title text-center">Personal Details</h4>
-                      <p class="card-text">Personal details list</p>
-                      <p>{{user.first_name}} {{user.last_name}}</p>
+                      <!--<h4 class="card-title text-center">Personal Details</h4>-->
+                      
+                        <!--<p>{{user.first_name}} {{user.last_name}}</p>-->
+                        <input-popup setup-fn="detailsSetupFn()"
+                                     popup-id="details" title="detailsPopupTitle" inputs="detailsInputs"
+                            submit-name="detailsSubmitName" submit-fn="detailsSubmitForm()"
+                            btn-class="btn btn-block btn-info">Edit Personal Details   
+                        </input-popup>
+                      
                     </div>
                 </div>
             </div>
             <div class="col-lg-5">
                 <div class="card hash-card">
                     <div class="card-block">
-                      <h4 class="card-title text-center">Change Password</h4>
-                      <p class="card-text">Change password fields.</p>
+                      <!--<h4 class="card-title text-center">Change Password</h4>-->
+                        <input-popup
+                            popup-id="pass" title="passPopupTitle" inputs="passInputs"
+                            submit-name="passSubmitName" submit-fn="passSubmitForm()"
+                            btn-class="btn btn-block btn-info">Change Password   
+                        </input-popup>
                     </div>
                 </div>
             </div>

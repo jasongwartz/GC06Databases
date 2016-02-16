@@ -23,6 +23,7 @@ angular.module('myApp.auction', ['ngRoute'])
         alert("Submitting form! " + $scope.inputs[0].ngModel);
     };
     
+    
 
     function dateFormatter(date){
 //        alert(date);
@@ -32,6 +33,7 @@ angular.module('myApp.auction', ['ngRoute'])
     }
 
     var auction_id = window.location.href.split('?')[1];
+    get_bids(auction_id);
     //alert(auction_id);
     $http.get(PATH_TO_API + 'auctions/?auction_id='+ auction_id ).then(function(data){
 
@@ -42,32 +44,48 @@ angular.module('myApp.auction', ['ngRoute'])
 
     }, function(data) { requestFailureFunction(data); });
 
+    function get_bids(auction_id) {
 
-    $http.get(PATH_TO_API + 'bids/auction_bids?auction_id='+ auction_id ).then(function(data){
+        $http.get(PATH_TO_API + 'bids/auction_bids?auction_id='+ auction_id ).then(function(data){
 
-        $scope.bids = data.data;
+            $scope.bids = data.data;
 
-    }, function(data) { requestFailureFunction(data); });
+        }, function(data) { requestFailureFunction(data); });
+    }
     
+    $scope.delete_bid = function() {
+        alert("deleting bid");
+    };
     
     $scope.place_bid = function() {
         
         var post_data = $.param({
                 
-                    bidder_user_id: sessionStorage.getItem("user_id"),
-                    bid_auction_id: auction_id,
-                    bid_price: $scope.inputs[0].ngModel      
+                bidder_user_id: sessionStorage.getItem("user_id"),
+                bid_auction_id: auction_id,
+                bid_price: $scope.inputs[0].ngModel      
               
             });
+            
         
-        $http.post(PATH_TO_API + 'bids/create?access_token=' + sessionStorage.getItem('access_token'), post_data).then(function(data){
+        var url = PATH_TO_API + 'bids/create/?access_token=' + sessionStorage.getItem('access_token');
+//        alert(post_data + " to " + url);
+        $http({
+            method: 'POST',
+            url: url,
+            data: post_data,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(data){
 
-            alert("successful post!");
+            get_bids();
+//            alert("successful post! " + JSON.stringify(data));
 
-        }, function(data) { requestFailureFunction(data); });
+        }, function(data) { //requestFailureFunction(data); 
+            get_bids();
+        });
         
-        alert("Adding a bid");
+//        alert("Adding a bid");
         //Has a popup with input fields
-    }
+    };
     
 }]);

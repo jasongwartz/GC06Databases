@@ -1,6 +1,6 @@
 'use strict';
 
-var PATH_TO_API = 'http://gc06.jasongwartz.com/api/';
+var PATH_TO_API = '/hashtagories/api/';//'http://gc06.jasongwartz.com/api/';
 
 function logged_in(set) {
     if (set === undefined) {

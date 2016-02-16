@@ -5,6 +5,7 @@ include 'config.php';
 
 //Returns boolean
 function db_cud_function($sql) {
+
     // Create connection
     $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DBNAME);
     
@@ -14,20 +15,20 @@ function db_cud_function($sql) {
     } 
 
     $result = $conn->query($sql);
-
-    if ($result === TRUE) {
-
-        $return = TRUE;
-        
-    } else {
-
-        $return = FALSE;
-    }
+//    echo $sql;
+//    if ($result === TRUE) {
+//
+//        echo 'true}';//$return = TRUE;
+//        
+//    } else {
+//
+//        echo 'false}'; //$return = FALSE;
+//    }
 
 
     $conn->close();     
-    
-    return $return;   
+//    echo $result;
+    return $result;   
     
 }
 
@@ -41,9 +42,9 @@ function db_r_function($sql) {
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     } 
-
+    //echo $sql;
     $result = $conn->query($sql);
-
+   
     $data = array();
     $index = 0;
     if ($result->num_rows > 0) {

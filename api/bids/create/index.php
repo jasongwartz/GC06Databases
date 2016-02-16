@@ -4,23 +4,32 @@
 //    include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
+//header("access-control-allow-origin: *");
+//header('Access-Control-Allow-Methods: GET, POST');
+    header('content-type: application/x-www-form-urlencoded');
+    
+    if(empty($_SERVER['CONTENT_TYPE'])){
 
+         $type = "application/x-www-form-urlencoded";
+
+         $_SERVER['CONTENT_TYPE'] = $type;
+
+    }
+    
     $bidder_user_id = $_POST['bidder_user_id'];
     $bid_auction_id = $_POST['bid_auction_id'];
     $bid_price = $_POST['bid_price'];
 
-//    echo $user_id . ' ' . $auction_id . ' ' . $bid_price;
-    
-    //$id = intval($_GET['id']);
-    $result = db_cud_function(bids_create($bidder_user_id, $bid_price, $bid_auction_id));
-    
+//    echo $bidder_user_id . ' ' . $bid_auction_id . ' ' . $bid_price;
 
-    
-    if ($result) {
+    $result = db_cud_function(bids_create($bidder_user_id, $bid_price, $bid_auction_id));
+
+    if ($result === TRUE) {
         http_response_code(200);
-        echo '{data: "it posted successfully!!"}';
+        
+        echo '{data: true}';
         
     } else {
         http_response_code(500);
-        echo '{error:"no data returned"}';
+        echo '{data: false}';
     }

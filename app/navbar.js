@@ -43,6 +43,8 @@ angular.module('myApp.navbar', ['ngRoute'])
         }
     ];
 
+    $rootScope.root_user_id = sessionStorage.getItem('user_id');
+
     $rootScope.log_in = function() {
         
         $http.get(PATH_TO_API + 'auth').then(function(data){
@@ -71,6 +73,10 @@ angular.module('myApp.navbar', ['ngRoute'])
         sessionStorage.setItem('logged_in', JSON.stringify(false));
         sessionStorage.removeItem('user_id');
         sessionStorage.removeItem('access_token');
+
+        $rootScope.root_user_id = -1;
+        
+        window.location.reload();
         
         $('.open').removeClass('open');
 

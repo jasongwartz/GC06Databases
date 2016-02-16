@@ -6,8 +6,11 @@
     include '../../helper.php';
 
     //$id = intval($_GET['id']);
+    
     $result = db_r_function(auctions_retrieve_all());
 
+//    echo $result;
+    
     if ($result) {
         http_response_code(200);
         echo $result;
