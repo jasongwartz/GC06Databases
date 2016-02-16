@@ -10,6 +10,8 @@ angular.module('directives', [])
             submitName: '=', 
             submitFn: '&',
             
+            setupFn: '&',
+            
             title: '=',
             
             inputs: '=',
@@ -27,6 +29,29 @@ angular.module('directives', [])
 //            btnclass: '@'
 //        },
         templateUrl: 'directives/input_popup.html',
+        link: function (scope) {
+            
+//            scope.name = inputs;
+        }
+    };
+})
+.directive('hashPopup', function() {
+    return {
+        restrict: 'E',
+        transclude: true,
+        scope: {
+            popupId: '@',
+            
+            submitName: '=', 
+            submitFn: '&',
+            
+            setupFn: '&',
+            
+            title: '=',
+            
+            inputs: '='
+        },
+        templateUrl: 'directives/hash_popup.html',
         link: function (scope) {
             
 //            scope.name = inputs;

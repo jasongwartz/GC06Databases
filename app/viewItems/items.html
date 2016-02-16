@@ -23,18 +23,18 @@
 
                 <div class="col-lg-10 col-lg-offset-1">
                     <div class="card hash-card">
-                        <div class="col-sm-2 pull-right">
-                            <input-popup popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
+                        
+                            <input-popup class="pull-right" popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
                                 submit-name="edit_submitName" submit-fn="edit_item(item)"
-                                btn-class="btn btn-info glyphicon glyphicon-edit">     
+                                setup-fn="setup_edit(item)"
+                                btn-class="btn btn-info fa fa-edit">     
                             </input-popup>
-                        </div>
-                        <div class="col-sm-2 pull-right">
-                            <input-popup ng-if="!item.isAuction" popup-id="auction" title="auction_popupTitle" inputs="auction_inputs"
+                        
+                            <input-popup class="pull-right" ng-if="!item.isAuction" popup-id="auction" title="auction_popupTitle" inputs="auction_inputs"
                                 submit-name="auction_submitName" submit-fn="auction_item(item)"
                                 btn-class="btn btn-info fa fa-gavel">     
                             </input-popup>
-                        </div>
+                     
                         <div class="row">
                             <div class="col-sm-2">
                                 <img  height="100%" width="100%" src="img/hashtagories.png"/>

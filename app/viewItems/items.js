@@ -45,6 +45,13 @@ angular.module('myApp.items', ['ngRoute'])
     $scope.edit_popupTitle = "Edit an item!";
     $scope.edit_inputs = [];    
 
+    $scope.items = [
+        {
+            title: "asdasd",
+            description: "asdadasdasd"
+        }
+    ];
+
     if (logged_in()) {
 
 
@@ -60,35 +67,41 @@ angular.module('myApp.items', ['ngRoute'])
         }, function(data) { requestFailureFunction(data); });
 
 
+
+    }
+
         $scope.auction_item = function() {
             alert("auction item");
         };
         
-        $scope.edit_item = function(item) {
+        $scope.setup_edit = function(item) {
+//            alert("\csdsadsd " + item.title + " "+ item.description);
             $scope.edit_inputs = [
                 {
                     label: "Item title",
                     type: "text",
-                    value: item.title
+                    ngModel: item.title
                 },
                 {
                     label: "Item description",
                     type: "textarea",
-                    value: item.description
+                    ngModel: item.description
                 },
                 {
                     label: "Item image",
                     type: "file"
                 }
-            ];
-//            alert("editing");
+            ];            
+        }
+        
+        $scope.edit_item = function(item) {
+
+            alert("editing");
         };
         
         $scope.add_item = function() {
             alert("Submitting form! " + $scope.inputs[0].ngModel);
         };
-    }
-
 
     
 }]);

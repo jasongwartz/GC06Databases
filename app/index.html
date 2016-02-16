@@ -78,19 +78,32 @@
 
                             </a>
 
-                            <a ng-if="!logged_in" href="#/login">Log in</a>
+                            <a ng-if="!logged_in" data-toggle="modal" data-target="#login" href="">Log In</a>
+
                         </li>
 
                     </ul>
+
                 </div>
             </div>
         
 
         </div>
+        
      
     </nav>
-
-
+    <hash-popup class="pull-right"  popup-id="login" title="popupTitle" inputs="inputs"
+        submit-name="submitName" submit-fn="log_in()"
+        btn-class="">
+        <a data-toggle="modal" data-target="#login" href="">
+            Register Here!
+        </a>
+    </hash-popup>
+    <hash-popup class="pull-right"  popup-id="register" title="popupTitle" inputs="inputs"
+        submit-name="submitName" submit-fn="log_in()"
+        btn-class="">
+        
+    </hash-popup>
   <div ng-view></div>
 
   <!--<div>Angular seed app: v<span app-version></span></div>-->
