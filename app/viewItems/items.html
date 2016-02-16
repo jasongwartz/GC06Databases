@@ -24,6 +24,10 @@
                 <div class="col-lg-10 col-lg-offset-1">
                     <div class="card hash-card">
                         
+                            <div class="pull-right " style="padding: 0.25em">
+                                <button ng-click="delete_item(item)" type="button" class="btn btn-info fa fa-times-circle-o"></button>    
+                            </div>
+                        
                             <input-popup class="pull-right" popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
                                 submit-name="edit_submitName" submit-fn="edit_item(item)"
                                 setup-fn="setup_edit(item)"
@@ -34,6 +38,9 @@
                                 submit-name="auction_submitName" submit-fn="auction_item(item)"
                                 btn-class="btn btn-info fa fa-gavel">     
                             </input-popup>
+
+                        
+                            
                      
                         <div class="row">
                             <div class="col-sm-2">

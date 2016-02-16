@@ -4,6 +4,32 @@ angular.module('myApp.navbar', ['ngRoute'])
 
     $rootScope.logged_in = logged_in();
 
+    $rootScope.reg_submitName = "Time to register!";
+    $rootScope.reg_popupTitle = "Register now!";
+    $rootScope.reg_inputs = [
+        {
+            label: "Username",
+            type: "text"
+        },
+        {
+            label: "Email",
+            type: "text"
+        },
+        {
+            label: "Password",
+            type: "password"
+        },
+        {
+            label: "Confirm Password",
+            type: "password"
+        }
+    ];
+    
+    $rootScope.register = function() {
+        
+        alert("registering");
+    };
+
     $rootScope.submitName = "Enter Login Details!";
     $rootScope.popupTitle = "Log in!";
     $rootScope.inputs = [

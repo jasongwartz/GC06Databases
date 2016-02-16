@@ -32,12 +32,12 @@ angular.module('myApp.auction', ['ngRoute'])
     }
 
     var auction_id = window.location.href.split('?')[1];
-    alert(auction_id);
+    //alert(auction_id);
     $http.get(PATH_TO_API + 'auctions/?auction_id='+ auction_id ).then(function(data){
 
         $scope.auction = data.data[0];
         $scope.auction_end_time = dateFormatter($scope.auction.end_time);
-        alert(dateFormatter($scope.auction.end_time));
+//        alert(dateFormatter($scope.auction.end_time));
 //        $scope.bids = [{bid:"asdasd"}];
 
     }, function(data) { requestFailureFunction(data); });

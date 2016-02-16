@@ -70,6 +70,11 @@ angular.module('myApp.items', ['ngRoute'])
 
     }
 
+        $scope.delete_item = function() {
+            
+            alert("Deleting");
+        };
+
         $scope.auction_item = function() {
             alert("auction item");
         };
