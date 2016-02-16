@@ -8,3 +8,4 @@ tmp
 */config.json
 nbproject
 api/config.php
+app/config.js
