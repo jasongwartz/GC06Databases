@@ -18,13 +18,10 @@ angular.module('myApp', [
   'directives',
   'myApp.feed',
   'myApp.navbar',
-  'myApp.login',
   'myApp.account',
   'myApp.auction',
   'myApp.feedback',
   'myApp.items',
-  'myApp.view1',
-  'myApp.view2', 
   'myApp.version'
 ]).
 config(['$routeProvider', function($routeProvider) {

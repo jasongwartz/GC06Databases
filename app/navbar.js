@@ -30,8 +30,8 @@ angular.module('myApp.navbar', ['ngRoute'])
         alert("registering");
     };
 
-    $rootScope.submitName = "Enter Login Details!";
-    $rootScope.popupTitle = "Log in!";
+    $rootScope.submitName = "Log in!";
+    $rootScope.popupTitle = "Enter Login Details!";
     $rootScope.inputs = [
         {
             label: "Username",

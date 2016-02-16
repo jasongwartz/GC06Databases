@@ -64,7 +64,7 @@ angular.module('myApp.items', ['ngRoute'])
 
                 for (var i=0; i<data.data.length; i++) {
                     for (var j=0; j<$scope.auction_items.length; j++) {
-                        if (data.data[i].item_id === $scope.auction_items[j].item_id) {
+                        if (data.data[i].item_id === $scope.auction_items[j].item_id && $scope.auction_items[j].is_complete !== 1 ) {
                             data.data.splice(i, 1);
                         }
                     
