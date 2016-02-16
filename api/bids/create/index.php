@@ -18,7 +18,7 @@
     
     if ($result) {
         http_response_code(200);
-        echo $result;
+        echo '{data: "it posted successfully!!"}';
         
     } else {
         http_response_code(500);
