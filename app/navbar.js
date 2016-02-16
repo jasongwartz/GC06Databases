@@ -58,7 +58,7 @@ angular.module('myApp.navbar', ['ngRoute'])
             
             $rootScope.root_user_id = data.data.user_id;
             
-            window.location.href = '#/feed';
+//            window.location.href = '#/feed';
         
         }, function(data) { requestFailureFunction(data); });
         
