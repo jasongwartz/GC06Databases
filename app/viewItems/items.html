@@ -64,9 +64,13 @@
             
             <br/>
         </div>        
-   
+        
+        <div class="col-lg-12 text-center">
+            <dir-pagination-controls></dir-pagination-controls>
+        </div>
+        
         <hr class="light">
-        <div ng-repeat="item in items">
+        <div dir-paginate="item in items | itemsPerPage: 10">
             <div class="row">   
 
                 <div class="col-lg-10 col-lg-offset-1">
@@ -111,8 +115,9 @@
             <br/>
         </div>
 
-        
-       
+        <div class="col-lg-12 text-center">
+            <dir-pagination-controls></dir-pagination-controls>
+        </div>
         
     </div>
 

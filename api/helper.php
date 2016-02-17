@@ -4,8 +4,8 @@
 include 'config.php';
 
 //Returns boolean
-function db_cud_function($sql) {
-
+function db_cud_function($sql) {   
+    
     // Create connection
     $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DBNAME);
     
@@ -15,7 +15,7 @@ function db_cud_function($sql) {
     } 
 
     $result = $conn->query($sql);
-//    echo $sql;
+    echo $sql;
 //    if ($result === TRUE) {
 //
 //        echo 'true}';//$return = TRUE;

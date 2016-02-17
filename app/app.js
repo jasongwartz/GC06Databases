@@ -14,6 +14,7 @@ function requestFailureFunction(data) {
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
+    'angularUtils.directives.dirPagination',
   'ngRoute',
   'directives',
   'myApp.feed',
