@@ -46,8 +46,20 @@ angular.module('myApp.navbar', ['ngRoute'])
     $rootScope.root_user_id = sessionStorage.getItem('user_id');
 
     $rootScope.log_in = function() {
-        
-        $http.get(PATH_TO_API + 'auth').then(function(data){
+
+        var post_data = $.param({
+            username: $rootScope.inputs[0].ngModel,
+            password: $rootScope.inputs[1].ngModel
+        });
+
+        var url = PATH_TO_API + 'authenticate/';
+        //alert(post_data + " to " + url);
+        $http({
+            method: 'POST',
+            url: url,
+            data: post_data,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(data){
 
             $rootScope.logged_in = true;
 
@@ -59,10 +71,25 @@ angular.module('myApp.navbar', ['ngRoute'])
             sessionStorage.setItem('user_id', JSON.stringify(data.data.user_id));
             
             $rootScope.root_user_id = data.data.user_id;
-            
-//            window.location.href = '#/feed';
-        
+
         }, function(data) { requestFailureFunction(data); });
+        
+//        $http.get(PATH_TO_API + 'authenticate/').then(function(data){
+//
+//            $rootScope.logged_in = true;
+//
+////            alert(data.data + ' ' + $rootScope.logged_in);
+//            
+//            sessionStorage.setItem('logged_in', JSON.stringify(true));
+//            
+//            sessionStorage.setItem('access_token', data.data.access_token);
+//            sessionStorage.setItem('user_id', JSON.stringify(data.data.user_id));
+//            
+//            $rootScope.root_user_id = data.data.user_id;
+//            
+////            window.location.href = '#/feed';
+//        
+//        }, function(data) { requestFailureFunction(data); });
         
     };
 

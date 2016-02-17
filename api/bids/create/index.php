@@ -1,11 +1,10 @@
 <?php
-// bids/create
+// bids/create POST OK
 
-//    include '../../auth.php';
+    include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
-//header("access-control-allow-origin: *");
-//header('Access-Control-Allow-Methods: GET, POST');
+
     header('content-type: application/x-www-form-urlencoded');
     
     if(empty($_SERVER['CONTENT_TYPE'])){

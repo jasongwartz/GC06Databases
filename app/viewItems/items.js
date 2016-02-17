@@ -55,6 +55,16 @@ angular.module('myApp.items', ['ngRoute'])
     if (logged_in()) {
 
 
+        get_all_items();
+
+
+
+
+
+    }
+
+    function get_all_items() {
+        
         $http.get(PATH_TO_API + 'auctions/user_auctions?user_id='+ sessionStorage.getItem('user_id') +'&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
 
 //            alert(JSON.stringify(data));
@@ -62,15 +72,10 @@ angular.module('myApp.items', ['ngRoute'])
             get_items();
         }, function() { 
             $scope.auction_items = [];
-           alert("getting items");
+//           alert("getting items");
             get_items();            
         //requestFailureFunction(data); 
         });
-
-
-
-
-
     }
 
     function get_items() {
@@ -93,14 +98,74 @@ angular.module('myApp.items', ['ngRoute'])
         }, function(data) { requestFailureFunction(data); });        
         
     }
-
-        $scope.delete_item = function() {
+    function sql_date(date) {
+        return date.getUTCFullYear() + '-' +
+        ('00' + (date.getUTCMonth() + 1)).slice(-2) + '-' +
+        ('00' + date.getUTCDate()).slice(-2) + ' ' +
+        ('00' + date.getUTCHours()).slice(-2) + ':' +
+        ('00' + date.getUTCMinutes()).slice(-2) + ':' +
+        ('00' + date.getUTCSeconds()).slice(-2);  
+    }
+    
+        $scope.delete_item = function(item) {
             
-            alert("Deleting");
+            if (confirm("Are you sure?")) {
+                var post_data = $.param({
+                        item_id: item.item_id
+                    });
+
+
+                var url = PATH_TO_API + 'items/delete/?access_token=' + sessionStorage.getItem('access_token');
+                //alert(post_data + " to " + url);
+                $http({
+                    method: 'POST',
+                    url: url,
+                    data: post_data,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).then(function(data){
+                    //alert(JSON.stringify(data))
+                    alert("Item deleted!"); //Needs to be here...
+                    get_all_items();
+
+                }, function(data) { //requestFailureFunction(data); 
+                    //alert(JSON.stringify(data))
+                    get_all_items();
+                });
+            }
         };
 
-        $scope.auction_item = function() {
-            alert("auction item");
+
+
+        $scope.auction_item = function(item) {
+            
+//            alert(item.item_id + " " + $scope.edit_inputs[0].ngModel + " " + $scope.edit_inputs[1].ngModel);
+            var post_data = $.param({
+
+                    auction_item_id: item.item_id,
+                    start_time:  sql_date(new Date()),
+                    end_time: sql_date(new Date($scope.auction_inputs[1].ngModel)),
+                    reserve_price: $scope.auction_inputs[0].ngModel
+
+                });
+
+
+            var url = PATH_TO_API + 'auctions/create/?access_token=' + sessionStorage.getItem('access_token');
+                //alert(post_data + " to " + url);
+            $http({
+                method: 'POST',
+                url: url,
+                data: post_data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function(data){
+                alert(JSON.stringify(data))
+                alert("Auction created!"); //Needs to be here...
+                get_all_items();
+
+            }, function(data) { //requestFailureFunction(data); 
+                //alert(JSON.stringify(data))
+                get_all_items();
+            });
+            
         };
         
         $scope.setup_edit = function(item) {

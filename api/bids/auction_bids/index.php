@@ -1,7 +1,6 @@
 <?php
-// bids/auction_bids
+// bids/auction_bids GET OK
 
-//    include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
 

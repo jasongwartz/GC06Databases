@@ -1,11 +1,9 @@
 <?php
 // users/create
 
+    include '../../auth.php';
+    include '../../sql_statements.php';
     include '../../helper.php';
-    
-    echo 'create';include '../auth.php';
-    include '../sql_statements.php';
-    include '../helper.php';
 
     $result = db_r_function(users_create(
         $_POST['username'],$_POST['first_name'],$_POST['last_name'],$_POST['email'],$_POST['password']) 

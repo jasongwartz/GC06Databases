@@ -8,6 +8,15 @@
         }
     },
     
+    "authenticate": {
+        "self": {
+            "type": "POST",
+            "params": [
+                "username",
+                "password"
+            ]
+        }
+    },
     
     "users": {
         "self": {

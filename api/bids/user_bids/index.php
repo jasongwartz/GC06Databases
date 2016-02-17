@@ -1,7 +1,7 @@
 <?php
-// bids/user_bids
+// bids/user_bids GET ?UNKNOWN
 
-include '../auth.php';
+    include '../auth.php';
     include '../sql_statements.php';
     include '../helper.php';
 

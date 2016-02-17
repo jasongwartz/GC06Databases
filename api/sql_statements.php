@@ -4,6 +4,10 @@
 //    return "SELECT * FROM `auctions`";
 //}
 
+function authenticate_self($username, $password) {
+    return "CALL authenticate_self('{$username}','{$password}');";
+}
+
 function users_self($user_id) {  
     return "CALL users_self({$user_id});";
 }
@@ -37,7 +41,7 @@ function auctions_self($auction_id){
 return "CALL auctions_self({$auction_id});";}
 
 function auctions_create($auction_item_id, $start_time, $end_time, $reserve_price){
-return "CALL auctions_create({$auction_item_id}, {$start_time}, {$end_time}, {$reserve_price});";}
+return "CALL auctions_create({$auction_item_id}, '{$start_time}', '{$end_time}', {$reserve_price});";}
 
 function auctions_cancel($auction_id){
 return "CALL auctions_cancel({$auction_id});";}

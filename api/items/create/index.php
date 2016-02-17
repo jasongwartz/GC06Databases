@@ -1,5 +1,5 @@
 <?php
-// items/create POST
+// items/create POST OK
 
     include '../../auth.php';
     include '../../sql_statements.php';

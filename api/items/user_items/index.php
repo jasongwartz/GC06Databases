@@ -1,5 +1,5 @@
 <?php
-// items/user_items
+// items/user_items GET POOR
 
     include '../../auth.php';
     include '../../sql_statements.php';
