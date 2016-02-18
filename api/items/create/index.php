@@ -21,10 +21,10 @@
     $result = db_cud_function(items_create($owner_user_id, $title, $description));
 
     if ($result) {
-        http_response_code(200);
+        http_response_code(201);
         echo $result;
         
     } else {
-//        http_response_code(500);
+        http_response_code(304); //Not modified
         echo '{data:false}';
     }

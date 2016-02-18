@@ -27,6 +27,7 @@ angular.module('myApp.feed', ['ngRoute'])
     
     $http.get(PATH_TO_API + 'auctions/retrieve_all').then(function(data){
     //        alert(data.data);
+    
         $scope.auctions = data.data;
         
     }, function(data) { requestFailureFunction(data); });

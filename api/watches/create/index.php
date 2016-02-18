@@ -1,18 +1,30 @@
 <?php
-// watches/create
+// watches/create POST
 
-include '../auth.php';
-    include '../sql_statements.php';
-    include '../helper.php';
+    include '../../auth.php';
+    include '../../sql_statements.php';
+    include '../../helper.php';
 
-    //$id = intval($_GET['id']);
-    $result = db_r_function(watches_create($_POST['user_id'],$_POST['auction_id']));
+    header('content-type: application/x-www-form-urlencoded');
+    
+    if(empty($_SERVER['CONTENT_TYPE'])){
+
+         $type = "application/x-www-form-urlencoded";
+
+         $_SERVER['CONTENT_TYPE'] = $type;
+
+    }
+
+    $watch_user_id = $_POST['watch_user_id'];
+    $watch_auction_id = $_POST['watch_auction_id'];
+    
+    $result = db_cud_function(watches_create($watch_user_id, $watch_auction_id));
 
     if ($result) {
-        http_response_code(200);
+        http_response_code(201);
         echo $result;
         
     } else {
-        http_response_code(500);
-        echo '{error:"no data returned"}';
+        http_response_code(304); //Not modified
+        echo '{data:false}';
     }

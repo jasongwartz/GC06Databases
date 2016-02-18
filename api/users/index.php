@@ -5,7 +5,7 @@
     include '../sql_statements.php';
     include '../helper.php';
 
-    $user_id = intval($_GET['user_id']);
+    $user_id = $_GET['user_id'];
 
     $result = db_r_function(users_self($user_id)); 
 

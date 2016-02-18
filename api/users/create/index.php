@@ -5,15 +5,21 @@
     include '../../sql_statements.php';
     include '../../helper.php';
 
-    $result = db_r_function(users_create(
-        $_POST['username'],$_POST['first_name'],$_POST['last_name'],$_POST['email'],$_POST['password']) 
-    );
+    
+    $username = $_POST['username'];
+    $firstname = $_POST['first_name'];
+    $lastname = $_POST['last_name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    
+    $result = db_cud_function(users_create($username, $firstname, $lastname, $email, $password)); 
+
 
     if ($result) {
-        http_response_code(200);
+        http_response_code(201);
         echo $result;
         
     } else {
-        http_response_code(500);
-        echo '{error:"no data returned"}';
+        http_response_code(304); //Not modified
+        echo '{data:false}';
     }

@@ -43,6 +43,8 @@ angular.module('myApp.navbar', ['ngRoute'])
         }
     ];
 
+    
+
     $rootScope.root_user_id = sessionStorage.getItem('user_id');
 
     $rootScope.log_in = function() {
@@ -114,11 +116,61 @@ angular.module('myApp.navbar', ['ngRoute'])
         alert('Watchlist filtering');
         
     };
+    
+    
  
     $rootScope.search_filter = function() {
         
         alert('Search filtering');
         
     };
+    
+    if (logged_in()) {
+        
+        get_watches();
+        
+        function get_watches() {
+            $http.get(PATH_TO_API + 'watches/user_watches/?access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
+
+                alert(JSON.stringify(data));
+
+                $rootScope.watches = data.data;
+
+            }, function(data) { requestFailureFunction(data); });
+        }
+        $rootScope.add_to_watchlist = function(auction) {
+            var post_data = $.param({
+                    watch_user_id: sessionStorage.getItem("user_id"),
+                    watch_auction_id: auction.auction_id
+
+                });
+
+
+            var url = PATH_TO_API + 'bids/create/?access_token=' + sessionStorage.getItem('access_token');
+    //        alert(post_data + " to " + url);
+            $http({
+                method: 'POST',
+                url: url,
+                data: post_data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function(data){
+
+                get_watches();
+
+            }, function(data) { requestFailureFunction(data); });        
+        };
+
+        $rootScope.remove_from_watchlist = function(auction) {
+
+        };
+        
+        $rootScope.isInWatches = function(id) {
+            for (var i=0; i<$rootScope.watches.length; i++) {
+                if ($rootScope.watches.watch_auction_id === id)
+                    return true;
+            }
+            return false;
+        };
+    }
     
 }]);

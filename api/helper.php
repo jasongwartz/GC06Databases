@@ -15,16 +15,7 @@ function db_cud_function($sql) {
     } 
 
     $result = $conn->query($sql);
-    echo $sql;
-//    if ($result === TRUE) {
-//
-//        echo 'true}';//$return = TRUE;
-//        
-//    } else {
-//
-//        echo 'false}'; //$return = FALSE;
-//    }
-
+    echo $result;
 
     $conn->close();     
 //    echo $result;
@@ -47,7 +38,12 @@ function db_r_function($sql) {
    
     $data = array();
     $index = 0;
-    if ($result->num_rows > 0) {
+    
+    if ($conn->error === TRUE) {
+        
+        $return = FALSE;
+        
+    } else if ($result->num_rows > 0) {
 
         // save data of each row to an array.
         while($row = $result->fetch_assoc()) {
@@ -58,7 +54,7 @@ function db_r_function($sql) {
         
     } else {
 
-        $return = FALSE;
+        $return = '[]';
     }
 
 

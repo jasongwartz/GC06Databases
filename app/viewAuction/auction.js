@@ -52,11 +52,7 @@ angular.module('myApp.auction', ['ngRoute'])
 
         }, function(data) { requestFailureFunction(data); });
     }
-    
-    $scope.delete_bid = function() {
-        alert("deleting bid");
-    };
-    
+        
     $scope.place_bid = function() {
         
         var post_data = $.param({
@@ -83,9 +79,7 @@ angular.module('myApp.auction', ['ngRoute'])
         }, function(data) { //requestFailureFunction(data); 
             get_bids();
         });
-        
-//        alert("Adding a bid");
-        //Has a popup with input fields
+
     };
     
 }]);

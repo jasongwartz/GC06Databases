@@ -20,6 +20,10 @@
             <div class="col-lg-6">
 
                 <div class="card hash-card">
+                    <button ng-if="logged_in && !isInWatches(auction.auction_id)" ng-click="add_to_watchlist(auction)" class="pull-right btn btn-info fa fa-star-o"></button>
+                    <button ng-if="!logged_in" class="pull-right btn btn-info fa fa-star-o" title="Log in to follow" disabled></button>
+                    <button ng-if="logged_in && isInWatches(auction.auction_id)" ng-click="remove_from_watchlist(auction)" class="pull-right btn btn-info fa fa-star"></button>
+                    
                     <div class="card-block">
                         <h3>Highest Bid: £{{bids[0].bid_price}}</h3>
                         <h4><time-difference date="auction.end_time"></time-difference> <small>at {{auction_end_time}}</small></h4>

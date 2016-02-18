@@ -1,17 +1,18 @@
 <?php
-// watches/user_watches
-    include '../auth.php';
-    include '../sql_statements.php';
-    include '../helper.php';
+// watches/user_watches GET
 
-    //$id = intval($_GET['id']);
-    $result = db_r_function(watches_user_watches($_GET['user_id']));
+    include '../../auth.php';
+    include '../../sql_statements.php';
+    include '../../helper.php';
+
+    $watch_user_id = $_GET['watch_user_id']; 
+    $result = db_r_function(watches_user_watches($watch_user_id));
 
     if ($result) {
         http_response_code(200);
         echo $result;
         
     } else {
-        http_response_code(500);
-        echo '{error:"no data returned"}';
+        http_response_code(200); 
+        echo $result;
     }
