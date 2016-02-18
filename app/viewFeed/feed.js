@@ -11,6 +11,7 @@ angular.module('myApp.feed', ['ngRoute'])
 
 .controller('feedCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 
+    
     $scope.auctions = [];
 
 //    if (logged_in()) {

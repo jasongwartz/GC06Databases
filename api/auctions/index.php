@@ -1,7 +1,6 @@
 <?php
-// auctions
+// auctions/self GET OK
 
-//include '../auth.php';
     include '../sql_statements.php';
     include '../helper.php';
 
@@ -13,6 +12,6 @@
         echo $result;
         
     } else {
-        http_response_code(500);
+
         echo '{error:"no data returned"}';
     }

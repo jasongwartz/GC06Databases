@@ -1,5 +1,5 @@
 <?php
-// watches/create POST
+// watches/create POST OK
 
     include '../../auth.php';
     include '../../sql_statements.php';

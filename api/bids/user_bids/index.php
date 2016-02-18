@@ -1,12 +1,9 @@
 <?php
-// bids/user_bids GET ?UNKNOWN
+// bids/user_bids GET ?UNKNOWN UNUSED
 
     include '../auth.php';
     include '../sql_statements.php';
     include '../helper.php';
-
-    //$id = intval($_GET['id']);
-    //$result = db_r_function(user($id));
 
     if ($result) {
         http_response_code(200);

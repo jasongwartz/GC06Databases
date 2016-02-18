@@ -15,8 +15,10 @@ function db_cud_function($sql) {
     } 
 
     $result = $conn->query($sql);
-    echo $result;
+    echo $result . ' ' . $sql;
 
+    echo $conn->error;
+    
     $conn->close();     
 //    echo $result;
     return $result;   
@@ -39,9 +41,11 @@ function db_r_function($sql) {
     $data = array();
     $index = 0;
     
+    echo $conn->error;
+    
     if ($conn->error === TRUE) {
         
-        $return = FALSE;
+        $return = $conn->error;
         
     } else if ($result->num_rows > 0) {
 

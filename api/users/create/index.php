@@ -1,5 +1,5 @@
 <?php
-// users/create
+// users/create POST 
 
     include '../../auth.php';
     include '../../sql_statements.php';

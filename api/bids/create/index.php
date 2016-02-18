@@ -19,8 +19,6 @@
     $bid_auction_id = $_POST['bid_auction_id'];
     $bid_price = $_POST['bid_price'];
 
-//    echo $bidder_user_id . ' ' . $bid_auction_id . ' ' . $bid_price;
-
     $result = db_cud_function(bids_create($bidder_user_id, $bid_price, $bid_auction_id));
 
     if ($result === TRUE) {
@@ -29,6 +27,6 @@
         echo '{data: true}';
         
     } else {
-//        http_response_code(500);
+
         echo '{data: false}';
     }

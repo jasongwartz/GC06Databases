@@ -113,6 +113,7 @@ angular.module('myApp.navbar', ['ngRoute'])
     
     $rootScope.watchlist_filter = function() {
         
+        $rootScope.filter = "WATCH";
         alert('Watchlist filtering');
         
     };
@@ -121,6 +122,7 @@ angular.module('myApp.navbar', ['ngRoute'])
  
     $rootScope.search_filter = function() {
         
+        $rootScope.filter = "SEARCH";
         alert('Search filtering');
         
     };
@@ -130,7 +132,7 @@ angular.module('myApp.navbar', ['ngRoute'])
         get_watches();
         
         function get_watches() {
-            $http.get(PATH_TO_API + 'watches/user_watches/?access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
+            $http.get(PATH_TO_API + 'watches/user_watches/?watch_user_id=' + sessionStorage.getItem('user_id') + '&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
 
                 alert(JSON.stringify(data));
 
@@ -138,6 +140,7 @@ angular.module('myApp.navbar', ['ngRoute'])
 
             }, function(data) { requestFailureFunction(data); });
         }
+        
         $rootScope.add_to_watchlist = function(auction) {
             var post_data = $.param({
                     watch_user_id: sessionStorage.getItem("user_id"),
@@ -146,7 +149,7 @@ angular.module('myApp.navbar', ['ngRoute'])
                 });
 
 
-            var url = PATH_TO_API + 'bids/create/?access_token=' + sessionStorage.getItem('access_token');
+            var url = PATH_TO_API + 'watches/create/?access_token=' + sessionStorage.getItem('access_token');
     //        alert(post_data + " to " + url);
             $http({
                 method: 'POST',
@@ -161,7 +164,25 @@ angular.module('myApp.navbar', ['ngRoute'])
         };
 
         $rootScope.remove_from_watchlist = function(auction) {
+            var post_data = $.param({
+                    watch_user_id: sessionStorage.getItem("user_id"),
+                    watch_auction_id: auction.auction_id
 
+                });
+
+
+            var url = PATH_TO_API + 'watches/delete/?access_token=' + sessionStorage.getItem('access_token');
+    //        alert(post_data + " to " + url);
+            $http({
+                method: 'POST',
+                url: url,
+                data: post_data,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function(data){
+
+                get_watches();
+
+            }, function(data) { requestFailureFunction(data); });   
         };
         
         $rootScope.isInWatches = function(id) {

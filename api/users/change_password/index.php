@@ -1,18 +1,24 @@
 <?php
 // users/change_password
 
-include '../auth.php';
-    include '../sql_statements.php';
-    include '../helper.php';
+    include '../../auth.php';
+    include '../../sql_statements.php';
+    include '../../helper.php';
 
     
-    $result = db_r_function($_POST['username'],$_POST['new_password']);
+    $password = $_POST['password'];
+    $new_password = $_POST['new_password'];
+    $new_password_confirm = $_POST['new_password_confirm'];
+
+    
+    $result = db_cud_function(users_change_password($password, $new_password, $new_password_confirm)); 
+
 
     if ($result) {
-        http_response_code(200);
+        http_response_code(201);
         echo $result;
         
     } else {
-        http_response_code(500);
-        echo '{error:"no data returned"}';
+        http_response_code(304); //Not modified
+        echo '{data:false}';
     }

@@ -25,6 +25,5 @@
         echo $result;
         
     } else {
-//        http_response_code(500);
         echo '{data:false}';
     }
