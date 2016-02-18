@@ -76,23 +76,6 @@ angular.module('myApp.navbar', ['ngRoute'])
 
         }, function(data) { requestFailureFunction(data); });
         
-//        $http.get(PATH_TO_API + 'authenticate/').then(function(data){
-//
-//            $rootScope.logged_in = true;
-//
-////            alert(data.data + ' ' + $rootScope.logged_in);
-//            
-//            sessionStorage.setItem('logged_in', JSON.stringify(true));
-//            
-//            sessionStorage.setItem('access_token', data.data.access_token);
-//            sessionStorage.setItem('user_id', JSON.stringify(data.data.user_id));
-//            
-//            $rootScope.root_user_id = data.data.user_id;
-//            
-////            window.location.href = '#/feed';
-//        
-//        }, function(data) { requestFailureFunction(data); });
-        
     };
 
     $rootScope.log_out = function() {
@@ -135,10 +118,12 @@ angular.module('myApp.navbar', ['ngRoute'])
             $http.get(PATH_TO_API + 'watches/user_watches/?watch_user_id=' + sessionStorage.getItem('user_id') + '&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
 
                 alert(JSON.stringify(data));
-
+                
                 $rootScope.watches = data.data;
 
-            }, function(data) { requestFailureFunction(data); });
+            }, function() { 
+                $rootScope.log_out(); 
+            });
         }
         
         $rootScope.add_to_watchlist = function(auction) {
