@@ -16,6 +16,10 @@ function users_create($username, $first_name, $last_name, $email, $pass) {
     return "CALL users_create({$username}, {$first_name}, {$last_name}, {$email}, {$pass});";
 }
 
+function users_update($user_id, $username, $first_name, $last_name, $email, $pass) {
+    return "CALL users_create({$user_id}, {$username}, {$first_name}, {$last_name}, {$email}, {$pass});";
+}
+
 function users_change_password($username, $new_password) {
     return "CALL users_change_password({$username}, {$new_password});";
 }
