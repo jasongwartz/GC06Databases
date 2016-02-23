@@ -7,7 +7,7 @@
 #
 # Host: auctions.cjfabur5dk4o.us-east-1.rds.amazonaws.com (MySQL 5.6.23-log)
 # Database: auction_data
-# Generation Time: 2016-02-12 3:20:58 pm +0000
+# Generation Time: 2016-02-23 8:19:23 pm +0000
 # ************************************************************
 
 
@@ -26,12 +26,12 @@
 DROP TABLE IF EXISTS `auctions`;
 
 CREATE TABLE `auctions` (
-  `auction_id` int(11) NOT NULL,
+  `auction_id` int(11) NOT NULL AUTO_INCREMENT,
   `auction_item_id` int(11) NOT NULL,
   `is_complete` tinyint(1) NOT NULL,
   `start_time` timestamp NOT NULL,
   `end_time` timestamp NOT NULL,
-  `reserve_price` int(11) NOT NULL,
+  `reserve_price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`auction_id`),
   KEY `auction_item_id` (`auction_item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -41,8 +41,7 @@ LOCK TABLES `auctions` WRITE;
 
 INSERT INTO `auctions` (`auction_id`, `auction_item_id`, `is_complete`, `start_time`, `end_time`, `reserve_price`)
 VALUES
-	(0,102,0,'2016-02-09 14:04:27','2016-02-19 14:06:27',10),
-	(1,103,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',1);
+	(1,30,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',0.00);
 
 /*!40000 ALTER TABLE `auctions` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -56,7 +55,7 @@ DROP TABLE IF EXISTS `bids`;
 CREATE TABLE `bids` (
   `bid_id` int(11) NOT NULL AUTO_INCREMENT,
   `bidder_user_id` int(11) NOT NULL,
-  `bid_price` int(11) NOT NULL,
+  `bid_price` decimal(10,2) NOT NULL,
   `bid_time` timestamp NOT NULL,
   `bid_auction_id` int(11) NOT NULL,
   PRIMARY KEY (`bid_id`)
@@ -67,10 +66,19 @@ LOCK TABLES `bids` WRITE;
 
 INSERT INTO `bids` (`bid_id`, `bidder_user_id`, `bid_price`, `bid_time`, `bid_auction_id`)
 VALUES
-	(1,2,22,'2016-02-09 17:04:32',0),
-	(2,3,23,'2016-02-09 17:04:42',0),
-	(3,8,24,'2016-02-09 17:04:50',0),
-	(4,2,25,'2016-02-09 17:13:27',0);
+	(1,2,22.00,'2016-02-09 17:04:32',0),
+	(2,3,23.00,'2016-02-09 17:04:42',0),
+	(3,8,24.00,'2016-02-09 17:04:50',0),
+	(4,2,25.00,'2016-02-09 17:13:27',0),
+	(5,1,27.00,'2016-02-16 17:45:45',0),
+	(6,1,28.00,'2016-02-16 18:14:36',0),
+	(7,1,28.00,'2016-02-16 18:14:53',0),
+	(8,1,28.00,'2016-02-16 18:16:12',0),
+	(9,1,28.00,'2016-02-16 18:16:55',0),
+	(10,1,29.00,'2016-02-17 19:43:43',0),
+	(11,1,31.00,'2016-02-17 19:50:18',0),
+	(12,1,34.00,'2016-02-17 20:23:44',0),
+	(13,1,35.00,'2016-02-22 11:48:26',0);
 
 /*!40000 ALTER TABLE `bids` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -174,7 +182,7 @@ VALUES
 	(106,98,'vitae sodales nisi','et magnis dis parturient montes, nascetur ridiculus mus. Proin vel arcu eu odio tristique pharetra. Quisque ac libero nec ligula'),
 	(107,61,'at augue id','arcu vel quam dignissim pharetra. Nam ac nulla. In tincidunt congue turpis. In condimentum. Donec at arcu. Vestibulum ante ipsum'),
 	(108,53,'consequat dolor vitae','pellentesque, tellus sem mollis dui, in sodales elit erat vitae risus. Duis a mi fringilla mi lacinia mattis. Integer eu'),
-	(109,3,'magna. Phasellus dolor','iaculis enim, sit amet ornare lectus justo eu arcu. Morbi sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus'),
+	(109,3,'magna. Phasellus test','iaculis enim, sit amet ornare lectus justo eu arcu. Morbi sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus'),
 	(110,81,'tortor nibh sit','mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut'),
 	(111,42,'Donec feugiat metus','orci quis lectus. Nullam suscipit, est ac facilisis facilisis, magna tellus faucibus leo, in lobortis tellus justo sit amet nulla.'),
 	(112,33,'magna a neque.','justo. Praesent luctus. Curabitur egestas nunc sed libero. Proin sed turpis nec mauris blandit mattis. Cras eget nisi dictum augue'),
@@ -294,7 +302,7 @@ INSERT INTO `users` (`username`, `user_id`, `first_name`, `last_name`, `email`, 
 VALUES
 	('quam.bob',1,'George','Mccarthy','aliquet@dolordapibusgravida.net',''),
 	('Proin',2,'Judah','Zamora','Donec@estconguea.com',''),
-	('ipsum',3,'Laith','Harvey','nisi.magna.sed@Cumsociis.com',''),
+	('asdf',3,'Laith','Harvey','nisi.magna.sed@Cumsociis.com',''),
 	('eget',4,'Fritz','Trujillo','lobortis.ultrices.Vivamus@dictum.ca',''),
 	('fringilla',5,'Gil','Lawrence','vitae.risus.Duis@velit.edu',''),
 	('nonummy.bo',6,'Hammett','Wallace','nec.diam.Duis@diamProindolor.com',''),
@@ -439,9 +447,9 @@ END */;;
 
 /*!50003 DROP PROCEDURE IF EXISTS `auctions_create` */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_create`(IN auction_item_id INT(11), IN start_time timestamp, IN end_time timestamp, IN reserve_price INT(11))
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_create`(IN auction_item_id INT(11), IN start_time timestamp, IN end_time timestamp, IN reserve_price varchar(12))
 BEGIN
-	INSERT INTO `auctions` (auctions.auction_item_id, auctions.start_time, auctions.end_time, auctions.reserve_price) VALUES(auction_item_id, start_time, end_time, reserve_price);
+INSERT INTO `auctions` (auctions.auction_item_id, auctions.start_time, auctions.end_time, auctions.reserve_price) VALUES(auction_item_id, start_time, end_time, CAST(reserve_price AS DECIMAL(10,2)));
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -538,10 +546,10 @@ END */;;
 
 /*!50003 DROP PROCEDURE IF EXISTS `bids_create` */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `bids_create`( IN bidder_user_id INT(11), IN bid_price INT(11), IN bid_auction_id INT(11))
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `bids_create`( IN bidder_user_id INT(11), IN bid_price VARCHAR(12), IN bid_auction_id INT)
 BEGIN
-	INSERT INTO `bids` (bids.bidder_user_id, bids.bid_price, bids.bid_time, bids.bid_auction_id)
-    VALUES(bidder_user_id, bid_price, NOW(), bid_auction_id);
+INSERT INTO `bids` (bids.bidder_user_id, bids.bid_price, bids.bid_time, bids.bid_auction_id)
+    VALUES(bidder_user_id, CAST(bid_price AS DECIMAL(10,2)), NOW(), bid_auction_id);
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -731,9 +739,46 @@ END */;;
 
 /*!50003 DROP PROCEDURE IF EXISTS `users_self` */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `users_self`(IN username varchar(10), IN pass varchar(20))
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `users_self`(IN user_id int(11))
 BEGIN
- SELECT users.username, users.user_id, users.first_name, users.last_name, users.email FROM `users` WHERE `username` = username AND `password` = pass;
+ SELECT users.username, users.user_id, users.first_name, users.last_name, users.email FROM `users` WHERE `user_id` = user_id;
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE users_update
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `users_update` */;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `users_update`(
+IN user_id int,
+IN username varchar(10),
+IN first_name varchar(20),
+IN last_name varchar(30),
+IN email varchar(50)
+)
+BEGIN
+    IF user_id IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'No user provided';
+    END IF;
+    IF username IS NOT NULL THEN
+        UPDATE `users` SET users.username = username
+        WHERE users.user_id = user_id;
+    END IF;
+    IF first_name IS NOT NULL THEN
+        UPDATE `users` SET users.first_name = first_name
+        WHERE users.user_id = user_id;
+    END IF;
+    IF last_name IS NOT NULL THEN
+        UPDATE `users` SET users.last_name = last_name
+        WHERE users.user_id = user_id;
+    END IF;
+    IF email IS NOT NULL THEN
+        UPDATE `users` SET users.email = email
+        WHERE users.user_id = user_id;
+    END IF;
+
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
