@@ -71,9 +71,7 @@ function validate_data($method, $names) {
 
     $error = FALSE;
     $returnData = array();
-    
-    
-    
+
     for ($i=0; $i<count($names); $i++) {
         
         $returnData[$names[$i]] = array();
@@ -81,8 +79,7 @@ function validate_data($method, $names) {
         $returnData[$names[$i]]["error"] = FALSE;
         
         $postValue = "";
-              
-        
+                
         if ($method($names[$i]) != NULL) {  
             $postValue = mysql_escape_string($method($names[$i]));
            
@@ -91,7 +88,6 @@ function validate_data($method, $names) {
             $error = TRUE;
             continue;
         }
-
         
         if (preg_match('@user_id@', $names[$i]) || preg_match('@auction_id@', $names[$i])) {
 
@@ -102,8 +98,11 @@ function validate_data($method, $names) {
             }
 
         }
-            
-            
+        
+//                    $returnData[$names[$i]]["error"] = $method . " variable '" . $names[$i] . "' is not set.";
+//            $error = TRUE;
+//            continue;
+        
         switch($names[$i]) {
             
             //Email case
