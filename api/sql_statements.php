@@ -91,3 +91,6 @@ return "CALL feedback_for_action({$feedback_auction_id});";}
 
 function feedback_update($feedback_text, $user_id, $feedback_id){
 return "CALL feedback_update({$feedback_text}, {$user_id}, {$feedback_id});";}
+
+function hashtagories_trending(){
+    return "CALL hashtagories_trending();";}
