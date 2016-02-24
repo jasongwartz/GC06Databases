@@ -22,9 +22,9 @@
     $bid_price = $post_data['bid_price'];
     
     
-    var_dump($post_data);
+//    var_dump($post_data);
 
-//    $result = db_cud_function(bids_create($bidder_user_id, $bid_price, $bid_auction_id));
+    $result = db_cud_function(bids_create($bidder_user_id, $bid_price, $bid_auction_id));
 
     if ($result === TRUE) {
         http_response_code(200);
