@@ -94,3 +94,11 @@ return "CALL feedback_update({$feedback_text}, {$user_id}, {$feedback_id});";}
 
 function hashtagories_trending(){
     return "CALL hashtagories_trending();";}
+    
+function hashtagories_all(){
+    return "CALL hashtagories_all();";
+}
+
+function hashtagories_search($str){
+    return "CALL hashtagories_search({$str});";
+}
