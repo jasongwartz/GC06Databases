@@ -5,7 +5,7 @@ include 'config.php';
 
 //Returns boolean
 function db_cud_function($sql) {   
-    
+
     // Create connection
     $conn = new mysqli(HOSTNAME, USERNAME, PASSWORD, DBNAME);
     
@@ -125,6 +125,14 @@ function validate_data($method, $names) {
                 //echo POST("password_confirmation");
                 break;
                 
+//            case "username":
+//            case "first_name":
+//            case "last_name":
+//                
+//                            
+//                break;
+            
+            
             default:
                 
                 $returnData[$names[$i]]["value"] = $postValue;

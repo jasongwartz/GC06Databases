@@ -14,16 +14,41 @@ angular.module('myApp.account', ['ngRoute'])
     $scope.detailsPopupTitle = "Edit Personal Details";
     $scope.detailsInputs = [
         {
-            label: "Firstname",
+            label: "First name",
             type: "text"
         },
         {
-            label: "Lastname",
+            label: "Last name",
+            type: "text"
+        },
+        {
+            label: "Email",
             type: "text"
         }
     ];
     $scope.detailsSubmitName = "Make changes";
     $scope.detailsSubmitForm = function() {
+        
+        var post_data = $.param({
+            user_id: sessionStorage.getItem("user_id"),
+            first_name: $scope.detailsInputs[0].ngModel,
+            last_name: $scope.detailsInputs[1].ngModel,
+            email: $scope.detailsInputs[2].ngModel
+        });
+
+        var url = PATH_TO_API + 'users/update/';
+        //alert(post_data + " to " + url);
+        $http({
+            method: 'POST',
+            url: url,
+            data: post_data,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(data){
+
+            alert("User info updated!");
+
+        }, function(data) { requestFailureFunction(data); });
+        
         alert("Submitting form! " + $scope.detailsInputs[0].ngModel);
     };
     
