@@ -9,7 +9,7 @@ function logged_in(set) {
 function requestFailureFunction(data) {
     
     
-    alert(JSON.stringify(data));
+    alert("ERROR: " + JSON.stringify(data));
 } 
 
 // Declare app level module which depends on views, and components

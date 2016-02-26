@@ -12,6 +12,14 @@ angular.module('myApp.navbar', ['ngRoute'])
             type: "text"
         },
         {
+            label: "First name",
+            type: "text"
+        },
+        {
+            label: "Last name",
+            type: "text"
+        },
+        {
             label: "Email",
             type: "text"
         },
@@ -26,8 +34,30 @@ angular.module('myApp.navbar', ['ngRoute'])
     ];
     
     $rootScope.register = function() {
+
+        var post_data = $.param({
+            username: $rootScope.reg_inputs[0].ngModel,
+            first_name: $rootScope.reg_inputs[1].ngModel,
+            last_name: $rootScope.reg_inputs[2].ngModel,
+            email: $rootScope.reg_inputs[3].ngModel,
+            password: $rootScope.reg_inputs[4].ngModel,
+            confirm_password: $rootScope.reg_inputs[5].ngModel
+        });
+
+        var url = PATH_TO_API + 'users/create/';
+        //alert(post_data + " to " + url);
+        $http({
+            method: 'POST',
+            url: url,
+            data: post_data,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(data){
+
+            alert("User " + $rootScope.reg_inputs[0].ngModel + " created!");
+
+        }, function(data) { requestFailureFunction(data); });
         
-        alert("registering");
+        //alert("registering");
     };
 
     $rootScope.submitName = "Log in!";

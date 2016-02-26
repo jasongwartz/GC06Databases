@@ -5,12 +5,14 @@
     include '../../sql_statements.php';
     include '../../helper.php';
 
+    $post_data = validate_data("POST", array("username","first_name","last_name","email","password"));
     
-    $username = $_POST['username'];
-    $firstname = $_POST['first_name'];
-    $lastname = $_POST['last_name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $username = $post_data['username']['value'];
+    $firstname = $post_data['first_name']['value'];
+    $lastname = $post_data['last_name']['value'];
+    $email = $post_data['email']['value'];
+    $password = $post_data['password']['value'];
+ 
     
     $result = db_cud_function(users_create($username, $firstname, $lastname, $email, $password)); 
 

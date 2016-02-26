@@ -120,9 +120,9 @@ function validate_data($method, $names) {
             
             //Password case
             case "password":
-               
-                $returnData["password"] = validate_password($postValue);
                 
+                $returnData["password"] = validate_password($postValue);
+                //echo POST("password_confirmation");
                 break;
                 
             default:
@@ -196,7 +196,7 @@ function validate_id($id) {
 function validate_password($password) {
     
     $returnData = array();
-    
+        
     $uppercase = preg_match('@[A-Z]@', $password);
     $lowercase = preg_match('@[a-z]@', $password);
     $number    = preg_match('@[0-9]@', $password);
@@ -204,7 +204,7 @@ function validate_password($password) {
     if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
         $returnData["error"] = ""; 
     } else {
-        $returnData["value"] = $password;
+        $returnData["value"] = mysql_escape_string($password);
     }
     
     if(!$uppercase ) {
@@ -220,7 +220,7 @@ function validate_password($password) {
     }
 
     if (strlen($password) < 8) {
-        $returnData["error"] = "Password must have at least 8 characters. ";
+        $returnData["error"] .= "Password must have at least 8 characters. ";
     }        
     
     return $returnData;
