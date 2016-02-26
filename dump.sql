@@ -1,13 +1,13 @@
 # ************************************************************
 # Sequel Pro SQL dump
-# Version 4500
+# Version 4529
 #
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
 # Host: auctions.cjfabur5dk4o.us-east-1.rds.amazonaws.com (MySQL 5.6.23-log)
 # Database: auction_data
-# Generation Time: 2016-02-23 8:19:23 pm +0000
+# Generation Time: 2016-02-26 11:14:31 pm +0000
 # ************************************************************
 
 
@@ -28,12 +28,13 @@ DROP TABLE IF EXISTS `auctions`;
 CREATE TABLE `auctions` (
   `auction_id` int(11) NOT NULL AUTO_INCREMENT,
   `auction_item_id` int(11) NOT NULL,
-  `is_complete` tinyint(1) NOT NULL,
+  `is_complete` tinyint(1) NOT NULL DEFAULT '0',
   `start_time` timestamp NOT NULL,
   `end_time` timestamp NOT NULL,
   `reserve_price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`auction_id`),
-  KEY `auction_item_id` (`auction_item_id`)
+  KEY `auction_item_id` (`auction_item_id`),
+  CONSTRAINT `auctions_ibfk_1` FOREIGN KEY (`auction_item_id`) REFERENCES `items` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `auctions` WRITE;
@@ -41,7 +42,8 @@ LOCK TABLES `auctions` WRITE;
 
 INSERT INTO `auctions` (`auction_id`, `auction_item_id`, `is_complete`, `start_time`, `end_time`, `reserve_price`)
 VALUES
-	(1,30,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',0.00);
+	(2,102,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',200.00),
+	(3,107,0,'2016-02-26 15:34:08','2016-02-29 06:02:00',20000.00);
 
 /*!40000 ALTER TABLE `auctions` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -58,30 +60,13 @@ CREATE TABLE `bids` (
   `bid_price` decimal(10,2) NOT NULL,
   `bid_time` timestamp NOT NULL,
   `bid_auction_id` int(11) NOT NULL,
-  PRIMARY KEY (`bid_id`)
+  PRIMARY KEY (`bid_id`),
+  KEY `bidder_user_id` (`bidder_user_id`),
+  KEY `bid_auction_id` (`bid_auction_id`),
+  CONSTRAINT `bids_ibfk_1` FOREIGN KEY (`bidder_user_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`bid_auction_id`) REFERENCES `auctions` (`auction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `bids` WRITE;
-/*!40000 ALTER TABLE `bids` DISABLE KEYS */;
-
-INSERT INTO `bids` (`bid_id`, `bidder_user_id`, `bid_price`, `bid_time`, `bid_auction_id`)
-VALUES
-	(1,2,22.00,'2016-02-09 17:04:32',0),
-	(2,3,23.00,'2016-02-09 17:04:42',0),
-	(3,8,24.00,'2016-02-09 17:04:50',0),
-	(4,2,25.00,'2016-02-09 17:13:27',0),
-	(5,1,27.00,'2016-02-16 17:45:45',0),
-	(6,1,28.00,'2016-02-16 18:14:36',0),
-	(7,1,28.00,'2016-02-16 18:14:53',0),
-	(8,1,28.00,'2016-02-16 18:16:12',0),
-	(9,1,28.00,'2016-02-16 18:16:55',0),
-	(10,1,29.00,'2016-02-17 19:43:43',0),
-	(11,1,31.00,'2016-02-17 19:50:18',0),
-	(12,1,34.00,'2016-02-17 20:23:44',0),
-	(13,1,35.00,'2016-02-22 11:48:26',0);
-
-/*!40000 ALTER TABLE `bids` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table feedback
@@ -96,18 +81,15 @@ CREATE TABLE `feedback` (
   `feedback_auction_id` int(11) NOT NULL,
   `buyer_id` int(11) NOT NULL,
   `buyer_text` varchar(140) DEFAULT NULL,
-  PRIMARY KEY (`feedback_id`)
+  PRIMARY KEY (`feedback_id`),
+  KEY `seller_id` (`seller_id`),
+  KEY `buyer_id` (`buyer_id`),
+  KEY `feedback_auction_id` (`feedback_auction_id`),
+  CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`seller_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`buyer_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `feedback_ibfk_3` FOREIGN KEY (`feedback_auction_id`) REFERENCES `auctions` (`auction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `feedback` WRITE;
-/*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
-
-INSERT INTO `feedback` (`feedback_id`, `seller_text`, `seller_id`, `feedback_auction_id`, `buyer_id`, `buyer_text`)
-VALUES
-	(1,'i had fun',2,1,1,'it was groovy');
-
-/*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table hashtagories
@@ -125,7 +107,11 @@ LOCK TABLES `hashtagories` WRITE;
 
 INSERT INTO `hashtagories` (`text`)
 VALUES
+	(''),
 	('bananas'),
+	('new_tag'),
+	('sample'),
+	('test_tag'),
 	('vegan');
 
 /*!40000 ALTER TABLE `hashtagories` ENABLE KEYS */;
@@ -140,7 +126,10 @@ DROP TABLE IF EXISTS `item_hashtagories`;
 CREATE TABLE `item_hashtagories` (
   `tagged_item_id` int(11) NOT NULL,
   `hashtagory_text` varchar(20) NOT NULL,
-  PRIMARY KEY (`tagged_item_id`,`hashtagory_text`)
+  PRIMARY KEY (`tagged_item_id`,`hashtagory_text`),
+  KEY `hashtagory_text` (`hashtagory_text`),
+  CONSTRAINT `item_hashtagories_ibfk_1` FOREIGN KEY (`tagged_item_id`) REFERENCES `items` (`item_id`),
+  CONSTRAINT `item_hashtagories_ibfk_2` FOREIGN KEY (`hashtagory_text`) REFERENCES `hashtagories` (`text`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `item_hashtagories` WRITE;
@@ -149,9 +138,12 @@ LOCK TABLES `item_hashtagories` WRITE;
 INSERT INTO `item_hashtagories` (`tagged_item_id`, `hashtagory_text`)
 VALUES
 	(102,'bananas'),
-	(102,'raw'),
+	(104,'bananas'),
+	(103,'new_tag'),
+	(102,'sample'),
+	(104,'sample'),
 	(102,'vegan'),
-	(102,'yellow');
+	(104,'vegan');
 
 /*!40000 ALTER TABLE `item_hashtagories` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -167,7 +159,9 @@ CREATE TABLE `items` (
   `owner_user_id` int(11) NOT NULL,
   `title` varchar(50) NOT NULL DEFAULT '',
   `description` varchar(200) NOT NULL DEFAULT '',
-  PRIMARY KEY (`item_id`)
+  PRIMARY KEY (`item_id`),
+  KEY `owner_user_id` (`owner_user_id`),
+  CONSTRAINT `items_ibfk_1` FOREIGN KEY (`owner_user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `items` WRITE;
@@ -177,104 +171,10 @@ INSERT INTO `items` (`item_id`, `owner_user_id`, `title`, `description`)
 VALUES
 	(102,9,'a new name','I am so good at making up descriptions'),
 	(103,37,'arcu. Vestibulum ut','vulputate, lacus. Cras interdum. Nunc sollicitudin commodo ipsum. Suspendisse non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis,'),
-	(104,5,'sollicitudin orci sem','tellus, imperdiet non, vestibulum nec, euismod in, dolor. Fusce feugiat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam auctor,'),
-	(105,1,'urna suscipit nonummy.','non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod'),
-	(106,98,'vitae sodales nisi','et magnis dis parturient montes, nascetur ridiculus mus. Proin vel arcu eu odio tristique pharetra. Quisque ac libero nec ligula'),
-	(107,61,'at augue id','arcu vel quam dignissim pharetra. Nam ac nulla. In tincidunt congue turpis. In condimentum. Donec at arcu. Vestibulum ante ipsum'),
-	(108,53,'consequat dolor vitae','pellentesque, tellus sem mollis dui, in sodales elit erat vitae risus. Duis a mi fringilla mi lacinia mattis. Integer eu'),
-	(109,3,'magna. Phasellus test','iaculis enim, sit amet ornare lectus justo eu arcu. Morbi sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus'),
-	(110,81,'tortor nibh sit','mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut'),
-	(111,42,'Donec feugiat metus','orci quis lectus. Nullam suscipit, est ac facilisis facilisis, magna tellus faucibus leo, in lobortis tellus justo sit amet nulla.'),
-	(112,33,'magna a neque.','justo. Praesent luctus. Curabitur egestas nunc sed libero. Proin sed turpis nec mauris blandit mattis. Cras eget nisi dictum augue'),
-	(113,33,'lacus. Quisque purus','orci quis lectus. Nullam suscipit, est ac facilisis facilisis, magna tellus faucibus leo, in lobortis tellus justo sit amet nulla.'),
-	(114,77,'pede, malesuada vel,','amet luctus vulputate, nisi sem semper erat, in consectetuer ipsum nunc id enim. Curabitur massa. Vestibulum accumsan neque et nunc.'),
-	(115,29,'libero lacus, varius','aliquet magna a neque. Nullam ut nisi a odio semper cursus. Integer mollis. Integer tincidunt aliquam arcu. Aliquam ultrices iaculis'),
-	(116,4,'libero dui nec','lectus, a sollicitudin orci sem eget massa. Suspendisse eleifend. Cras sed leo. Cras vehicula aliquet libero. Integer in magna. Phasellus'),
-	(117,95,'et tristique pellentesque,','lacus. Cras interdum. Nunc sollicitudin commodo ipsum. Suspendisse non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis, pede.'),
-	(118,51,'sit amet ante.','Integer mollis. Integer tincidunt aliquam arcu. Aliquam ultrices iaculis odio. Nam interdum enim non nisi. Aenean eget metus. In nec'),
-	(119,55,'pharetra sed, hendrerit','consectetuer euismod est arcu ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu vel quam dignissim pharetra.'),
-	(120,86,'odio. Etiam ligula','ipsum leo elementum sem, vitae aliquam eros turpis non enim. Mauris quis turpis vitae purus gravida sagittis. Duis gravida. Praesent'),
-	(121,38,'eget varius ultrices,','at auctor ullamcorper, nisl arcu iaculis enim, sit amet ornare lectus justo eu arcu. Morbi sit amet massa. Quisque porttitor'),
-	(122,61,'orci tincidunt adipiscing.','non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod'),
-	(123,35,'sodales purus, in','mauris sit amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi pede, nonummy ut, molestie in,'),
-	(124,13,'arcu eu odio','in consectetuer ipsum nunc id enim. Curabitur massa. Vestibulum accumsan neque et nunc. Quisque ornare tortor at risus. Nunc ac'),
-	(125,63,'Donec egestas. Aliquam','pede sagittis augue, eu tempor erat neque non quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac'),
-	(126,28,'blandit congue. In','pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac, fermentum vel, mauris. Integer sem elit, pharetra ut, pharetra sed,'),
-	(127,36,'elit. Nulla facilisi.','interdum feugiat. Sed nec metus facilisis lorem tristique aliquet. Phasellus fermentum convallis ligula. Donec luctus aliquet odio. Etiam ligula tortor,'),
-	(128,46,'luctus et ultrices','dignissim tempor arcu. Vestibulum ut eros non enim commodo hendrerit. Donec porttitor tellus non magna. Nam ligula elit, pretium et,'),
-	(129,100,'at lacus. Quisque','egestas a, scelerisque sed, sapien. Nunc pulvinar arcu et pede. Nunc sed orci lobortis augue scelerisque mollis. Phasellus libero mauris,'),
-	(130,88,'Sed id risus','dictum eleifend, nunc risus varius orci, in consequat enim diam vel arcu. Curabitur ut odio vel est tempor bibendum. Donec'),
-	(131,75,'Donec porttitor tellus','lectus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec dignissim magna a tortor. Nunc commodo'),
-	(132,20,'imperdiet ullamcorper. Duis','dolor dolor, tempus non, lacinia at, iaculis quis, pede. Praesent eu dui. Cum sociis natoque penatibus et magnis dis parturient'),
-	(133,41,'mus. Aenean eget','nec urna suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia'),
-	(134,54,'tincidunt. Donec vitae','porttitor interdum. Sed auctor odio a purus. Duis elementum, dui quis accumsan convallis, ante lectus convallis est, vitae sodales nisi'),
-	(135,68,'nibh sit amet','eleifend. Cras sed leo. Cras vehicula aliquet libero. Integer in magna. Phasellus dolor elit, pellentesque a, facilisis non, bibendum sed,'),
-	(136,92,'consequat auctor, nunc','massa. Vestibulum accumsan neque et nunc. Quisque ornare tortor at risus. Nunc ac sem ut dolor dapibus gravida. Aliquam tincidunt,'),
-	(137,6,'mus. Proin vel','risus. Duis a mi fringilla mi lacinia mattis. Integer eu lacus. Quisque imperdiet, erat nonummy ultricies ornare, elit elit fermentum'),
-	(138,37,'lectus convallis est,','amet diam eu dolor egestas rhoncus. Proin nisl sem, consequat nec, mollis vitae, posuere at, velit. Cras lorem lorem, luctus'),
-	(139,88,'Suspendisse sed dolor.','mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque tellus, imperdiet non, vestibulum nec, euismod in,'),
-	(140,35,'nisi nibh lacinia','libero. Morbi accumsan laoreet ipsum. Curabitur consequat, lectus sit amet luctus vulputate, nisi sem semper erat, in consectetuer ipsum nunc'),
-	(141,81,'sed dictum eleifend,','volutpat. Nulla dignissim. Maecenas ornare egestas ligula. Nullam feugiat placerat velit. Quisque varius. Nam porttitor scelerisque neque. Nullam nisl. Maecenas'),
-	(142,92,'vitae aliquam eros','ullamcorper viverra. Maecenas iaculis aliquet diam. Sed diam lorem, auctor quis, tristique ac, eleifend vitae, erat. Vivamus nisi. Mauris nulla.'),
-	(143,63,'Duis cursus, diam','libero est, congue a, aliquet vel, vulputate eu, odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum'),
-	(144,67,'Proin vel nisl.','volutpat. Nulla dignissim. Maecenas ornare egestas ligula. Nullam feugiat placerat velit. Quisque varius. Nam porttitor scelerisque neque. Nullam nisl. Maecenas'),
-	(145,8,'porta elit, a','Etiam imperdiet dictum magna. Ut tincidunt orci quis lectus. Nullam suscipit, est ac facilisis facilisis, magna tellus faucibus leo, in'),
-	(146,79,'cubilia Curae; Phasellus','non, vestibulum nec, euismod in, dolor. Fusce feugiat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam auctor, velit eget'),
-	(147,31,'auctor velit. Aliquam','Mauris non dui nec urna suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum primis in faucibus orci luctus et'),
-	(148,99,'ullamcorper, nisl arcu','primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec tincidunt. Donec vitae erat vel pede blandit congue. In'),
-	(149,67,'nulla. In tincidunt','Sed nunc est, mollis non, cursus non, egestas a, dui. Cras pellentesque. Sed dictum. Proin eget odio. Aliquam vulputate ullamcorper'),
-	(150,70,'Nullam feugiat placerat','Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin vel nisl. Quisque fringilla euismod enim. Etiam'),
-	(151,78,'iaculis quis, pede.','ridiculus mus. Proin vel nisl. Quisque fringilla euismod enim. Etiam gravida molestie arcu. Sed eu nibh vulputate mauris sagittis placerat.'),
-	(152,39,'purus. Maecenas libero','ac turpis egestas. Aliquam fringilla cursus purus. Nullam scelerisque neque sed sem egestas blandit. Nam nulla magna, malesuada vel, convallis'),
-	(153,1,'velit justo nec','neque tellus, imperdiet non, vestibulum nec, euismod in, dolor. Fusce feugiat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam'),
-	(154,44,'mi lorem, vehicula','suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus'),
-	(155,17,'eget, ipsum. Donec','non nisi. Aenean eget metus. In nec orci. Donec nibh. Quisque nonummy ipsum non arcu. Vivamus sit amet risus. Donec'),
-	(156,86,'feugiat metus sit','nibh dolor, nonummy ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac, fermentum vel,'),
-	(157,18,'dictum magna. Ut','imperdiet dictum magna. Ut tincidunt orci quis lectus. Nullam suscipit, est ac facilisis facilisis, magna tellus faucibus leo, in lobortis'),
-	(158,75,'pretium neque. Morbi','Donec at arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec tincidunt. Donec vitae'),
-	(159,82,'eget tincidunt dui','a, facilisis non, bibendum sed, est. Nunc laoreet lectus quis massa. Mauris vestibulum, neque sed dictum eleifend, nunc risus varius'),
-	(160,6,'ipsum non arcu.','eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien. Nunc pulvinar arcu et'),
-	(161,35,'laoreet lectus quis','eu, accumsan sed, facilisis vitae, orci. Phasellus dapibus quam quis diam. Pellentesque habitant morbi tristique senectus et netus et malesuada'),
-	(162,29,'sed pede nec','mi eleifend egestas. Sed pharetra, felis eget varius ultrices, mauris ipsum porta elit, a feugiat tellus lorem eu metus. In'),
-	(163,57,'massa non ante','mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce fermentum fermentum'),
-	(164,32,'Nunc ac sem','ornare lectus justo eu arcu. Morbi sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus pede, ultrices a, auctor'),
-	(165,37,'Suspendisse non leo.','tempor augue ac ipsum. Phasellus vitae mauris sit amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In'),
-	(166,20,'ultricies ornare, elit','varius ultrices, mauris ipsum porta elit, a feugiat tellus lorem eu metus. In lorem. Donec elementum, lorem ut aliquam iaculis,'),
-	(167,39,'natoque penatibus et','ultricies dignissim lacus. Aliquam rutrum lorem ac risus. Morbi metus. Vivamus euismod urna. Nullam lobortis quam a felis ullamcorper viverra.'),
-	(168,75,'euismod est arcu','risus varius orci, in consequat enim diam vel arcu. Curabitur ut odio vel est tempor bibendum. Donec felis orci, adipiscing'),
-	(169,80,'nascetur ridiculus mus.','Donec fringilla. Donec feugiat metus sit amet ante. Vivamus non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien.'),
-	(170,66,'semper. Nam tempor','dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim. Suspendisse aliquet, sem'),
-	(171,14,'Phasellus at augue','Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien. Nunc pulvinar arcu et pede. Nunc sed orci lobortis augue'),
-	(172,90,'at, velit. Pellentesque','felis ullamcorper viverra. Maecenas iaculis aliquet diam. Sed diam lorem, auctor quis, tristique ac, eleifend vitae, erat. Vivamus nisi. Mauris'),
-	(173,22,'Cum sociis natoque','sem mollis dui, in sodales elit erat vitae risus. Duis a mi fringilla mi lacinia mattis. Integer eu lacus. Quisque'),
-	(174,78,'luctus lobortis. Class','Nam interdum enim non nisi. Aenean eget metus. In nec orci. Donec nibh. Quisque nonummy ipsum non arcu. Vivamus sit'),
-	(175,91,'Mauris blandit enim','erat neque non quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam fringilla cursus'),
-	(176,27,'Donec est. Nunc','ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at, egestas a,'),
-	(177,44,'pretium neque. Morbi','non ante bibendum ullamcorper. Duis cursus, diam at pretium aliquet, metus urna convallis erat, eget tincidunt dui augue eu tellus.'),
-	(178,33,'Ut tincidunt orci','rutrum eu, ultrices sit amet, risus. Donec nibh enim, gravida sit amet, dapibus id, blandit at, nisi. Cum sociis natoque'),
-	(179,36,'odio vel est','Vivamus euismod urna. Nullam lobortis quam a felis ullamcorper viverra. Maecenas iaculis aliquet diam. Sed diam lorem, auctor quis, tristique'),
-	(180,87,'tortor at risus.','imperdiet, erat nonummy ultricies ornare, elit elit fermentum risus, at fringilla purus mauris a nunc. In at pede. Cras vulputate'),
-	(181,67,'pharetra nibh. Aliquam','amet, risus. Donec nibh enim, gravida sit amet, dapibus id, blandit at, nisi. Cum sociis natoque penatibus et magnis dis'),
-	(182,13,'tempus non, lacinia','Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim. Suspendisse aliquet, sem ut cursus'),
-	(183,81,'ac nulla. In','hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec,'),
-	(184,62,'auctor, velit eget','feugiat metus sit amet ante. Vivamus non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer'),
-	(185,75,'blandit enim consequat','Proin non massa non ante bibendum ullamcorper. Duis cursus, diam at pretium aliquet, metus urna convallis erat, eget tincidunt dui'),
-	(186,60,'Integer eu lacus.','sem egestas blandit. Nam nulla magna, malesuada vel, convallis in, cursus et, eros. Proin ultrices. Duis volutpat nunc sit amet'),
-	(187,100,'a, arcu. Sed','Curae; Phasellus ornare. Fusce mollis. Duis sit amet diam eu dolor egestas rhoncus. Proin nisl sem, consequat nec, mollis vitae,'),
-	(188,19,'dictum cursus. Nunc','est ac mattis semper, dui lectus rutrum urna, nec luctus felis purus ac tellus. Suspendisse sed dolor. Fusce mi lorem,'),
-	(189,53,'felis. Nulla tempor','justo nec ante. Maecenas mi felis, adipiscing fringilla, porttitor vulputate, posuere vulputate, lacus. Cras interdum. Nunc sollicitudin commodo ipsum. Suspendisse'),
-	(190,64,'Duis cursus, diam','vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis'),
-	(191,21,'dictum. Proin eget','faucibus ut, nulla. Cras eu tellus eu augue porttitor interdum. Sed auctor odio a purus. Duis elementum, dui quis accumsan'),
-	(192,6,'Donec tincidunt. Donec','sem molestie sodales. Mauris blandit enim consequat purus. Maecenas libero est, congue a, aliquet vel, vulputate eu, odio. Phasellus at'),
-	(193,75,'erat, in consectetuer','vitae, erat. Vivamus nisi. Mauris nulla. Integer urna. Vivamus molestie dapibus ligula. Aliquam erat volutpat. Nulla dignissim. Maecenas ornare egestas'),
-	(194,52,'consequat purus. Maecenas','metus sit amet ante. Vivamus non lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae'),
-	(195,83,'ornare, elit elit','Nam ligula elit, pretium et, rutrum non, hendrerit id, ante. Nunc mauris sapien, cursus in, hendrerit consectetuer, cursus et, magna.'),
-	(196,23,'risus. Nunc ac','felis ullamcorper viverra. Maecenas iaculis aliquet diam. Sed diam lorem, auctor quis, tristique ac, eleifend vitae, erat. Vivamus nisi. Mauris'),
-	(197,90,'commodo ipsum. Suspendisse','facilisis eget, ipsum. Donec sollicitudin adipiscing ligula. Aenean gravida nunc sed pede. Cum sociis natoque penatibus et magnis dis parturient'),
-	(198,61,'Phasellus vitae mauris','amet, consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu imperdiet ullamcorper. Duis at'),
-	(199,87,'turpis. In condimentum.','orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu vel quam dignissim pharetra. Nam ac nulla. In tincidunt'),
-	(200,72,'cubilia Curae; Donec','sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim. Suspendisse aliquet, sem ut'),
-	(203,9,'stuff','I have words');
+	(104,9,'more stuff','and more descriptions'),
+	(107,1,'Stuff','things and such'),
+	(108,1,'A cunch of bunts','sdafsd #yolo'),
+	(110,1,'dsafdsfadsfdas','adslkfnlasdfds');
 
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -300,7 +200,7 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`username`, `user_id`, `first_name`, `last_name`, `email`, `password`)
 VALUES
-	('quam.bob',1,'George','Mccarthy','aliquet@dolordapibusgravida.net',''),
+	('quam.bob',1,'George','Mccarthy','asdflkjfdsa','hocus'),
 	('Proin',2,'Judah','Zamora','Donec@estconguea.com',''),
 	('asdf',3,'Laith','Harvey','nisi.magna.sed@Cumsociis.com',''),
 	('eget',4,'Fritz','Trujillo','lobortis.ultrices.Vivamus@dictum.ca',''),
@@ -410,19 +310,12 @@ DROP TABLE IF EXISTS `watches`;
 CREATE TABLE `watches` (
   `watch_user_id` int(11) NOT NULL,
   `watch_auction_id` int(11) NOT NULL,
-  PRIMARY KEY (`watch_user_id`,`watch_auction_id`)
+  PRIMARY KEY (`watch_user_id`,`watch_auction_id`),
+  KEY `watch_auction_id` (`watch_auction_id`),
+  CONSTRAINT `watches_ibfk_1` FOREIGN KEY (`watch_user_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `watches_ibfk_2` FOREIGN KEY (`watch_auction_id`) REFERENCES `auctions` (`auction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `watches` WRITE;
-/*!40000 ALTER TABLE `watches` DISABLE KEYS */;
-
-INSERT INTO `watches` (`watch_user_id`, `watch_auction_id`)
-VALUES
-	(0,1),
-	(3,1);
-
-/*!40000 ALTER TABLE `watches` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 
@@ -450,28 +343,7 @@ END */;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_create`(IN auction_item_id INT(11), IN start_time timestamp, IN end_time timestamp, IN reserve_price varchar(12))
 BEGIN
 INSERT INTO `auctions` (auctions.auction_item_id, auctions.start_time, auctions.end_time, auctions.reserve_price) VALUES(auction_item_id, start_time, end_time, CAST(reserve_price AS DECIMAL(10,2)));
-END */;;
-
-/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
-# Dump of PROCEDURE auctions_hastagory
-# ------------------------------------------------------------
-
-/*!50003 DROP PROCEDURE IF EXISTS `auctions_hastagory` */;;
-/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_hastagory`(IN hash1 varchar(20), IN hash2 varchar(20), IN hash3 varchar(20), IN hash4 varchar(20), IN hash5 varchar(20))
-BEGIN
-	
-    SELECT * FROM `item_hashtagories` as ih, `items` as i, `auctions` as a WHERE
-    (ih.hashtagory_text = hash1 OR
-    ih.hashtagory_text = hash2 OR
-    ih.hashtagory_text = hash3 OR
-    ih.hashtagory_text = hash4 OR
-    ih.hashtagory_text = hash5 ) AND
-    i.item_id = ih.tagged_item_id AND
-    i.item_id = a.auction_item_id AND
-    a.is_complete = 0;
-    
-    
+SELECT last_insert_id();
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -493,8 +365,9 @@ END */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_self`(IN auction_id INT(11))
 BEGIN
-	SELECT * FROM `auctions`
+SELECT items.*, users.username, auctions.* FROM `auctions`
     LEFT JOIN `items` ON auctions.auction_item_id = items.item_id
+    LEFT JOIN `users` ON items.owner_user_id = users.user_id
     WHERE auctions.auction_id = auction_id;
 END */;;
 
@@ -550,6 +423,7 @@ END */;;
 BEGIN
 INSERT INTO `bids` (bids.bidder_user_id, bids.bid_price, bids.bid_time, bids.bid_auction_id)
     VALUES(bidder_user_id, CAST(bid_price AS DECIMAL(10,2)), NOW(), bid_auction_id);
+SELECT last_insert_id();
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -630,6 +504,29 @@ SELECT * FROM `auctions` AS a, `items` AS i WHERE a.is_complete = 0 AND a.auctio
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE hashtagories_all
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `hashtagories_all` */;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `hashtagories_all`()
+BEGIN
+SELECT text FROM hashtagories;
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE hashtagories_search
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `hashtagories_search` */;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `hashtagories_search`(IN str varchar(20))
+BEGIN
+SELECT text FROM hashtagories
+WHERE text LIKE str;
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
 # Dump of PROCEDURE hashtagories_self
 # ------------------------------------------------------------
 
@@ -638,6 +535,33 @@ END */;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `hashtagories_self`(IN hashtext VARCHAR(20))
 BEGIN
 	INSERT IGNORE INTO `hashtagories` values(hashtext);
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE hashtagories_tag_item
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `hashtagories_tag_item` */;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `hashtagories_tag_item`(IN item_id INT(11), IN hashtag varchar(20))
+BEGIN
+    INSERT INTO hashtagories VALUES (hashtag);
+INSERT IGNORE INTO item_hashtagories (tagged_item_id, hashtagory_text) VALUES(item_id, hashtag);
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE hashtagories_trending
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `hashtagories_trending` */;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `hashtagories_trending`()
+BEGIN
+SELECT ih.hashtagory_text, COUNT(*) as count
+FROM items i, item_hashtagories ih, auctions a
+WHERE i.item_id = ih.tagged_item_id AND a.`auction_item_id` = i.`item_id` AND a.`is_complete` = 0
+GROUP BY ih.hashtagory_text ORDER BY count DESC
+LIMIT 10;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -650,6 +574,7 @@ END */;;
 BEGIN
 	INSERT INTO `items` (`owner_user_id`, `title`, `description`)
     VALUES(owner_user_id, title, description);
+    SELECT last_insert_id();
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -698,10 +623,21 @@ END */;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `items_user_items`(IN owner_user_id INT(11))
 BEGIN
 SELECT `item_id`, `owner_user_id`, `title`, `description`, GROUP_CONCAT(`hashtagory_text` ORDER BY `hashtagory_text` SEPARATOR ',') AS 'hashtagory_text'
-    FROM `items` I LEFT OUTER JOIN `item_hashtagories` IH
+    FROM `items` as I LEFT OUTER JOIN `item_hashtagories` as  IH
     ON I.item_id = IH.tagged_item_id
-    AND I.owner_user_id = owner_user_id
-    GROUP BY I.owner_user_id;
+    WHERE I.owner_user_id = owner_user_id
+    GROUP BY I.item_id;
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE users_authenticate
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `users_authenticate` */;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `users_authenticate`(IN username varchar(20), IN password varchar(20))
+BEGIN
+	select user_id from users where users.username = username AND users.password = password;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -710,9 +646,15 @@ END */;;
 
 /*!50003 DROP PROCEDURE IF EXISTS `users_change_password` */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `users_change_password`(IN username varchar(10), IN new_password varchar(20))
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `users_change_password`(IN userid int(11), IN old_password varchar(20), IN new_password varchar(20))
 BEGIN
-UPDATE `users` SET `password`= new_password WHERE `username` = username;
+set @v1 = (select users.user_id from `users` where users.password = old_password AND users.user_id = userid);
+IF @v1 = userid THEN
+	UPDATE `users` SET `password`= new_password WHERE `user_id` = userid;
+ELSE
+	SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = 'INCORRECT USER NAME AND/OR PASSWORD';
+END IF;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -729,7 +671,7 @@ IN email varchar(50),
 IN pass varchar(20)
 )
 BEGIN
- INSERT INTO `user` (`username`, `first_name`, `last_name`, `email`, `password`)
+ INSERT INTO `users` (`username`, `first_name`, `last_name`, `email`, `password`)
  values (username, first_name, last_name, email, pass);
 END */;;
 
@@ -790,6 +732,7 @@ END */;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `watches_create`(IN watch_user_id INT(11), IN watch_auction_id INT(11))
 BEGIN
 	INSERT IGNORE INTO watches VALUES(watch_user_id, watch_auction_id);
+    SELECT last_insert_id();
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -815,7 +758,7 @@ END */;;
 BEGIN
 	SELECT * FROM auctions AS a
     LEFT JOIN items AS i ON a.auction_item_id = i.item_id
-    LEFT JOIN watchs AS w ON a.auction_id = w.watch_auction_id
+    LEFT JOIN watches AS w ON a.auction_id = w.watch_auction_id
     WHERE w.watch_user_id = user_id;
 END */;;
 
