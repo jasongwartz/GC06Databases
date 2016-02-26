@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('controller.auction', ['ngRoute'])
+angular.module('controllers.auction', [])
 
 .controller('auctionCtrl', ['$scope', '$http', function($scope, $http) {
 

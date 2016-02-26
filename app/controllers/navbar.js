@@ -1,4 +1,4 @@
-angular.module('controller.navbar', ['ngRoute'])
+angular.module('controllers.navbar', [])
 
 .controller('navbarCtrl', ['$rootScope', '$http', function($rootScope, $http) {
 

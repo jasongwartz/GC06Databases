@@ -1,4 +1,4 @@
-angular.module('directive.inputPopup', [])
+angular.module('directives.inputPopup', [])
 
 .directive('inputPopup', function() {
     return {

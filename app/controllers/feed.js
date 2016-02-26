@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('controller.feed', ['ngRoute'])
+angular.module('controllers.feed', [])
 
 .controller('feedCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 

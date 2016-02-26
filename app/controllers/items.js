@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('controller.items', ['ngRoute'])
+angular.module('controllers.items', [])
 
 .controller('itemsCtrl', ['$scope', '$http', function($scope, $http) {
 

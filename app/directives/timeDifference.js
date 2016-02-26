@@ -1,4 +1,4 @@
-angular.module('directive.timeDifference', [])
+angular.module('directives.timeDifference', [])
 
 .directive('timeDifference', ['$interval', 'dateFilter', function($interval, dateFilter) {
 

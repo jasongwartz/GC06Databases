@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('controller.feedback', ['ngRoute'])
+angular.module('controllers.feedback', [])
 
 .controller('feedbackCtrl', ['$scope', '$http', function($scope, $http) {
 

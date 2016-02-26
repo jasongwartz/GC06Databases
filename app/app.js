@@ -2,22 +2,20 @@
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
-   
-  'ngRoute',
   
   // Directives
   'angularUtils.directives.dirPagination',
-  'directive.inputPopup',
-  'directive.hashPopup',
-  'directive.timeDifference',
+  'directives.inputPopup',
+  'directives.hashPopup',
+  'directives.timeDifference',
   
   // Controllers
-  'controller.feed',
-  'controller.navbar',
-  'controller.account',
-  'controller.auction',
-  'controller.feedback',
-  'controller.items',
+  'controllers.feed',
+  'controllers.navbar',
+  'controllers.account',
+  'controllers.auction',
+  'controllers.feedback',
+  'controllers.items',
   
   // Routes
   'routes'

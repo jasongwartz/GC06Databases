@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('controller.account', ['ngRoute'])
+angular.module('controllers.account', [])
 
 .controller('accountCtrl', ['$scope', '$http', function($scope, $http) {
 

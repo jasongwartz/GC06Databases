@@ -1,4 +1,4 @@
-angular.module('directive.hashPopup', [])
+angular.module('directives.hashPopup', [])
 
 .directive('hashPopup', function() {
     return {
