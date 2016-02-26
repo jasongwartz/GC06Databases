@@ -36,7 +36,8 @@ angular.module('myApp.account', ['ngRoute'])
             email: $scope.detailsInputs[2].ngModel
         });
 
-        var url = PATH_TO_API + 'users/update/';
+        alert(post_data);
+        var url = PATH_TO_API + 'users/update/?access_token=' + sessionStorage.getItem('access_token');
         //alert(post_data + " to " + url);
         $http({
             method: 'POST',
@@ -45,17 +46,20 @@ angular.module('myApp.account', ['ngRoute'])
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(data){
 
+            get_user_data();
+
             alert("User info updated!");
 
         }, function(data) { requestFailureFunction(data); });
         
-        alert("Submitting form! " + $scope.detailsInputs[0].ngModel);
+        //alert("Submitting form! " + $scope.detailsInputs[0].ngModel);
     };
     
     $scope.detailsSetupFn = function() {
 //        alert("asasdasd " + $scope.user.first_name);
         $scope.detailsInputs[0].ngModel = $scope.user.first_name; 
         $scope.detailsInputs[1].ngModel = $scope.user.last_name; 
+        $scope.detailsInputs[2].ngModel = $scope.user.email; 
         
     };
     
@@ -83,13 +87,17 @@ angular.module('myApp.account', ['ngRoute'])
 
 
 //    alert(sessionStorage.getItem('user_id'))
+        get_user_data();
+
+
+    }
+    
+    function get_user_data() {
         $http.get(PATH_TO_API + 'users?user_id='+ sessionStorage.getItem('user_id') +'&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
 
             $scope.user = data.data[0];
         
         }, function(data) { requestFailureFunction(data); });
-
-
     }
     
 }]);
