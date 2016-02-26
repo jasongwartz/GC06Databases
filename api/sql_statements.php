@@ -4,8 +4,8 @@
 //    return "SELECT * FROM `auctions`";
 //}
 
-function authenticate_self($username, $password) {
-    return "CALL authenticate_self('{$username}','{$password}');";
+function users_authenticate($username, $password) {
+    return "CALL users_authenticate('{$username}','{$password}');";
 }
 
 function users_self($user_id) {  
