@@ -24,109 +24,40 @@
 </head>
 <body ng-app="myApp" class="bg-main">
     
-    <nav ng-controller="navbarCtrl" id="mainNav" class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a ng-if="logged_in" ng-click="watchlist_filter()" class="navbar-brand page-scroll" href="">Following</a>
-                
-                           
-                <!--<a class="navbar-brand page-scroll" href=""></a>-->
-            </div>
-            
+  <div ng-include src="'templates/navbar.html'"></div>
 
-            <!--<img height="4%" width="4%" src="img/hashtagories.png"/>-->
-
-            
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="col-lg-5 pull-right">
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                    <ul class="nav navbar-nav navbar-right"> 
-
-                    <form class="navbar-form navbar-left">
-                    <div class="input-group stylish-input-group">
-                        <input type="text" class="form-control"  placeholder="Search" >
-                        <span class="input-group-addon">
-                            <button ng-click="search_filter()" type="submit">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>  
-                        </span>
-                    </div>
-                    </form> 
-
-                        <li >
-                            <a class="page-scroll" href="#/feed">Home</a>
-                        </li>
-                        <li >
-
-                            <a ng-if="logged_in" id="menu" class="page-scroll dropdown" href="" data-toggle="dropdown">
-                                Account
-
-                                <ul class="dropdown-menu">
-                                  <li><a href="#/account">Personal Details</a></li>
-                                  <li><a href="#/items">Items</a></li>
-                                  <li><a href="#/feedback">Feedback</a></li>
-                                  <li class="divider"></li>
-                                  <li><a href="#" ng-click="log_out()">Log out</a></li>
-                                </ul>
-
-                            </a>
-
-                            <a ng-if="!logged_in" data-toggle="modal" data-target="#login" href="">Log In</a>
-
-                        </li>
-
-                    </ul>
-
-                </div>
-            </div>
-        
-
-        </div>
-        
-     
-    </nav>
-    <hash-popup class="pull-right"  popup-id="login" title="popupTitle" inputs="inputs"
-        submit-name="submitName" submit-fn="log_in()"
-        btn-class="">
-        <a data-toggle="modal" data-dismiss="modal" data-target="#register" href="">
-            Register Here!
-        </a>
-    </hash-popup>
-    <hash-popup class="pull-right"  popup-id="register" title="reg_popupTitle" inputs="reg_inputs"
-        submit-name="reg_submitName" submit-fn="register()"
-        btn-class="">
-        
-    </hash-popup>
   <div ng-view></div>
 
-  <!--<div>Angular seed app: v<span app-version></span></div>-->
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+
+  <!-- Configuration & App Root -->
   <script src="config.js"></script>
   <script src="app.js"></script>
-  <script src="lib/angularUtils/pagination/dirPagination.js"></script>
   
-  <script src="directives/directives.js"></script>
-  <script src="navbar.js"></script>
-  <script src="viewItems/items.js"></script>
-  <script src="viewAuction/auction.js"></script>
-  <script src="viewFeed/feed.js"></script>
-  <script src="viewFeedback/feedback.js"></script>
-  <script src="viewAccount/account.js"></script>
+  <!-- Directives -->
+  <script src="lib/angularUtils/pagination/dirPagination.js"></script>
+  <script src="directives/inputPopup.js"></script>
+  <script src="directives/hashPopup.js"></script>
+  <script src="directives/timeDifference.js"></script>
+  
+  <!-- Controllers/Routes -->
+  <script src="controllers/navbar.js"></script>
+  <script src="controllers/items.js"></script>
+  <script src="controllers/auction.js"></script>
+  <script src="controllers/feed.js"></script>
+  <script src="controllers/feedback.js"></script>
+  <script src="controllers/account.js"></script>
+  
+  <!-- Routes -->
+  <script src="routes/routes.js"></script>
+  
+  <!-- Angular Components -->
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
+  
+  <!-- Bootstrap -->
   <script src="lib/bootstrap-3.3.6/js/bootstrap.min.js"></script>
   
 </body>

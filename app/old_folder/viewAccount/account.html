@@ -1,0 +1,68 @@
+<section>
+    
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <div class="card">
+                    
+                    <h1>Account Settings <small class="text-muted">@{{user.username}}</small></h1>
+                    <hr class="light">
+
+                  </div>
+           </div>
+        </div> 
+        
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1">
+                <div class="card hash-card">
+                    <div class="card-block">
+                      <!--<h4 class="card-title text-center">Personal Details</h4>-->
+                      
+                        <!--<p>{{user.first_name}} {{user.last_name}}</p>-->
+                        <input-popup setup-fn="detailsSetupFn()"
+                                     popup-id="details" title="detailsPopupTitle" inputs="detailsInputs"
+                            submit-name="detailsSubmitName" submit-fn="detailsSubmitForm()"
+                            btn-class="btn btn-block btn-info">Edit Personal Details   
+                        </input-popup>
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card hash-card">
+                    <div class="card-block">
+                      <!--<h4 class="card-title text-center">Change Password</h4>-->
+                        <input-popup
+                            popup-id="pass" title="passPopupTitle" inputs="passInputs"
+                            submit-name="passSubmitName" submit-fn="passSubmitForm()"
+                            btn-class="btn btn-block btn-info">Change Password   
+                        </input-popup>
+                    </div>
+                </div>
+            </div>
+        </div>         
+        <br/>
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1">
+                <div class="card hash-card">
+                    <div class="card-block text-center">
+                        <a href="#/items"><h1>Items</h1></a>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card hash-card">
+                    <div class="card-block text-center">
+                        <a href="#/feedback"><h1>Feedback</h1></a>
+                        <br/>
+                    </div>
+                  </div>
+            </div>
+        </div>   
+        
+    </div>
+
+    
+</section>

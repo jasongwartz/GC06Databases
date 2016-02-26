@@ -1,0 +1,85 @@
+<section>
+    
+    <div class="container-fluid">    
+        <div class="row">
+            <div class="col-lg-3">
+
+                <div class="card hash-card">
+                    <img height="100%" width="100%" src="img/item_image.png" alt="item image"/>
+                    <div class="card-block">
+                        <br/>
+                        <h3>{{auction.title}}
+                            <br/><small class="text-muted">By @{{auction.username}}</small></h3>
+                        <p>
+                            {{auction.description}}
+                        </p>
+
+                    </div>
+                </div>
+            </div>  
+            <div class="col-lg-6">
+
+                <div class="card hash-card">
+                    <button ng-if="logged_in && !isInWatches(auction.auction_id)" ng-click="add_to_watchlist(auction)" class="pull-right btn btn-info fa fa-star-o"></button>
+                    <button ng-if="!logged_in" class="pull-right btn btn-info fa fa-star-o" title="Log in to follow" disabled></button>
+                    <button ng-if="logged_in && isInWatches(auction.auction_id)" ng-click="remove_from_watchlist(auction)" class="pull-right btn btn-info fa fa-star"></button>
+                    
+                    <div class="card-block">
+                        <h3>Highest Bid: £{{bids[0].bid_price}}</h3>
+                        <h4><time-difference date="auction.end_time"></time-difference> <small>at {{auction_end_time}}</small></h4>
+                        
+                        <div class="card-text text-center">
+
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input-popup ng-if="logged_in && root_user_id != auction.owner_user_id" popup-id="bids" title="popupTitle" inputs="inputs"
+                            submit-name="submitName" submit-fn="place_bid()"
+                            btn-class="btn btn-block btn-info glyphicon glyphicon glyphicon-plus-sign">     
+                        </input-popup>
+                        <button ng-if="!logged_in" 
+                            class="btn btn-block btn-info glyphicon glyphicon glyphicon-plus-sign"
+                            title="Please log in to bid."
+                            disabled>     
+                        </button>
+                        <button ng-if="logged_in && root_user_id == auction.owner_user_id" 
+                            class="btn btn-block btn-info glyphicon glyphicon glyphicon-plus-sign"
+                            title="You can't bid on your own item."
+                            disabled>     
+                        </button>
+                    </div>
+                </div>
+
+                <hr class="light"/>
+
+                <div class="card hash-card" ng-repeat="bid in bids">
+<!--                    <button ng-if="root_user_id == bid.bidder_user_id"
+                            ng-click="delete_bid()"
+                            class="pull-right btn btn-info fa fa-times">
+                    </button>-->
+                    <div class="card-block">
+
+                        <h4>£{{bid.bid_price}} <small>at {{bid.bid_time}} by @{{bid.bidder_user_id}}</small>
+
+                        </h4>
+                    </div>
+                </div>            
+            </div> 
+            
+            <div ng-if="root_user_id == auction.owner_user_id" class="col-lg-3">
+
+                <div class="card hash-card">
+                    <div class="card-block">
+                        <h3>Owner dashboard</h3>
+                        <h4>Reserve Price: £{{auction.reserve_price}} </h4>
+                        
+
+                    </div>
+                </div>
+            </div> 
+        </div>
+        
+    </div>
+
+    
+</section>
