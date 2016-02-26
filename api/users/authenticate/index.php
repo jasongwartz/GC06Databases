@@ -1,11 +1,8 @@
 <?php
-// authenticate/self POST
-    
+// users/authenticate POST
 
-    //Make an access token save it in the session and get the users id.
-
-    include '../sql_statements.php';
-    include '../helper.php';
+    include '../../sql_statements.php';
+    include '../../helper.php';
 
     header('content-type: application/x-www-form-urlencoded');
     
@@ -21,9 +18,11 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
     
-    $result = TRUE;//db_r_function(authenticate_self($username, $password));
+    $result = db_r_function(users_authenticate($username, $password));
 
-    if ($result) {
+    //echo $result . " ". users_authenticate($username, $password);
+    
+    if ( $result != "[]" ) {
         http_response_code(200);
         
         session_start();
@@ -31,13 +30,13 @@
         $token = md5(uniqid(rand(), true));
 
         $_SESSION['access_token'] = $token;
-        echo '{"access_token":"' . $token . '","user_id":1}';
         
+        $user_id = json_decode($result, TRUE)[0]["user_id"];
         
-//        echo $result;
+        echo '{"access_token":"' . $token . '","user_id":' . $user_id . '}';
         
     } else {
-        http_response_code(201);
-        echo '{error:"Invalid username and password"}';
+        http_response_code(401);
+        echo '{"error":"Invalid username and password pair."}';
     }
 

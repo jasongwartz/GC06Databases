@@ -1,13 +1,6 @@
 'use strict';
 
-angular.module('myApp.items', ['ngRoute'])
-
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/items', {
-    templateUrl: 'viewItems/items.html',
-    controller: 'itemsCtrl'
-  });
-}])
+angular.module('controllers.items', [])
 
 .controller('itemsCtrl', ['$scope', '$http', function($scope, $http) {
 

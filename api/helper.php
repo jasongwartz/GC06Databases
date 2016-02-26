@@ -41,7 +41,7 @@ function db_r_function($sql) {
     $data = array();
     $index = 0;
     
-    echo $conn->error;
+    //echo $conn->error;
     
     if ($conn->error === TRUE) {
         

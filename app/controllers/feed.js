@@ -1,13 +1,6 @@
 'use strict';
 
-angular.module('myApp.feed', ['ngRoute'])
-
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/feed', {
-    templateUrl: 'viewFeed/feed.html',
-    controller: 'feedCtrl'
-  });
-}])
+angular.module('controllers.feed', [])
 
 .controller('feedCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 

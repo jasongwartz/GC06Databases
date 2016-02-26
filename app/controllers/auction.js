@@ -1,13 +1,6 @@
 'use strict';
 
-angular.module('myApp.auction', ['ngRoute'])
-
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/auction', {
-    templateUrl: 'viewAuction/auction.html',
-    controller: 'auctionCtrl'
-  });
-}])
+angular.module('controllers.auction', [])
 
 .controller('auctionCtrl', ['$scope', '$http', function($scope, $http) {
 

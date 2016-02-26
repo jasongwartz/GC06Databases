@@ -4,8 +4,8 @@
 //    return "SELECT * FROM `auctions`";
 //}
 
-function authenticate_self($username, $password) {
-    return "CALL authenticate_self('{$username}','{$password}');";
+function users_authenticate($username, $password) {
+    return "CALL users_authenticate('{$username}','{$password}');";
 }
 
 function users_self($user_id) {  
@@ -20,8 +20,8 @@ function users_update($user_id, $username, $first_name, $last_name, $email) {
     return "CALL users_update({$user_id}, NULL, '{$first_name}', '{$last_name}', '{$email}');";
 }
 
-function users_change_password($username, $new_password) {
-    return "CALL users_change_password({$username}, {$new_password});";
+function users_change_password($username, $old_password, $new_password) {
+    return "CALL users_change_password({$user_id}, '{$old_password}', '{$new_password}');";
 }
 
 function get_auctions_feed(){

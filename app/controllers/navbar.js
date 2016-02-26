@@ -1,4 +1,4 @@
-angular.module('myApp.navbar', ['ngRoute'])
+angular.module('controllers.navbar', [])
 
 .controller('navbarCtrl', ['$rootScope', '$http', function($rootScope, $http) {
 
@@ -79,12 +79,17 @@ angular.module('myApp.navbar', ['ngRoute'])
 
     $rootScope.log_in = function() {
 
+        if ($rootScope.inputs[0].ngModel === undefined || $rootScope.inputs[1].ngModel === undefined) {
+            alert("Please fill in username and password.");
+            return;
+        }
+
         var post_data = $.param({
             username: $rootScope.inputs[0].ngModel,
             password: $rootScope.inputs[1].ngModel
         });
 
-        var url = PATH_TO_API + 'authenticate/';
+        var url = PATH_TO_API + 'users/authenticate/';
         //alert(post_data + " to " + url);
         $http({
             method: 'POST',
@@ -104,7 +109,9 @@ angular.module('myApp.navbar', ['ngRoute'])
             
             $rootScope.root_user_id = data.data.user_id;
 
-        }, function(data) { requestFailureFunction(data); });
+        }, function(data) { 
+            alert(data.data.error);
+        });
         
     };
 

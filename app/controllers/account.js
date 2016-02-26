@@ -1,15 +1,8 @@
 'use strict';
 
-angular.module('myApp.account', ['ngRoute'])
+angular.module('controllers.account', [])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/account', {
-    templateUrl: 'viewAccount/account.html',
-    controller: 'AccountCtrl'
-  });
-}])
-
-.controller('AccountCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('accountCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.detailsPopupTitle = "Edit Personal Details";
     $scope.detailsInputs = [
@@ -80,6 +73,31 @@ angular.module('myApp.account', ['ngRoute'])
     ];
     $scope.passSubmitName = "Change Password";
     $scope.passSubmitForm = function() {
+               
+        if ($scope.detailsInputs[1].ngModel !== $scope.detailsInputs[2].ngModel) {
+            alert("Passwords do not match!");
+        }
+        
+        var post_data = $.param({
+            user_id: sessionStorage.getItem("user_id"),
+            old_password: $scope.detailsInputs[0].ngModel,
+            new_password: $scope.detailsInputs[1].ngModel
+        });
+
+        alert(post_data);
+        var url = PATH_TO_API + 'users/change_password/?access_token=' + sessionStorage.getItem('access_token');
+        //alert(post_data + " to " + url);
+        $http({
+            method: 'POST',
+            url: url,
+            data: post_data,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(data){
+
+            alert("Password changed!");
+
+        }, function(data) { requestFailureFunction(data); });
+        
         alert("Changing pass! " );
     };
 
