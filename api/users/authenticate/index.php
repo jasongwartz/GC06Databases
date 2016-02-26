@@ -20,7 +20,7 @@
     
     $result = db_r_function(users_authenticate($username, $password));
 
-    // echo $result . " ". users_authenticate($username, $password);
+    //echo $result . " ". users_authenticate($username, $password);
     
     if ( $result != "[]" ) {
         http_response_code(200);
@@ -36,7 +36,7 @@
         echo '{"access_token":"' . $token . '","user_id":' . $user_id . '}';
         
     } else {
-        http_response_code(200);
-        echo '{error:"Invalid username and password pair."}';
+        http_response_code(401);
+        echo '{"error":"Invalid username and password pair."}';
     }
 

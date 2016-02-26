@@ -109,7 +109,9 @@ angular.module('controllers.navbar', [])
             
             $rootScope.root_user_id = data.data.user_id;
 
-        }, function(data) { requestFailureFunction(data); });
+        }, function(data) { 
+            alert(data.data.error);
+        });
         
     };
 
