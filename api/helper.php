@@ -15,7 +15,7 @@ function db_cud_function($sql) {
     } 
 
     $result = $conn->query($sql);
-    echo $result . ' ' . $sql;
+    //echo $result . ' ' . $sql;
 
     echo $conn->error;
     
@@ -124,7 +124,12 @@ function validate_data($method, $names) {
                 $returnData["password"] = validate_password($postValue);
                 //echo POST("password_confirmation");
                 break;
+            
+            case "new_password":
                 
+                $returnData["new_password"] = validate_password($postValue);
+                //echo POST("password_confirmation");
+                break;                
 //            case "username":
 //            case "first_name":
 //            case "last_name":
@@ -145,7 +150,7 @@ function validate_data($method, $names) {
     
     if ($error) {
         
-        $errorStr = "{error:[";
+        $errorStr = "{\"error\":[";
         for ($i=0; $i<count($names); $i++) {
 
             if ($returnData[$names[$i]]["error"]) {
