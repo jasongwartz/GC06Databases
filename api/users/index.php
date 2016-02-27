@@ -1,5 +1,5 @@
 <?php
-// users/self
+// users/self GET
 
     include '../auth.php';
     include '../sql_statements.php';

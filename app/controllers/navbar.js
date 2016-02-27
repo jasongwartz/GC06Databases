@@ -165,11 +165,9 @@ angular.module('controllers.navbar', [])
         
         $rootScope.add_to_watchlist = function(auction) {
             var post_data = $.param({
-                    watch_user_id: sessionStorage.getItem("user_id"),
-                    watch_auction_id: auction.auction_id
-
-                });
-
+                watch_user_id: sessionStorage.getItem("user_id"),
+                watch_auction_id: auction.auction_id
+            });
 
             var url = PATH_TO_API + 'watches/create/?access_token=' + sessionStorage.getItem('access_token');
     //        alert(post_data + " to " + url);
@@ -179,7 +177,7 @@ angular.module('controllers.navbar', [])
                 data: post_data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function(data){
-
+                alert(JSON.stringify(data));
                 get_watches();
 
             }, function(data) { requestFailureFunction(data); });        

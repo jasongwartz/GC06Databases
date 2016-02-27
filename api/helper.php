@@ -17,7 +17,13 @@ function db_cud_function($sql) {
     $result = $conn->query($sql);
     //echo $result . ' ' . $sql;
 
-    echo $conn->error;
+    //echo $conn->error;
+    
+    if ($result) {
+        $result = TRUE;
+    } else {
+        $result = $conn->error;
+    }
     
     $conn->close();     
 //    echo $result;

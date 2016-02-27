@@ -4,18 +4,12 @@
     include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
+    include '../../post_header.php';
 
-    header('content-type: application/x-www-form-urlencoded');
+    $post_data = validate_data("POST", array("item_id"));
     
-    if(empty($_SERVER['CONTENT_TYPE'])){
-
-         $type = "application/x-www-form-urlencoded";
-
-         $_SERVER['CONTENT_TYPE'] = $type;
-
-    }
-
-    $item_id = $_POST['item_id'];
+    $item_id = $post_data['item_id']['value'];
+    
     $result = db_cud_function(items_delete($item_id));
 
     if ($result) {
