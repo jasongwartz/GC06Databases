@@ -95,9 +95,9 @@ function validate_data($method, $names) {
             continue;
         }
         
-        if (preg_match('@user_id@', $names[$i]) || preg_match('@auction_id@', $names[$i])) {
+        if ( preg_match('@_id@', $names[$i]) ) {
 
-            if (!preg_match('@[0-9]+@', $method($names[$i]))) {
+            if ( !is_numeric($method($names[$i])) ) {
                 $returnData[$names[$i]]["error"] = "'" . $names[$i] . "' value is not an integer.";
                 $error = TRUE;
                 continue;                    

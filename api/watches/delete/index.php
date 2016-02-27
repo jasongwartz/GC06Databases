@@ -8,7 +8,7 @@
     
     $post_data = validate_data("POST", array("watch_user_id", "watch_auction_id"));
 
-    $watch_user_id = $post_dataT['watch_user_id']['value'];
+    $watch_user_id = $post_data['watch_user_id']['value'];
     $watch_auction_id = $post_data['watch_auction_id']['value'];
     
     $result = db_cud_function(watches_delete($watch_user_id, $watch_auction_id));

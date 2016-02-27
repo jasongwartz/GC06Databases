@@ -99,8 +99,6 @@ angular.module('controllers.navbar', [])
         }).then(function(data){
 
             $rootScope.logged_in = true;
-
-//            alert(data.data + ' ' + $rootScope.logged_in);
             
             sessionStorage.setItem('logged_in', JSON.stringify(true));
             
@@ -108,6 +106,8 @@ angular.module('controllers.navbar', [])
             sessionStorage.setItem('user_id', JSON.stringify(data.data.user_id));
             
             $rootScope.root_user_id = data.data.user_id;
+            
+            alert( sessionStorage.getItem('user_id') );
 
         }, function(data) { 
             alert(data.data.error);

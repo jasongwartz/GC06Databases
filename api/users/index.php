@@ -1,12 +1,13 @@
 <?php
 // users/self GET
 
-    include '../auth.php';
+    //include '../auth.php';
     include '../sql_statements.php';
     include '../helper.php';
 
     $user_id = $_GET['user_id'];
 
+    //echo users_self($user_id);
     $result = db_r_function(users_self($user_id)); 
 
     if ($result) {
