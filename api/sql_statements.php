@@ -59,9 +59,6 @@ return "CALL auctions_user_auctions({$user_id});";}
 function user_feed($user_id){
 return "CALL user_feed({$user_id});";}
 
-function auctions_hastagory($hash1, $hash2, $hash3, $hash4, $hash5){
-return "CALL auctions_hastagory`({$hash1}, {$hash2}, {$hash3}, {$hash4}, {$hash5});";}
-
 function bids_self($bid_id){
 return "CALL bids_self({$bid_id});";}
 
@@ -101,4 +98,8 @@ function hashtagories_all(){
 
 function hashtagories_search($str){
     return "CALL hashtagories_search({$str});";
+}
+
+function hashtagories_tag_item($item_id, $hashtag){
+    return "CALL hashtagories_tag_item({$item_id}, {$hashtag});";
 }
