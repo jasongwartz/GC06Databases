@@ -1,18 +1,25 @@
 <?php
-// feedback/update
+// feedback/update POST
 
-include '../auth.php';
-    include '../sql_statements.php';
-    include '../helper.php';
+    include '../../auth.php';
+    include '../../sql_statements.php';
+    include '../../helper.php';
+    include '../../post_header.php';
+    
+    $post_data = validate_data("POST", array("feedback_text", "user_id", "feedback_id"));
+    
+    $feedback_text = $post_data['feedback_text']['value'];
+    $user_id = $post_data['user_id']['value'];
+    $feedback_id = $post_data['feedback_id']['value'];
 
-    //$id = intval($_GET['id']);
-    //$result = db_r_function(user($id));
+    
+    $result = db_cud_function(feedback_update($feedback_text, $user_id, $feedback_id)); 
 
     if ($result) {
-        http_response_code(200);
+        http_response_code(201);
         echo $result;
         
     } else {
-        http_response_code(500);
-        echo '{error:"no data returned"}';
+        http_response_code(304); //Not modified
+        echo '{data:false}';
     }
