@@ -7,7 +7,7 @@
 #
 # Host: auctions.cjfabur5dk4o.us-east-1.rds.amazonaws.com (MySQL 5.6.23-log)
 # Database: auction_data
-# Generation Time: 2016-02-26 11:14:31 pm +0000
+# Generation Time: 2016-02-28 9:24:26 pm +0000
 # ************************************************************
 
 
@@ -42,7 +42,7 @@ LOCK TABLES `auctions` WRITE;
 
 INSERT INTO `auctions` (`auction_id`, `auction_item_id`, `is_complete`, `start_time`, `end_time`, `reserve_price`)
 VALUES
-	(2,102,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',200.00),
+	(2,102,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',200.00),
 	(3,107,0,'2016-02-26 15:34:08','2016-02-29 06:02:00',20000.00);
 
 /*!40000 ALTER TABLE `auctions` ENABLE KEYS */;
@@ -335,6 +335,19 @@ BEGIN
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE auctions_close
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `auctions_close` */;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_close`(IN auction_id INT)
+BEGIN
+    UPDATE auctions
+    SET is_complete=1
+    WHERE auctions.auction_id=auction_id;
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
 # Dump of PROCEDURE auctions_create
 # ------------------------------------------------------------
 
@@ -493,17 +506,6 @@ BEGIN
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
-# Dump of PROCEDURE get_auctions_feed
-# ------------------------------------------------------------
-
-/*!50003 DROP PROCEDURE IF EXISTS `get_auctions_feed` */;;
-/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `get_auctions_feed`()
-BEGIN
-SELECT * FROM `auctions` AS a, `items` AS i WHERE a.is_complete = 0 AND a.auction_item_id = i.item_id ORDER BY `end_time` ASC;
-END */;;
-
-/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
 # Dump of PROCEDURE hashtagories_all
 # ------------------------------------------------------------
 
@@ -637,7 +639,7 @@ END */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `users_authenticate`(IN username varchar(20), IN password varchar(20))
 BEGIN
-	select user_id from users where users.username = username AND users.password = password;
+	select user_id from users where BINARY users.username = username AND BINARY users.password = password;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -648,7 +650,7 @@ END */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `users_change_password`(IN userid int(11), IN old_password varchar(20), IN new_password varchar(20))
 BEGIN
-set @v1 = (select users.user_id from `users` where users.password = old_password AND users.user_id = userid);
+set @v1 = (select users.user_id from `users` where BINARY users.password = old_password AND users.user_id = userid);
 IF @v1 = userid THEN
 	UPDATE `users` SET `password`= new_password WHERE `user_id` = userid;
 ELSE
@@ -683,7 +685,7 @@ END */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `users_self`(IN user_id int(11))
 BEGIN
- SELECT users.username, users.user_id, users.first_name, users.last_name, users.email FROM `users` WHERE `user_id` = user_id;
+ SELECT users.username, users.user_id, users.first_name, users.last_name, users.email FROM `users` WHERE users.user_id = user_id;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;

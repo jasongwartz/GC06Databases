@@ -47,6 +47,10 @@ return "CALL auctions_self({$auction_id});";}
 function auctions_create($auction_item_id, $start_time, $end_time, $reserve_price){
 return "CALL auctions_create({$auction_item_id}, '{$start_time}', '{$end_time}', {$reserve_price});";}
 
+function auction_close($auction_id){
+    return "CALL auctions_close({$auction_id});";
+}
+
 function auctions_cancel($auction_id){
 return "CALL auctions_cancel({$auction_id});";}
 
