@@ -6,6 +6,7 @@
     include '../../helper.php';
 
     $watch_user_id = $_GET['watch_user_id']; 
+    
     $result = db_r_function(watches_user_watches($watch_user_id));
 
     if ($result) {

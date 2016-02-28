@@ -20,7 +20,7 @@ function users_update($user_id, $username, $first_name, $last_name, $email) {
     return "CALL users_update({$user_id}, NULL, '{$first_name}', '{$last_name}', '{$email}');";
 }
 
-function users_change_password($username, $old_password, $new_password) {
+function users_change_password($user_id, $old_password, $new_password) {
     return "CALL users_change_password({$user_id}, '{$old_password}', '{$new_password}');";
 }
 
@@ -87,11 +87,11 @@ return "CALL watches_delete({$watch_user_id}, {$watch_auction_id});";}
 function feedback_for_user($user_id){
 return "CALL feedback_for_user({$user_id});";}
 
-function feedback_for_action($feedback_auction_id){
+function feedback_for_auction($feedback_auction_id){
 return "CALL feedback_for_action({$feedback_auction_id});";}
 
 function feedback_update($feedback_text, $user_id, $feedback_id){
-return "CALL feedback_update({$feedback_text}, {$user_id}, {$feedback_id});";}
+return "CALL feedback_update('{$feedback_text}', {$user_id}, {$feedback_id});";}
 
 function hashtagories_trending(){
     return "CALL hashtagories_trending();";}

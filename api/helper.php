@@ -15,9 +15,15 @@ function db_cud_function($sql) {
     } 
 
     $result = $conn->query($sql);
-    echo $result . ' ' . $sql;
+    //echo $result . ' ' . $sql;
 
-    echo $conn->error;
+    //echo $conn->error;
+    
+    if ($result) {
+        $result = TRUE;
+    } else {
+        $result = $conn->error;
+    }
     
     $conn->close();     
 //    echo $result;
@@ -89,9 +95,9 @@ function validate_data($method, $names) {
             continue;
         }
         
-        if (preg_match('@user_id@', $names[$i]) || preg_match('@auction_id@', $names[$i])) {
+        if ( preg_match('@_id@', $names[$i]) ) {
 
-            if (!preg_match('@[0-9]+@', $method($names[$i]))) {
+            if ( !is_numeric($method($names[$i])) ) {
                 $returnData[$names[$i]]["error"] = "'" . $names[$i] . "' value is not an integer.";
                 $error = TRUE;
                 continue;                    
@@ -124,7 +130,12 @@ function validate_data($method, $names) {
                 $returnData["password"] = validate_password($postValue);
                 //echo POST("password_confirmation");
                 break;
+            
+            case "new_password":
                 
+                $returnData["new_password"] = validate_password($postValue);
+                //echo POST("password_confirmation");
+                break;                
 //            case "username":
 //            case "first_name":
 //            case "last_name":
@@ -145,7 +156,7 @@ function validate_data($method, $names) {
     
     if ($error) {
         
-        $errorStr = "{error:[";
+        $errorStr = "{\"error\":[";
         for ($i=0; $i<count($names); $i++) {
 
             if ($returnData[$names[$i]]["error"]) {

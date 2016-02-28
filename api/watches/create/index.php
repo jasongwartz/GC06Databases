@@ -4,19 +4,12 @@
     include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
-
-    header('content-type: application/x-www-form-urlencoded');
+    include '../../post_header.php';
     
-    if(empty($_SERVER['CONTENT_TYPE'])){
+    $post_data = validate_data("POST", array("watch_user_id", "watch_auction_id"));
 
-         $type = "application/x-www-form-urlencoded";
-
-         $_SERVER['CONTENT_TYPE'] = $type;
-
-    }
-
-    $watch_user_id = $_POST['watch_user_id'];
-    $watch_auction_id = $_POST['watch_auction_id'];
+    $watch_user_id = $post_data['watch_user_id']['value'];
+    $watch_auction_id = $post_data['watch_auction_id']['value'];
     
     $result = db_cud_function(watches_create($watch_user_id, $watch_auction_id));
 

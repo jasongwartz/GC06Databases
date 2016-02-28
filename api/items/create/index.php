@@ -4,20 +4,13 @@
     include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
-
-    header('content-type: application/x-www-form-urlencoded');
+    include '../../post_header.php';
     
-    if(empty($_SERVER['CONTENT_TYPE'])){
+    $post_data = validate_data("POST", array("owner_user_id", "title", "description"));
 
-         $type = "application/x-www-form-urlencoded";
-
-         $_SERVER['CONTENT_TYPE'] = $type;
-
-    }
-
-    $owner_user_id = $_POST['owner_user_id'];
-    $title = $_POST['title'];
-    $description = $_POST['description'];
+    $owner_user_id = $post_data['owner_user_id']['value'];
+    $title = $post_data['title']['value'];
+    $description = $post_data['description']['value'];
     
     preg_match_all("/#(\w+)/", $description, $tags);
     

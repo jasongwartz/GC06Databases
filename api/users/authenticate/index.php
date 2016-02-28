@@ -3,20 +3,13 @@
 
     include '../../sql_statements.php';
     include '../../helper.php';
+    include '../../post_header.php';
+    include '../../post_header.php';
 
-    header('content-type: application/x-www-form-urlencoded');
+    $post_data = validate_data("POST", array("username", "password"));
     
-    if(empty($_SERVER['CONTENT_TYPE'])){
-
-         $type = "application/x-www-form-urlencoded";
-
-         $_SERVER['CONTENT_TYPE'] = $type;
-
-    }
-
-    
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = $post_data['username']['value'];
+    $password = $post_data['password']['value'];
     
     $result = db_r_function(users_authenticate($username, $password));
 

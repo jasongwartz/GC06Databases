@@ -4,16 +4,7 @@
     include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
-
-    header('content-type: application/x-www-form-urlencoded');
-    
-    if(empty($_SERVER['CONTENT_TYPE'])){
-
-         $type = "application/x-www-form-urlencoded";
-
-         $_SERVER['CONTENT_TYPE'] = $type;
-
-    }
+    include '../../post_header.php';
     
     $post_data = validate_data("POST", array("user_id", "first_name", "last_name", "email"));
     

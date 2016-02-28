@@ -4,6 +4,7 @@
     include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
+    include '../../post_header.php';
 
     $post_data = validate_data("POST", array("username","first_name","last_name","email","password"));
     

@@ -29,7 +29,7 @@ angular.module('controllers.account', [])
             email: $scope.detailsInputs[2].ngModel
         });
 
-        alert(post_data);
+        //alert(post_data);
         var url = PATH_TO_API + 'users/update/?access_token=' + sessionStorage.getItem('access_token');
         //alert(post_data + " to " + url);
         $http({
@@ -39,9 +39,20 @@ angular.module('controllers.account', [])
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(data){
 
-            get_user_data();
+            //alert(JSON.stringify(data));
+            if (data.data.error === undefined) {
 
-            alert("User info updated!");
+                get_user_data();
+
+                alert("User info updated!");
+            } else {
+                var errStr = "";
+                for (var i=0; i<data.data.error.length; i++) {
+                    
+                    errStr += data.data.error[i] + "\n";
+                }
+                alert(errStr);
+            }
 
         }, function(data) { requestFailureFunction(data); });
         
@@ -73,15 +84,15 @@ angular.module('controllers.account', [])
     ];
     $scope.passSubmitName = "Change Password";
     $scope.passSubmitForm = function() {
-               
-        if ($scope.detailsInputs[1].ngModel !== $scope.detailsInputs[2].ngModel) {
+        alert($scope.passInputs[1].ngModel + " " + $scope.passInputs[2].ngModel)
+        if ($scope.passInputs[1].ngModel !== $scope.passInputs[2].ngModel) {
             alert("Passwords do not match!");
         }
         
         var post_data = $.param({
             user_id: sessionStorage.getItem("user_id"),
-            old_password: $scope.detailsInputs[0].ngModel,
-            new_password: $scope.detailsInputs[1].ngModel
+            password: $scope.passInputs[0].ngModel,
+            new_password: $scope.passInputs[1].ngModel
         });
 
         alert(post_data);
