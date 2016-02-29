@@ -5,8 +5,10 @@
     include '../../sql_statements.php';
     include '../../helper.php';
 
-    $watch_user_id = $_GET['watch_user_id']; 
+    $get_data = validate_data("GET", array("watch_user_id"));
     
+    $watch_user_id = $get_data['user_id']['value'];
+
     $result = db_r_function(watches_user_watches($watch_user_id));
 
     if ($result) {

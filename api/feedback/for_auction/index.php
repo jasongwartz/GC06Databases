@@ -5,9 +5,9 @@
     include '../../sql_statements.php';
     include '../../helper.php';
 
-    $get_data = validate_data("GET", array("auction_id"));
+    $get_data = validate_data("GET", array("feedback_auction_id"));
     
-    $feedback_auction_id = $get_data['auction_id']['value'];
+    $feedback_auction_id = $get_data['feedback_auction_id']['value'];
 
     //echo feedback_for_auction($feedback_auction_id);
     $result = db_r_function(feedback_for_auction($feedback_auction_id)); 
