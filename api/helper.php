@@ -89,7 +89,7 @@ function validate_data($method, $names) {
         if ($method($names[$i]) != NULL) {  
             
             // Strips tags and mysql escapes the string.
-            $postValue = mysql_escape_string( strip_tags($method($names[$i])) );
+            $postValue = mysql_escape_string( htmlspecialchars(strip_tags($method($names[$i]))) );
            
         } else {
             $returnData[$names[$i]]["error"] = $method . " variable '" . $names[$i] . "' is not set.";
