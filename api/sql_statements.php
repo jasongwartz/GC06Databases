@@ -19,11 +19,7 @@ function users_update($user_id, $username, $first_name, $last_name, $email) {
 function users_change_password($user_id, $old_password, $new_password) {
     return "CALL users_change_password({$user_id}, '{$old_password}', '{$new_password}');";
 }
-
-function get_auctions_feed(){
-    return "CALL get_auctions_feed();";
-}
-    
+  
 function items_self($item_id){
     return "CALL items_self({$item_id});";
 }
@@ -105,11 +101,11 @@ function feedback_for_user($user_id){
 }
 
 function feedback_for_auction($feedback_auction_id){
-    return "CALL feedback_for_action({$feedback_auction_id});";
+    return "CALL feedback_for_auction({$feedback_auction_id});";
 }
 
-function feedback_update($feedback_text, $user_id, $feedback_id){
-    return "CALL feedback_update('{$feedback_text}', {$user_id}, {$feedback_id});";
+function feedback_update($feedback_text, $user_id, $feedback_auction_id){
+    return "CALL feedback_update('{$feedback_text}', {$user_id}, {$feedback_auction_id});";
 }
 
 function hashtagories_trending(){
