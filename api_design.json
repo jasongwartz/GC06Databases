@@ -8,6 +8,15 @@
         }
     },
     
+    "authenticate": {
+        "self": {
+            "type": "POST",
+            "params": [
+                "username",
+                "password"
+            ]
+        }
+    },
     
     "users": {
         "self": {
@@ -16,14 +25,16 @@
                 "user_id"
             ],
             "returns": "User object"
+            //sproc: users_self(username, pass)
         },
         "create": {
             "type": "POST",
             "params": [
-                "username", "first_name", "last_name", "password"
+                "username", "first_name", "last_name", "email", "password"
             ],
             "returns": [              
             ]
+            //sproc: users_create(username, first_name, last_name, email, pass)
         },
         "change_password": {
             "type": "POST",
@@ -32,11 +43,13 @@
             ],
             "returns": [
             ]
+            //sproc: users_change_password(username, new_password)
         },
         "all_feed": {
             "type": "GET",
             "params": [
             ]
+            //sproc: get_auctions_feed()
         }          
     },
     
@@ -47,18 +60,21 @@
                 "item_id"
             ],
             "returns": "Single item object including hashtagory_ids property"
+            //sproc: items_self("item_id")
         },
         "create": {
             "type": "POST",
             "params": [
                 "owner_user_id", "title", "description"
             ]
+            //sproc: items_create("owner_user_id", "title", "description")
         },
         "update": {
             "type": "POST",
             "params": [
                 "item_id", "title", "description"
             ]
+            //sproc: items_update("item_id", "title", "description")
         },
         "user_items": {
             "type": "GET",
@@ -66,12 +82,15 @@
                 "owner_user_id"
             ],
             "returns": "Array of item objects"
+            //sproc: items_user_items("owner_user_id")
+            //note, some issues, may have to split up the query
         },
         "delete": {
             "type": "POST",
             "params": [
                 "item_id"
             ]
+            //sproc:items_delete("item_id")
         }
     },
     
@@ -81,6 +100,7 @@
             "params": [
                 "text"
             ]
+            //sproc:items_self("text")
         },
         "search": {
             "type": "GET",
@@ -88,6 +108,7 @@
                 "search_string"
             ],
             "returns": "Array of hashtagories"
+            //discuss
         }
     },
     
@@ -99,6 +120,7 @@
                 "auction_id"
             ],
             "return": "Single auction object"
+            //sproc: auctions_self("auction_id")
         },
         
         "create": {
@@ -108,18 +130,21 @@
                 "start_time",
                 "end_time",
                 "reserve_price"
-            ]            
+            ]
+            //sproc: auctions_create("auction_item_id", "start_time", "end_time", "reserve_price")
         },
         "cancel": {
             "type": "POST",
             "params": [
                 "auction_id"
             ]
+            //sproc: auctions_cancel("auction_id")
         },
         "retrieve_all": {
             "type": "GET",
             "params": [],
             "return": "Array of auction objects"
+            //sproc: auctions_retrieve_all()
         },
         "user_auctions": {
             "type": "GET",
@@ -127,6 +152,7 @@
                 "user_id"
             ],
             "return": "Array of auction objects"
+            //sproc: auctions_user_auctions("user_id")
         },
         "user_feed": { // watchlist + active auctions
             "type": "GET",
@@ -134,11 +160,13 @@
                 "user_id"
             ],
             "return": "Array of auction objects from watchlist and bids"
+            //sproc: user_feed("user_id") note: need to update tables so they have matching column numbers to be able to union
         },
         "hashtagory": {
             "type": "GET",
             "params": "hashtagory_text",
             "return": "Array of auction objects"
+            //sproc: auctions_hastagory`(hash1,hash2,hash3,hash4,hash5)
         },
         
         // CRON task to close
@@ -157,14 +185,16 @@
             "type": "GET",
             "params": "bid_id",
             "returns": "Joined bid and auction object"
+            // sproc: bids_self("bid_id")
         },
         "create": {
             "type": "POST",
             "params": [
                 "bidder_user_id",
                 "bid_price",
-                "bid_action_id" // bid-time calculated on server
+                "bid_auction_id" // bid-time calculated on server
             ]
+            //sproc: bids_create("bidder_user_id","bid_price","bid_auction_id")
         },
         "user_bids": {
             "type": "GET",
@@ -172,12 +202,14 @@
                 "user_id"
             ],
             "returns": "Array of JOINed bid and auction objects"
+            //sproc: bids_user_bids(user_id)
         },
         "auction_bids": {
             "params": [
-                "bid_action_id"
+                "bid_auction_id"
             ],
             "returns": "Array of bid objects"
+            //sproc: bids_auction_bids(bid_auction_id)
         }        
     },
     
@@ -188,20 +220,23 @@
                 "user_id"
             ],
             "returns": "Array of auction objects"
+            //sproc: watches_user_watches(user_id)
         },
         "create": {
             "type": "POST",
             "params": [
-                "watch_auction_id",
-                "watch_user_id"
+                "watch_user_id",
+                "watch_auction_id"
             ]
+            //sproc: watches_create(watch_user_id, watch_auction_id)
         },
         "delete": {
             "type": "POST",
             "params": [
-                "watch_auction_id",
-                "watch_user_id"
+                "watch_user_id",
+                "watch_auction_id"
             ]
+            //sproc: watches_delete(watch_user_id, watch_auction_id)
         }
     },
     
@@ -212,11 +247,13 @@
                 "user_id"
             ],
             "returns": "Array of feedback objects where user_id == buyer_id OR seller_id"
+            //sproc: feedback_for_user(user_id)
         },
         "for_auction": {
             "type": "GET",
             "params": "feedback_auction_id",
             "returns": "Single feedback object"
+            //sproc: feedback_for_action(feedback_auction_id)
         },
         "update": {
             "type": "POST",
@@ -226,6 +263,7 @@
                 "feedback_id"
             ] // SQL will check if user_id == buyer or seller and 
                 // update the appropriate text field
+            //sproc: feedback_update(feedback_text, user_id, feedback_id)
         }       
     }
        

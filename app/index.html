@@ -9,6 +9,11 @@
   <title>Hashtagories</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="icon" 
+      type="image/ico" 
+      href="img/favicon_hashtagories.ico">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="css/app.css">
@@ -17,92 +22,42 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body class="bg-main">
+<body ng-app="myApp" class="bg-main">
     
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand page-scroll" href="">Following</a>
-                
-                           
-                <!--<a class="navbar-brand page-scroll" href=""></a>-->
-            </div>
-            
-            <div class="col-md-3 col-md-offset-6">
-                <form class="navbar-form">
-                <div class="input-group stylish-input-group">
-                    <input type="text" class="form-control"  placeholder="Search" >
-                    <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>  
-                    </span>
-                </div>
-                </form>
-            </div>
-            
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="col-md-2">
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                <ul class="nav navbar-nav navbar-right"> 
-
-                    <li >
-                        <a class="page-scroll" href="#/feed">Home</a>
-                    </li>
-                    <li >
-                        
-                        <a ng-if="logged_in" class="page-scroll dropdown" href="" data-toggle="dropdown">
-                            Account
-                            
-                        <ul class="dropdown-menu">
-                          <li><a href="#/account">Personal Details</a></li>
-                          <li><a href="#/items">Items</a></li>
-                          <li><a href="#/feedback">Feedback</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">Log out</a></li>
-                        </ul></a>
-                        
-                        <a ng-if="!logged_in" href="#/login">Log in</a>
-                    </li>
-                    
-                </ul>
-            </div>
-            </div>
-            
-
-        </div>
-     
-    </nav>
-
+  <div ng-include src="'templates/navbar.html'"></div>
 
   <div ng-view></div>
 
-  <!--<div>Angular seed app: v<span app-version></span></div>-->
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+
+  <!-- Configuration & App Root -->
+  <script src="config.js"></script>
   <script src="app.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
-  <script src="viewLogin/login.js"></script>
-  <script src="viewItems/items.js"></script>
-  <script src="viewAuction/auction.js"></script>
-  <script src="viewFeed/feed.js"></script>
-  <script src="viewFeedback/feedback.js"></script>
-  <script src="viewAccount/account.js"></script>
+  
+  <!-- Directives -->
+  <script src="lib/angularUtils/pagination/dirPagination.js"></script>
+  <script src="directives/inputPopup.js"></script>
+  <script src="directives/hashPopup.js"></script>
+  <script src="directives/timeDifference.js"></script>
+  
+  <!-- Controllers/Routes -->
+  <script src="controllers/navbar.js"></script>
+  <script src="controllers/items.js"></script>
+  <script src="controllers/auction.js"></script>
+  <script src="controllers/feed.js"></script>
+  <script src="controllers/feedback.js"></script>
+  <script src="controllers/account.js"></script>
+  
+  <!-- Routes -->
+  <script src="routes/routes.js"></script>
+  
+  <!-- Angular Components -->
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
+  
+  <!-- Bootstrap -->
   <script src="lib/bootstrap-3.3.6/js/bootstrap.min.js"></script>
   
 </body>

@@ -1,0 +1,35 @@
+<div style="padding: 0.25em">
+  <button ng-click="setupFn()" type="button" class="{{btnClass}}" data-toggle="modal" data-target="#{{popupId}}" ng-transclude></button>    
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="{{popupId}}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{title}}</h4>
+        </div>
+        <div class="modal-body">
+            <!--<p ng-repeat="input in inputs">{{input}}. Some text in the modal.</p>-->
+            <div class="row" ng-repeat="input in inputs">
+                <div class="col-sm-10 col-sm-offset-1 input-group">
+                    <span class="input-group-addon">{{input.label}}</span>
+                    <div ng-switch="input.type">
+                        <textarea ng-model="input.ngModel" ng-switch-when="textarea" value="{{input.value}}" class="form-control" rows="5"></textarea>                    
+                        <input ng-model="input.ngModel" ng-switch-default type="{{input.type}}" value="{{input.value}}" class="form-control" aria-label="">
+                    </div>
+                </div>           
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+            
+            <button type="button" class="btn btn-block btn-info" data-dismiss="modal" ng-click="submitFn()">{{submitName}}</button>
+   
+      </div>
+      
+    </div>
+  </div>

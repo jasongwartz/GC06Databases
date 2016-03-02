@@ -1,3 +1,0 @@
-<?php
-// auctions/hashtagory
-
