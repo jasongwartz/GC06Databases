@@ -1,7 +1,6 @@
 <?php
 // users/create POST 
 
-    include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
     include '../../post_header.php';
