@@ -21,7 +21,7 @@
     
     if ( $token != $session_token || !isset($_SESSION['access_token']) ) {
         http_response_code(401);
-        die('Access token invalid ' . $_GET["access_token"]);
+        die('{"error":"Access token invalid \'' . $_GET["access_token"] . '\'."}');
         
     }
 
