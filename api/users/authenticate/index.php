@@ -20,10 +20,11 @@
         session_start();
 
         $token = md5(uniqid(rand(), true));
-
-        $_SESSION['access_token'] = $token;
         
         $user_id = json_decode($result, TRUE)[0]["user_id"];
+
+        $_SESSION['access_token'] = $token;
+        $_SESSION['user_id'] = $user_id;
         
         echo '{"access_token":"' . $token . '","user_id":' . $user_id . '}';
         
