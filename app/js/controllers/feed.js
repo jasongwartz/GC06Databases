@@ -19,10 +19,23 @@ angular.module('controllers.feed', [])
 //
 //    }
     
-    $http.get(PATH_TO_API + 'auctions/retrieve_all').then(function(data){
-    //        alert(data.data);
-    
-        $scope.auctions = data.data;
+    switch($rootScope.filter) { 
+
         
-    }, function(data) { requestFailureFunction(data); });
+        case "WATCH" :
+
+            $scope.auctions = $rootScope.watches;
+
+        break;
+        
+        default:
+            $http.get(PATH_TO_API + 'auctions/retrieve_all').then(function(data){
+            //        alert(data.data);
+
+                $scope.auctions = data.data;
+
+            }, function(data) { requestFailureFunction(data); });
+        break;
+        
+    }
 }]);

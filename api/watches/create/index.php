@@ -12,7 +12,7 @@
     $watch_auction_id = $post_data['watch_auction_id']['value'];
     
     $result = db_cud_function(watches_create($watch_user_id, $watch_auction_id));
-
+    
     if ($result) {
         http_response_code(201);
         echo $result;

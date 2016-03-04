@@ -2,7 +2,7 @@
 
 angular.module('controllers.auction', [])
 
-.controller('auctionCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('auctionCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 
     $scope.popupTitle = "Make a bid!";
     $scope.inputs = [
@@ -16,16 +16,10 @@ angular.module('controllers.auction', [])
         alert("Submitting form! " + $scope.inputs[0].ngModel);
     };
     
-    
-
-    function dateFormatter(date){
-//        alert(date);
-        date = new Date(date);
-        return date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() 
-            + " " + date.getHours()+":"+ date.getMinutes()+":"+date.getSeconds();
-    }
-
     var auction_id = window.location.href.split('?')[1];
+    
+    //$scope.isInWatches = isInWatches(auction_id);
+    
     get_bids(auction_id);
     //alert(auction_id);
     $http.get(PATH_TO_API + 'auctions/?auction_id='+ auction_id ).then(function(data){
@@ -74,5 +68,14 @@ angular.module('controllers.auction', [])
         });
 
     };
+    
+
+
+    function dateFormatter(date){
+//        alert(date);
+        date = new Date(date);
+        return date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() 
+            + " " + date.getHours()+":"+ date.getMinutes()+":"+date.getSeconds();
+    }    
     
 }]);
