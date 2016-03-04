@@ -1,0 +1,27 @@
+<section>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <div class="card">
+
+                    <h1>Profile for <small class="text-muted">@{{user_id}}</small></h1>
+                    <hr class="light">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+
+                <div class="card" ng-repeat="feedback in feedback_group"><h4>{{feedback.feedback_auction_id}}</h4>
+                    <div ng-if="feedback.feedback_seller_id = user_id">Seller, buyer's feedback was : {{feedback.buyer_text}}</div>
+                    <div ng-if="feedback.feedback_buyer_id = user_id">Buyer, seller's feedback was : {{feedback.seller_text}}</div>
+                </div>
+
+            </div>
+        </div>
+        <br/>
+    </div>
+</section>
