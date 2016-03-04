@@ -2,7 +2,7 @@
 
 angular.module('controllers.feed', [])
 
-.controller('feedCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+.controller('feedCtrl', ['$scope', '$http', '$rootScope', '$routeParams', function($scope, $http, $rootScope, $routeParams) {
 
     
     $scope.auctions = [];
@@ -19,8 +19,17 @@ angular.module('controllers.feed', [])
 //
 //    }
     
+    console.log($rootScope.filter);
+    
+    
     switch($rootScope.filter) { 
 
+        case "SEARCH":
+            console.log($routeParams)
+            $http.get(PATH_TO_API + 'auctions/search?query='+$routeParams['query']).then(function(data){
+                 $scope.auctions = data.data
+            }, function(data) { requestFailureFunction(data); })
+        break
         
         case "WATCH" :
 

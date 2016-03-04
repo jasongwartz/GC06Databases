@@ -1,6 +1,6 @@
 angular.module('controllers.navbar', [])
 
-.controller('navbarCtrl', ['$rootScope', '$http', function($rootScope, $http) {
+.controller('navbarCtrl', ['$rootScope', '$http', '$location', '$route', '$scope', function($rootScope, $http, $location, $route, $scope) {
 
     $rootScope.logged_in = logged_in();
 
@@ -148,15 +148,14 @@ angular.module('controllers.navbar', [])
         
         
     };
-    
-    
- 
+
+    // Search functionality
     $rootScope.search_filter = function() {
-        
         $rootScope.filter = "SEARCH";
-        alert('Search filtering');
-        
+        $location.path("/search").search({query: $scope.search_query});
     };
+       
+    
     
     if (logged_in()) {
         
