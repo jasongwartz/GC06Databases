@@ -46,8 +46,21 @@ angular.module('routes', ['ngRoute'])
   $routeProvider.when('/search', {
     templateUrl: 'views/feed.html',
     controller: 'feedCtrl'
+
+.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/profile/:user_id', {
+    templateUrl: 'views/profile.html',
+    controller: 'profileCtrl'
   });
 }])
+
+.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/user', {
+    templateUrl: 'views/user.html',
+    controller: 'userCtrl'
+  });
+}])
+
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/feed'});
