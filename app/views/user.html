@@ -6,7 +6,7 @@
             <div class="col-lg-8 col-lg-offset-2 text-center">
                 <div class="card">
                     
-                    <h1 class="text-muted">@{{user.username}}</h1>
+                    <h1 class="text-muted">@{{username}}</h1>
                     <hr class="light">
 
                   </div>
@@ -17,28 +17,58 @@
             <div class="col-lg-5 col-lg-offset-1">
                 <div class="card hash-card">
                     <div class="card-block text-center">
-                        <h1 class="text-muted">Feedback given</h1>
+                        <h1 class="text-muted">Received Feedback</h1>
                     </div>
                     <hr/>
                     
-                <div ng-repeat="feedback in feedbacksGiven">
-                    <p>{{feedback.text}}</p>
+ 
                 </div>
+                <div class="card hash-card" ng-repeat="feedback in feedbacks">
+                    <div ng-if="feedback.buyer_id !== user_id">
+                        <h4 class="text-muted">@{{username}}</h4>
+                        <p> {{feedback.buyer_text}}</p>
+  
+                    </div>
+                    <div ng-if="feedback.seller_id !== user_id">
+                        <h4 class="text-muted">@{{username}}</h4>
+                        <p> {{feedback.seller_text}}</p>
+  
+                    </div>                    
+                                         
                 </div>
 
             </div>
             <div class="col-lg-5">
                 <div class="card hash-card">
                     <div class="card-block text-center">
-                        <h1 class="text-muted">Feedback got</h1>
+                        <h1 class="text-muted">Given Feedback</h1>
                     </div>
                     <hr/>
-                    
-                <div ng-repeat="feedback in feedbacksGot">
-                    <p>{{feedback.text}}</p>
                 </div>
-                </div>
+                <div class="card hash-card" ng-repeat="feedback in feedbacks">
 
+                    <div ng-if="feedback.buyer_id === user_id">
+                        <input-popup ng-if="user_id === current_user_id" class="pull-right" popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
+                            submit-name="edit_submitName" submit-fn="edit_feedback(feedback)"
+                            setup-fn="setup_edit(feedback, 'buyer_')"
+                            btn-class="btn btn-info fa fa-edit">     
+                        </input-popup>
+                        <h4 class="text-muted">By @{{username}}</h4>
+                        <p> {{feedback.buyer_text}}</p>
+  
+                    </div>
+                    <div ng-if="feedback.seller_id === user_id">
+                        <input-popup ng-if="user_id === current_user_id" class="pull-right" popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
+                            submit-name="edit_submitName" submit-fn="edit_feedback(feedback)"
+                            setup-fn="setup_edit(feedback, 'seller_')"
+                            btn-class="btn btn-info fa fa-edit">     
+                        </input-popup>
+                        <h4 class="text-muted">By @{{username}}</h4>
+                        <p> {{feedback.seller_text}}</p>
+  
+                    </div>                    
+                                         
+                </div>
             </div>
         </div>   
         

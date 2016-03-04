@@ -108,8 +108,8 @@ function feedback_for_auction($feedback_auction_id){
     return "CALL feedback_for_auction({$feedback_auction_id});";
 }
 
-function feedback_update($feedback_text, $user_id, $feedback_auction_id){
-    return "CALL feedback_update('{$feedback_text}', {$user_id}, {$feedback_auction_id});";
+function feedback_update($feedback_text, $feedback_rating, $user_id, $feedback_auction_id){
+    return "CALL feedback_update('{$feedback_text}', {$feedback_rating}, {$user_id}, {$feedback_auction_id});";
 }
 
 function hashtagories_trending(){
