@@ -133,8 +133,19 @@ angular.module('controllers.navbar', [])
     
     $rootScope.watchlist_filter = function() {
         
+              
         $rootScope.filter = "WATCH";
         alert('Watchlist filtering');
+        
+        get_watches();
+        alert(window.location.href.test(/#\/feed/));
+        if (window.location.href.test(/#\/feed/))
+            window.location.href = "#/feed";
+        else 
+            window.location.reload();
+        
+        
+        
         
     };
     
@@ -157,11 +168,30 @@ angular.module('controllers.navbar', [])
                 alert(JSON.stringify(data));
                 
                 $rootScope.watches = data.data;
+                
+                var auction_id = window.location.href.split('?')[1];
+                if (auction_id !== undefined) {
+                    $rootScope.isInWatches = isInWatches(auction_id);
+                    alert($rootScope.isInWatches + " " + auction_id);
+                }
+                
 
             }, function() { 
                 $rootScope.log_out(); 
             });
         }
+        
+        $rootScope.isInWatches = function(id) {
+            //alert("is in watches " + id);
+            if (id !== undefined && $rootScope.watches !== undefined) {
+
+                for (var i=0; i<$rootScope.watches.length; i++) {
+                    if ($rootScope.watches[i].auction_id === parseInt(id))
+                        return true;
+                }
+                return false;
+            }
+        }; 
         
         $rootScope.add_to_watchlist = function(auction) {
             var post_data = $.param({
@@ -205,13 +235,8 @@ angular.module('controllers.navbar', [])
             }, function(data) { requestFailureFunction(data); });   
         };
         
-        $rootScope.isInWatches = function(id) {
-            for (var i=0; i<$rootScope.watches.length; i++) {
-                if ($rootScope.watches.watch_auction_id === id)
-                    return true;
-            }
-            return false;
-        };
+   
+        
     }
     
 }]);
