@@ -46,6 +46,8 @@ angular.module('routes', ['ngRoute'])
   $routeProvider.when('/search', {
     templateUrl: 'views/feed.html',
     controller: 'feedCtrl'
+  });
+}])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/profile/:user_id', {
@@ -64,5 +66,5 @@ angular.module('routes', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/feed'});
-}]);
+}])
 
