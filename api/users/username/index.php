@@ -1,7 +1,6 @@
 <?php
-// feedback/for_user GET
+// users/username GET
 
-    //include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
 
@@ -9,7 +8,7 @@
     
     $user_id = $get_data['user_id']['value'];
 
-    $result = db_r_function(feedback_for_user($user_id)); 
+    $result = db_r_function(users_username($user_id)); 
 
     if ($result) {
         http_response_code(200);

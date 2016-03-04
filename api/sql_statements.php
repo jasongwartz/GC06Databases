@@ -8,6 +8,10 @@ function users_self($user_id) {
     return "CALL users_self({$user_id});";
 }
 
+function users_username($user_id) {  
+    return "CALL users_username({$user_id});";
+}
+
 function users_create($username, $first_name, $last_name, $email, $pass) {
     return "CALL users_create('{$username}', '{$first_name}', '{$last_name}', '{$email}', '{$pass}');";
 }
