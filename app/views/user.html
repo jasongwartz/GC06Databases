@@ -1,0 +1,48 @@
+<section>
+    
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <div class="card">
+                    
+                    <h1 class="text-muted">@{{user.username}}</h1>
+                    <hr class="light">
+
+                  </div>
+           </div>
+        </div> 
+        
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1">
+                <div class="card hash-card">
+                    <div class="card-block text-center">
+                        <h1 class="text-muted">Feedback given</h1>
+                    </div>
+                    <hr/>
+                    
+                <div ng-repeat="feedback in feedbacksGiven">
+                    <p>{{feedback.text}}</p>
+                </div>
+                </div>
+
+            </div>
+            <div class="col-lg-5">
+                <div class="card hash-card">
+                    <div class="card-block text-center">
+                        <h1 class="text-muted">Feedback got</h1>
+                    </div>
+                    <hr/>
+                    
+                <div ng-repeat="feedback in feedbacksGot">
+                    <p>{{feedback.text}}</p>
+                </div>
+                </div>
+
+            </div>
+        </div>   
+        
+    </div>
+
+    
+</section>

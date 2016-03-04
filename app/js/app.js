@@ -16,6 +16,7 @@ angular.module('myApp', [
   'controllers.auction',
   'controllers.feedback',
   'controllers.items',
+  'controllers.user',
   
   // Routes
   'routes'

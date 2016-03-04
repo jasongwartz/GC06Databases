@@ -138,11 +138,11 @@ angular.module('controllers.navbar', [])
         alert('Watchlist filtering');
         
         get_watches();
-        alert(window.location.href.test(/#\/feed/));
-        if (window.location.href.test(/#\/feed/))
-            window.location.href = "#/feed";
-        else 
-            window.location.reload();
+//        alert(window.location.href.test(/#\/feed/));
+//        if (window.location.href.test(/#\/feed/))
+//            window.location.href = "#/feed";
+//        else 
+//            window.location.reload();
         
         
         
@@ -207,7 +207,7 @@ angular.module('controllers.navbar', [])
                 data: post_data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function(data){
-                alert(JSON.stringify(data));
+                //alert(JSON.stringify(data));
                 get_watches();
 
             }, function(data) { requestFailureFunction(data); });        
