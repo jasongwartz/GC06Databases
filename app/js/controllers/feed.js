@@ -26,7 +26,7 @@ angular.module('controllers.feed', [])
 
         case "SEARCH":
             console.log($routeParams)
-            $http.get(PATH_TO_API + 'auctions/search?query='+$routeParams['query']).then(function(data){
+            $http.get(PATH_TO_API + 'auctions/search?query="'+$routeParams['query']+'"').then(function(data){
                  $scope.auctions = data.data
             }, function(data) { requestFailureFunction(data); })
         break
