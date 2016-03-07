@@ -8,6 +8,7 @@ angular.module('controllers.user', [])
     var user_id = parseInt(window.location.href.split('?')[1]);
     
     get_username(user_id);
+    get_rating(user_id);
     get_user_feedback(user_id);
 
     $scope.edit_submitName = "Make edit!";
@@ -71,6 +72,14 @@ angular.module('controllers.user', [])
         
         }, function(data) { requestFailureFunction(data); });
         
+    }
+
+    function get_rating(user_id) {
+        $http.get(PATH_TO_API + 'users/rating/?user_id='+ user_id).then(function(data){
+
+            $scope.rating = data.data[0].rating;
+        
+        }, function(data) { requestFailureFunction(data); });        
     }
 
     function get_username(user_id) {
