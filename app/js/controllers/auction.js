@@ -60,6 +60,7 @@ angular.module('controllers.auction', [])
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(data){
 
+            alert("Bid placed!");
             get_bids();
 //            alert("successful post! " + JSON.stringify(data));
 
