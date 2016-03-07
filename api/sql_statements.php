@@ -32,12 +32,12 @@ function items_self($item_id){
     return "CALL items_self({$item_id});";
 }
 
-function items_create($owner_user_id, $title, $description){
-    return "CALL items_create({$owner_user_id}, '{$title}', '{$description}');";
+function items_create($owner_user_id, $title, $description, $image_ref){
+    return "CALL items_create({$owner_user_id}, '{$title}', '{$description}', '{$image_ref}');";
 }
 
-function items_update($item_id, $title, $description){
-    return "CALL items_update({$item_id}, '{$title}', '{$description}');";
+function items_update($item_id, $title, $description, $image_ref){
+    return "CALL items_update({$item_id}, '{$title}', '{$description}', '{$image_ref}');";
 }
 
 function items_user_items($owner_user_id){

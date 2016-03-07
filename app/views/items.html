@@ -42,7 +42,8 @@
                      
                         <div class="row">
                             <div class="col-sm-2">
-                                <img  height="100%" width="100%" src="img/hashtagories.png"/>
+                                <img ng-if="item.image_ref" height="100%" width="100%" src="{{item.image_ref}}"/>
+                                <img ng-if="!item.image_ref" height="100%" width="100%" src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png"/>
                             </div>
                             <div class="col-sm-8">
                                 <h4>{{item.title}} <small class="text-muted">
@@ -80,13 +81,13 @@
                                 <button ng-click="delete_item(item)" type="button" class="btn btn-info fa fa-times"></button>    
                             </div>
                         
-                            <input-popup class="pull-right" popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
+                            <input-popup class="pull-right" popup-id="edit_{{item.item_id}}" title="edit_popupTitle" inputs="edit_inputs"
                                 submit-name="edit_submitName" submit-fn="edit_item(item)"
                                 setup-fn="setup_edit(item)"
                                 btn-class="btn btn-info fa fa-edit">     
                             </input-popup>
                         
-                            <input-popup class="pull-right" popup-id="auction" title="auction_popupTitle" inputs="auction_inputs"
+                            <input-popup class="pull-right" popup-id="auction_{{item.item_id}}" title="auction_popupTitle" inputs="auction_inputs"
                                 submit-name="auction_submitName" submit-fn="auction_item(item)"
                                 btn-class="btn btn-info fa fa-gavel">     
                             </input-popup>
@@ -96,7 +97,8 @@
                      
                         <div class="row">
                             <div class="col-sm-2">
-                                <img  height="100%" width="100%" src="img/hashtagories.png"/>
+                                <img ng-if="item.image_ref" height="100%" width="100%" src="{{item.image_ref}}"/>
+                                <img ng-if="!item.image_ref" height="100%" width="100%" src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png"/>
                             </div>
                             <div class="col-sm-8">
                                 <h4>{{item.title}}</h4>

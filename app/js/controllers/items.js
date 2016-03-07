@@ -16,8 +16,8 @@ angular.module('controllers.items', [])
             type: "textarea"
         },
         {
-            label: "Item image",
-            type: "file"
+            label: "Item image ref",
+            type: "text"
         }
     ];
 
@@ -76,9 +76,10 @@ angular.module('controllers.items', [])
 
         $http.get(PATH_TO_API + 'items/user_items?user_id='+ sessionStorage.getItem('user_id') +'&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
 
+            //alert(JSON.stringify(data))
             for (var i=0; i<data.data.length; i++) {
                 for (var j=0; j<$scope.auction_items.length; j++) {
-                    if (data.data[i].item_id === $scope.auction_items[j].item_id && $scope.auction_items[j].is_complete !== 1 ) {
+                    if (data.data[i].item_id === $scope.auction_items[j].item_id && $scope.auction_items[j].is_complete < 1 ) {
                         data.data.splice(i, 1);
                     }
 
@@ -91,6 +92,7 @@ angular.module('controllers.items', [])
         }, function(data) { requestFailureFunction(data); });        
         
     }
+    
     function sql_date(date) {
         return date.getUTCFullYear() + '-' +
         ('00' + (date.getUTCMonth() + 1)).slice(-2) + '-' +
@@ -118,6 +120,7 @@ angular.module('controllers.items', [])
                 }).then(function(data){
                     //alert(JSON.stringify(data))
                     alert("Item deleted!"); //Needs to be here...
+                    
                     get_all_items();
 
                 }, function(data) { //requestFailureFunction(data); 
@@ -150,8 +153,9 @@ angular.module('controllers.items', [])
                 data: post_data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function(data){
-                alert(JSON.stringify(data))
+                //alert(JSON.stringify(data))
                 alert("Auction created!"); //Needs to be here...
+                
                 get_all_items();
 
             }, function(data) { //requestFailureFunction(data); 
@@ -163,6 +167,7 @@ angular.module('controllers.items', [])
         
         $scope.setup_edit = function(item) {
 //            alert("\csdsadsd " + item.title + " "+ item.description);
+            //alert(item.image_ref);
             $scope.edit_inputs = [
                 {
                     label: "Item title",
@@ -175,19 +180,22 @@ angular.module('controllers.items', [])
                     ngModel: item.description
                 },
                 {
-                    label: "Item image",
-                    type: "file"
+                    label: "Item image ref",
+                    type: "text",
+                    ngModel: item.image_ref
                 }
             ];            
         };
         
         $scope.edit_item = function(item) {
             //alert(item.item_id + " " + $scope.edit_inputs[0].ngModel + " " + $scope.edit_inputs[1].ngModel);
+            //alert(item.item_id)
             var post_data = $.param({
 
                     item_id: item.item_id,
                     title: $scope.edit_inputs[0].ngModel ,
-                    description: $scope.edit_inputs[1].ngModel      
+                    description: $scope.edit_inputs[1].ngModel,      
+                    image_ref: $scope.edit_inputs[2].ngModel      
 
                 });
 
@@ -216,7 +224,8 @@ angular.module('controllers.items', [])
 
                     owner_user_id: sessionStorage.getItem('user_id'),
                     title: $scope.inputs[0].ngModel ,
-                    description: $scope.inputs[1].ngModel      
+                    description: $scope.inputs[1].ngModel,      
+                    image_ref: $scope.inputs[2].ngModel      
 
                 });
 
