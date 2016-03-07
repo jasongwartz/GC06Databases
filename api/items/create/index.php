@@ -1,7 +1,7 @@
 <?php
 // items/create POST OK
 
-    include '../../auth.php';
+    //include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
     include '../../post_header.php';
@@ -20,7 +20,8 @@
 
     // for each found hashtag in regex,
         // create hashtag relationship 
-    foreach ($tags as $t) {
+    //var_dump($tags[1]); 
+    foreach ($tags[1] as $t) {
         db_cud_function(hashtagories_tag_item($new_item, $t));
     }
         
