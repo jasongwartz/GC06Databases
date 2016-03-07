@@ -5,7 +5,8 @@
             <div class="col-lg-3">
 
                 <div class="card hash-card">
-                    <img height="100%" width="100%" src="img/item_image.png" alt="item image"/>
+                    <img ng-if="auction.image_ref" height="100%" width="100%" ng-src="{{auction.image_ref}}" alt="item image"/>
+                    <img ng-if="!auction.image_ref" height="100%" width="100%" ng-src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png" alt="item image"/>
                     <div class="card-block">
                         <br/>
                         <h3>{{auction.title}}

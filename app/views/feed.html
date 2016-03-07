@@ -15,7 +15,7 @@
                 <div class="card-block">
                     <br/>
                     
-                  <h4 class="card-title" style="color: #6BB0FF">Trending</h4>
+                  <h4 class="card-title" style="color: #6BB0FF">Trending hashtags</h4>
 
                   <p ng-repeat="trend in trends track by $index">{{$index+1}}. {{trend.hashtagory_text}}</p>
                   
@@ -37,13 +37,23 @@
             <div ng-repeat="auction in auctions">
             
                 <div class="card hash-card">
-
-                    <div class="card-block">
-                        <a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">@{{auction.username}}: {{auction.title}}</h4></a>
-                      <p class="card-text">
-                          {{auction.description}}
-                      </p>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <img ng-if="auction.image_ref" height="100px" width="100px" ng-src="{{auction.image_ref}}" alt="item image"/>
+                            <img ng-if="!auction.image_ref" height="100px" width="100px" ng-src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png" alt="item image"/>
+                        </div>
+                        <div class="col-sm-8" style="margin-left: 1em">
+                            
+                            <a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">@{{auction.username}}: {{auction.title}}</h4></a>
+                              <p class="card-text">
+                                  {{auction.description}}
+                              </p>
+                            
+                        </div>
                     </div>
+             
+                    
+
                 </div>
                 <br/>
             

@@ -134,7 +134,7 @@ angular.module('controllers.items', [])
 
         $scope.auction_item = function(item) {
             
-//            alert(item.item_id + " " + $scope.edit_inputs[0].ngModel + " " + $scope.edit_inputs[1].ngModel);
+            //alert(item.item_id + " " + $scope.edit_inputs[0].ngModel + " " + $scope.edit_inputs[1].ngModel);
             var post_data = $.param({
 
                     auction_item_id: item.item_id,
@@ -144,16 +144,16 @@ angular.module('controllers.items', [])
 
                 });
 
-
+                
             var url = PATH_TO_API + 'auctions/create/?access_token=' + sessionStorage.getItem('access_token');
-                //alert(post_data + " to " + url);
+            //alert(post_data + " to " + url);
             $http({
                 method: 'POST',
                 url: url,
                 data: post_data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function(data){
-                //alert(JSON.stringify(data))
+                alert(JSON.stringify(data))
                 alert("Auction created!"); //Needs to be here...
                 
                 get_all_items();
