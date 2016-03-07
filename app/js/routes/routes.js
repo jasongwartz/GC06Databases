@@ -50,6 +50,13 @@ angular.module('routes', ['ngRoute'])
 }])
 
 .config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/following', {
+    templateUrl: 'views/feed.html',
+    controller: 'feedCtrl'
+  });
+}])
+
+.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/profile/:user_id', {
     templateUrl: 'views/profile.html',
     controller: 'profileCtrl'

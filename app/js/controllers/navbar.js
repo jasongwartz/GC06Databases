@@ -131,23 +131,22 @@ angular.module('controllers.navbar', [])
 
     };
     
+    $rootScope.home_feed = function() {
+        $rootScope.filter = "HOME";
+        $location.path("/feed").search({});
+    };
+    
     $rootScope.watchlist_filter = function() {
-        
-              
-        $rootScope.filter = "WATCH";
-        alert('Watchlist filtering');
+      
+        //alert('Watchlist filtering');
         
         get_watches();
-//        alert(window.location.href.test(/#\/feed/));
-//        if (window.location.href.test(/#\/feed/))
-//            window.location.href = "#/feed";
-//        else 
-//            window.location.reload();
         
-        
-        
-        
+        $rootScope.filter = "WATCH";
+        $location.path("/following").search({});
+
     };
+    
     $scope.hashtagories = [];
     get_hashtagories_list();
     
@@ -162,11 +161,11 @@ angular.module('controllers.navbar', [])
     // Search functionality
     $rootScope.search_filter = function(selected) {
         if (selected) {
-            window.alert('You have selected ' + selected.title);
+            //window.alert('You have selected ' + selected.title);
             $rootScope.filter = "SEARCH";
             $location.path("/search").search({query: selected.title});
         } else {
-          console.log('cleared');
+            console.log('cleared');
             $rootScope.filter = "HOME";
             $location.path("/feed").search({});
         }
