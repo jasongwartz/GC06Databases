@@ -133,7 +133,7 @@ function hashtagories_search($str){
 }
 
 function hashtagories_tag_item($item_id, $hashtag){
-    return "CALL hashtagories_tag_item({$item_id}, {$hashtag});";
+    return "CALL hashtagories_tag_item({$item_id}, '{$hashtag}');";
 }
 
 function event_end_expired_auctions(){

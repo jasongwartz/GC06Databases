@@ -1,7 +1,7 @@
 <?php
 // items/create POST OK
 
-    include '../../auth.php';
+//    include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
     include '../../post_header.php';
@@ -15,13 +15,19 @@
     
     preg_match_all("/#(\w+)/", $description, $tags);
     
-    $result = db_cud_function(items_create($owner_user_id, $title, $description, $image_ref));
-    $new_item = json_decode($result)['item_id'];
+    $result = db_r_function(items_create($owner_user_id, $title, $description, $image_ref));
+    $new_item = json_decode($result, true)[0]['last_insert_id()'];
 
+//    var_dump($result);
+//    var_dump($new_item);
+    
+    
     // for each found hashtag in regex,
         // create hashtag relationship 
     //var_dump($tags[1]); 
     foreach ($tags[1] as $t) {
+        //echo hashtagories_tag_item($new_item, $t);
+        //echo 
         db_cud_function(hashtagories_tag_item($new_item, $t));
     }
         
