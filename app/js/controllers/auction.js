@@ -50,7 +50,7 @@ angular.module('controllers.auction', [])
               
             });
             
-        alert(post_data);
+        //alert(post_data);
         var url = PATH_TO_API + 'bids/create/?access_token=' + sessionStorage.getItem('access_token');
 //        alert(post_data + " to " + url);
         $http({
