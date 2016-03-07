@@ -34,18 +34,18 @@ angular.module('controllers.user', [])
     };
     $scope.edit_feedback = function(feedback) {
         //alert(item.item_id + " " + $scope.edit_inputs[0].ngModel + " " + $scope.edit_inputs[1].ngModel);
-        alert($scope.edit_inputs[0].ngModel );
+        //alert($scope.edit_inputs[0].ngModel );
         
         var post_data = $.param({
 
                 user_id: sessionStorage.getItem('user_id'),
                 feedback_auction_id: feedback.feedback_auction_id,
                 feedback_text: $scope.edit_inputs[0].ngModel ,
-                feedback_rating: $scope.edit_inputs[1].ngModel/20      
+                feedback_rating: $scope.edit_inputs[1].ngModel     
 
             });
 
-            //alert($scope.edit_inputs[1].ngModel/20);
+            //alert($scope.edit_inputs[1].ngModel);
 
         var url = PATH_TO_API + 'feedback/update/?access_token=' + sessionStorage.getItem('access_token');
 //        alert(post_data + " to " + url);

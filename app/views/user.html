@@ -25,12 +25,12 @@
                 </div>
                 <div class="card hash-card" ng-repeat="feedback in feedbacks">
                     <div ng-if="feedback.buyer_id !== user_id">
-                        <h4 class="text-muted">@{{username}}</h4>
+                        <h4 class="text-muted">@{{username}} <small>{{feedback.buyer_rating}}/100</small></h4>
                         <p> {{feedback.buyer_text}}</p>
   
                     </div>
                     <div ng-if="feedback.seller_id !== user_id">
-                        <h4 class="text-muted">@{{username}}</h4>
+                        <h4 class="text-muted">@{{username}} <small>{{feedback.seller_rating}}/100</small></h4>
                         <p> {{feedback.seller_text}}</p>
   
                     </div>                    
@@ -53,7 +53,7 @@
                             setup-fn="setup_edit(feedback, 'buyer_')"
                             btn-class="btn btn-info fa fa-edit">     
                         </input-popup>
-                        <h4 class="text-muted">By @{{username}}</h4>
+                        <h4 class="text-muted">By @{{username}} <small>{{feedback.buyer_rating}}/100</small></h4>
                         <p> {{feedback.buyer_text}}</p>
   
                     </div>
@@ -63,7 +63,7 @@
                             setup-fn="setup_edit(feedback, 'seller_')"
                             btn-class="btn btn-info fa fa-edit">     
                         </input-popup>
-                        <h4 class="text-muted">By @{{username}}</h4>
+                        <h4 class="text-muted">By @{{username}} <small>{{feedback.seller_rating}}/100</small></h4>
                         <p> {{feedback.seller_text}}</p>
   
                     </div>                    
