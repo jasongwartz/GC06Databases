@@ -1,7 +1,7 @@
 <?php
 // items/create POST OK
 
-    //include '../../auth.php';
+    include '../../auth.php';
     include '../../sql_statements.php';
     include '../../helper.php';
     include '../../post_header.php';
@@ -32,5 +32,5 @@
         
     } else {
         http_response_code(304); //Not modified
-        echo '{data:false}';
+        echo '{"data":false}';
     }
