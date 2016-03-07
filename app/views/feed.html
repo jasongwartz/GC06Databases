@@ -15,8 +15,10 @@
                 <div class="card-block">
                     <br/>
                     
-                  <h4 class="card-title" style="color: #6BB0FF">Trends</h4>
+                  <h4 class="card-title" style="color: #6BB0FF">Trending</h4>
 
+                  <p ng-repeat="trend in trends track by $index">{{$index+1}}. {{trend.hashtagory_text}}</p>
+                  
                 </div>
             </div>
        </div>        
@@ -50,12 +52,9 @@
        </div> 
 
         <div class="col-lg-3">
-            <div class="card hash-card">
+            <div class="card hash-card text-muted">
                 
-                
-                <br/>
-                <br/>
-                  Licenses stuff
+                Hashtagories &copy; 2016
                
             </div>
         </div>  

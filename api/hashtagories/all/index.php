@@ -1,4 +1,5 @@
 <?php
+// hashtagories/all GET
 
     include '../../sql_statements.php';
     include '../../helper.php';

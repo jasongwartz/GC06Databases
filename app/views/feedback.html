@@ -48,7 +48,7 @@
                 <div class="card hash-card" ng-repeat="feedback in feedbacks">
 
                     <div ng-if="feedback.buyer_id === user_id">
-                        <input-popup ng-if="user_id === current_user_id" class="pull-right" popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
+                        <input-popup ng-if="user_id === current_user_id" class="pull-right" popup-id="edit_{{feedback.feedback_auction_id}}" title="edit_popupTitle" inputs="edit_inputs"
                             submit-name="edit_submitName" submit-fn="edit_feedback(feedback)"
                             setup-fn="setup_edit(feedback, 'buyer_')"
                             btn-class="btn btn-info fa fa-edit">     
@@ -58,7 +58,7 @@
   
                     </div>
                     <div ng-if="feedback.seller_id === user_id">
-                        <input-popup ng-if="user_id === current_user_id" class="pull-right" popup-id="edit" title="edit_popupTitle" inputs="edit_inputs"
+                        <input-popup ng-if="user_id === current_user_id" class="pull-right" popup-id="edit_{{feedback.feedback_auction_id}}" title="edit_popupTitle" inputs="edit_inputs"
                             submit-name="edit_submitName" submit-fn="edit_feedback(feedback)"
                             setup-fn="setup_edit(feedback, 'seller_')"
                             btn-class="btn btn-info fa fa-edit">     

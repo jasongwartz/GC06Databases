@@ -1,7 +1,7 @@
 <?php
 // hashtagories/search
 
-include '../auth.php';
+    include '../auth.php';
     include '../sql_statements.php';
     include '../helper.php';
 
@@ -14,5 +14,5 @@ include '../auth.php';
         
     } else {
         http_response_code(500);
-        echo '{error:"no data returned"}';
+        echo '{"error":"no data returned"}';
     }

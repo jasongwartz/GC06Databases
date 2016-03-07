@@ -10,5 +10,5 @@
         echo $result;
         
     } else {
-        echo '{error:"no data returned"}';
+        echo '{"error":"no data returned"}';
     }
