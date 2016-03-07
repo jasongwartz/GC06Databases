@@ -8,7 +8,7 @@
     
     $q_split = preg_split("/\s/", $q);
     
-    $q_send = join("* ", $q_split);
+    $q_send = "'" . join("* ", $q_split) . "*'";
     
     $result = db_r_function(auctions_search($q_send));
 
