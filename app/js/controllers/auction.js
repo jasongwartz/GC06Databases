@@ -50,7 +50,7 @@ angular.module('controllers.auction', [])
               
             });
             
-        
+        alert(post_data);
         var url = PATH_TO_API + 'bids/create/?access_token=' + sessionStorage.getItem('access_token');
 //        alert(post_data + " to " + url);
         $http({
@@ -60,6 +60,7 @@ angular.module('controllers.auction', [])
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(data){
 
+            alert("Bid placed!");
             get_bids();
 //            alert("successful post! " + JSON.stringify(data));
 

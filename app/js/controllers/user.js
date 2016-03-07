@@ -8,6 +8,7 @@ angular.module('controllers.user', [])
     var user_id = parseInt(window.location.href.split('?')[1]);
     
     get_username(user_id);
+    get_rating(user_id);
     get_user_feedback(user_id);
 
     $scope.edit_submitName = "Make edit!";
@@ -34,18 +35,18 @@ angular.module('controllers.user', [])
     };
     $scope.edit_feedback = function(feedback) {
         //alert(item.item_id + " " + $scope.edit_inputs[0].ngModel + " " + $scope.edit_inputs[1].ngModel);
-        alert($scope.edit_inputs[0].ngModel );
+        //alert($scope.edit_inputs[0].ngModel );
         
         var post_data = $.param({
 
                 user_id: sessionStorage.getItem('user_id'),
                 feedback_auction_id: feedback.feedback_auction_id,
                 feedback_text: $scope.edit_inputs[0].ngModel ,
-                feedback_rating: $scope.edit_inputs[1].ngModel/20      
+                feedback_rating: $scope.edit_inputs[1].ngModel     
 
             });
 
-            //alert($scope.edit_inputs[1].ngModel/20);
+            //alert($scope.edit_inputs[1].ngModel);
 
         var url = PATH_TO_API + 'feedback/update/?access_token=' + sessionStorage.getItem('access_token');
 //        alert(post_data + " to " + url);
@@ -71,6 +72,14 @@ angular.module('controllers.user', [])
         
         }, function(data) { requestFailureFunction(data); });
         
+    }
+
+    function get_rating(user_id) {
+        $http.get(PATH_TO_API + 'users/rating/?user_id='+ user_id).then(function(data){
+
+            $scope.rating = data.data[0].rating;
+        
+        }, function(data) { requestFailureFunction(data); });        
     }
 
     function get_username(user_id) {
