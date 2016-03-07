@@ -6,8 +6,8 @@
 # https://github.com/sequelpro/sequelpro
 #
 # Host: auctions.cjfabur5dk4o.us-east-1.rds.amazonaws.com (MySQL 5.6.23-log)
-# Database: auction_data
-# Generation Time: 2016-02-28 9:24:26 pm +0000
+# Database: auction1
+# Generation Time: 2016-03-07 4:33:01 pm +0000
 # ************************************************************
 
 
@@ -33,8 +33,7 @@ CREATE TABLE `auctions` (
   `end_time` timestamp NOT NULL,
   `reserve_price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`auction_id`),
-  KEY `auction_item_id` (`auction_item_id`),
-  CONSTRAINT `auctions_ibfk_1` FOREIGN KEY (`auction_item_id`) REFERENCES `items` (`item_id`)
+  KEY `auction_item_id` (`auction_item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `auctions` WRITE;
@@ -42,8 +41,11 @@ LOCK TABLES `auctions` WRITE;
 
 INSERT INTO `auctions` (`auction_id`, `auction_item_id`, `is_complete`, `start_time`, `end_time`, `reserve_price`)
 VALUES
-	(2,102,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',200.00),
-	(3,107,0,'2016-02-26 15:34:08','2016-02-29 06:02:00',20000.00);
+	(2,102,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',200.00),
+	(3,107,0,'2016-02-26 15:34:08','2016-02-29 06:02:00',20000.00),
+	(4,111,0,'2016-03-02 17:13:55','2016-04-04 19:20:00',3039.00),
+	(5,104,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',0.00),
+	(6,103,0,'0000-00-00 00:00:00','0000-00-00 00:00:00',0.00);
 
 /*!40000 ALTER TABLE `auctions` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -62,9 +64,7 @@ CREATE TABLE `bids` (
   `bid_auction_id` int(11) NOT NULL,
   PRIMARY KEY (`bid_id`),
   KEY `bidder_user_id` (`bidder_user_id`),
-  KEY `bid_auction_id` (`bid_auction_id`),
-  CONSTRAINT `bids_ibfk_1` FOREIGN KEY (`bidder_user_id`) REFERENCES `users` (`user_id`),
-  CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`bid_auction_id`) REFERENCES `auctions` (`auction_id`)
+  KEY `bid_auction_id` (`bid_auction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -75,21 +75,27 @@ CREATE TABLE `bids` (
 DROP TABLE IF EXISTS `feedback`;
 
 CREATE TABLE `feedback` (
-  `feedback_id` int(11) NOT NULL AUTO_INCREMENT,
-  `seller_text` varchar(140) DEFAULT NULL,
   `seller_id` int(11) NOT NULL,
+  `seller_text` varchar(140) DEFAULT NULL,
+  `seller_rating` decimal(5,2) DEFAULT NULL,
   `feedback_auction_id` int(11) NOT NULL,
   `buyer_id` int(11) NOT NULL,
   `buyer_text` varchar(140) DEFAULT NULL,
-  PRIMARY KEY (`feedback_id`),
+  `buyer_rating` decimal(5,2) DEFAULT NULL,
+  PRIMARY KEY (`feedback_auction_id`),
   KEY `seller_id` (`seller_id`),
-  KEY `buyer_id` (`buyer_id`),
-  KEY `feedback_auction_id` (`feedback_auction_id`),
-  CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`seller_id`) REFERENCES `users` (`user_id`),
-  CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`buyer_id`) REFERENCES `users` (`user_id`),
-  CONSTRAINT `feedback_ibfk_3` FOREIGN KEY (`feedback_auction_id`) REFERENCES `auctions` (`auction_id`)
+  KEY `buyer_id` (`buyer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `feedback` WRITE;
+/*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+
+INSERT INTO `feedback` (`seller_id`, `seller_text`, `seller_rating`, `feedback_auction_id`, `buyer_id`, `buyer_text`, `buyer_rating`)
+VALUES
+	(2,'asdasd',3.40,2,1,'asdasd',4.20);
+
+/*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table hashtagories
@@ -99,7 +105,8 @@ DROP TABLE IF EXISTS `hashtagories`;
 
 CREATE TABLE `hashtagories` (
   `text` varchar(20) NOT NULL,
-  PRIMARY KEY (`text`)
+  PRIMARY KEY (`text`),
+  FULLTEXT KEY `text` (`text`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `hashtagories` WRITE;
@@ -109,9 +116,6 @@ INSERT INTO `hashtagories` (`text`)
 VALUES
 	(''),
 	('bananas'),
-	('new_tag'),
-	('sample'),
-	('test_tag'),
 	('vegan');
 
 /*!40000 ALTER TABLE `hashtagories` ENABLE KEYS */;
@@ -124,26 +128,23 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `item_hashtagories`;
 
 CREATE TABLE `item_hashtagories` (
-  `tagged_item_id` int(11) NOT NULL,
-  `hashtagory_text` varchar(20) NOT NULL,
-  PRIMARY KEY (`tagged_item_id`,`hashtagory_text`),
-  KEY `hashtagory_text` (`hashtagory_text`),
-  CONSTRAINT `item_hashtagories_ibfk_1` FOREIGN KEY (`tagged_item_id`) REFERENCES `items` (`item_id`),
-  CONSTRAINT `item_hashtagories_ibfk_2` FOREIGN KEY (`hashtagory_text`) REFERENCES `hashtagories` (`text`)
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tagged_item_id` int(11) DEFAULT NULL,
+  `hashtagory_text` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  FULLTEXT KEY `hashtagory_text` (`hashtagory_text`),
+  FULLTEXT KEY `hashtagory_text_2` (`hashtagory_text`),
+  FULLTEXT KEY `hashtagory_text_3` (`hashtagory_text`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `item_hashtagories` WRITE;
 /*!40000 ALTER TABLE `item_hashtagories` DISABLE KEYS */;
 
-INSERT INTO `item_hashtagories` (`tagged_item_id`, `hashtagory_text`)
+INSERT INTO `item_hashtagories` (`id`, `tagged_item_id`, `hashtagory_text`)
 VALUES
-	(102,'bananas'),
-	(104,'bananas'),
-	(103,'new_tag'),
-	(102,'sample'),
-	(104,'sample'),
-	(102,'vegan'),
-	(104,'vegan');
+	(1,104,'banana'),
+	(2,102,'vegan'),
+	(3,102,'banana');
 
 /*!40000 ALTER TABLE `item_hashtagories` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -160,8 +161,7 @@ CREATE TABLE `items` (
   `title` varchar(50) NOT NULL DEFAULT '',
   `description` varchar(200) NOT NULL DEFAULT '',
   PRIMARY KEY (`item_id`),
-  KEY `owner_user_id` (`owner_user_id`),
-  CONSTRAINT `items_ibfk_1` FOREIGN KEY (`owner_user_id`) REFERENCES `users` (`user_id`)
+  KEY `owner_user_id` (`owner_user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `items` WRITE;
@@ -174,7 +174,8 @@ VALUES
 	(104,9,'more stuff','and more descriptions'),
 	(107,1,'Stuff','things and such'),
 	(108,1,'A cunch of bunts','sdafsd #yolo'),
-	(110,1,'dsafdsfadsfdas','adslkfnlasdfds');
+	(110,1,'dsafdsfadsfdas','adslkfnlasdfds'),
+	(111,102,'My stuff','is good');
 
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -200,9 +201,9 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`username`, `user_id`, `first_name`, `last_name`, `email`, `password`)
 VALUES
-	('quam.bob',1,'George','Mccarthy','asdflkjfdsa','hocus'),
+	('quam.bob',1,'George','Mccarthy','asdflkjfdsa','aQ123###'),
 	('Proin',2,'Judah','Zamora','Donec@estconguea.com',''),
-	('asdf',3,'Laith','Harvey','nisi.magna.sed@Cumsociis.com',''),
+	('asdf',3,'Laith','Harvey','nisi.magna.sed@Cumsociis.com','fdsa'),
 	('eget',4,'Fritz','Trujillo','lobortis.ultrices.Vivamus@dictum.ca',''),
 	('fringilla',5,'Gil','Lawrence','vitae.risus.Duis@velit.edu',''),
 	('nonummy.bo',6,'Hammett','Wallace','nec.diam.Duis@diamProindolor.com',''),
@@ -296,7 +297,9 @@ VALUES
 	('sit',98,'Igor','Boone','est.mollis@nunc.edu',''),
 	('arcu',99,'Magee','Guzman','ullamcorper@Vivamusnibh.edu',''),
 	('Donec',100,'William','Sellers','nec.mauris@neque.net',''),
-	('edward',101,'ed','m','email@email.com','');
+	('edward',101,'ed','m','email@email.com',''),
+	('dj',102,'dj','dj','dj.dj@dj.dj',''),
+	('aj',103,'aj','aj','aj@aj.com','');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -311,16 +314,14 @@ CREATE TABLE `watches` (
   `watch_user_id` int(11) NOT NULL,
   `watch_auction_id` int(11) NOT NULL,
   PRIMARY KEY (`watch_user_id`,`watch_auction_id`),
-  KEY `watch_auction_id` (`watch_auction_id`),
-  CONSTRAINT `watches_ibfk_1` FOREIGN KEY (`watch_user_id`) REFERENCES `users` (`user_id`),
-  CONSTRAINT `watches_ibfk_2` FOREIGN KEY (`watch_auction_id`) REFERENCES `auctions` (`auction_id`)
+  KEY `watch_auction_id` (`watch_auction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 
 
 --
--- Dumping routines (PROCEDURE) for database 'auction_data'
+-- Dumping routines (PROCEDURE) for database 'auction1'
 --
 DELIMITER ;;
 
@@ -367,7 +368,25 @@ END */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_retrieve_all`()
 BEGIN
-	SELECT * FROM `auctions` AS a, `items` AS i WHERE a.is_complete = 0 AND a.auction_item_id = i.item_id ORDER BY `end_time` ASC;
+SELECT a.*, i.*, u.username FROM `auctions` AS a, `items` AS i, `users` AS u
+    WHERE a.is_complete = 0 AND a.auction_item_id = i.item_id AND i.owner_user_id = u.user_id ORDER BY `end_time` ASC;
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE auctions_search
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `auctions_search` */;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_search`(IN str varchar(20))
+BEGIN
+    SELECT DISTINCT a.*, i.*, u.username
+    FROM item_hashtagories AS ih, auctions AS a, items AS i, users AS u
+	WHERE FIND_IN_SET(ih.hashtagory_text, str)
+		AND a.is_complete = 0
+		AND ih.tagged_item_id = i.item_id
+        AND a.auction_item_id = i.item_id
+        AND i.owner_user_id = u.user_id;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -468,12 +487,76 @@ BEGIN
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
-# Dump of PROCEDURE feedback_for_action
+# Dump of PROCEDURE event_end_expired_auctions
 # ------------------------------------------------------------
 
-/*!50003 DROP PROCEDURE IF EXISTS `feedback_for_action` */;;
+/*!50003 DROP PROCEDURE IF EXISTS `event_end_expired_auctions` */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `feedback_for_action`(IN feedback_auction_id INT(11))
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `event_end_expired_auctions`()
+BEGIN
+DECLARE n INT DEFAULT 0;
+DECLARE i INT DEFAULT 0;
+
+
+	SELECT count(*) FROM `auctions` WHERE end_time < now() INTO n;	
+
+SET i=0;
+WHILE i<n DO 
+
+	SELECT @auction_id := auction_id FROM `auctions` WHERE end_time < now() LIMIT i, 1;
+
+	UPDATE `auctions` SET is_complete = 1 WHERE auction_id = @auction_id;
+
+	SET i = i + 1;
+END WHILE;
+
+
+	SELECT count(*) FROM (SELECT *
+	FROM `auctions` as a, (select * from `bids` order by bid_price desc) as b, `items` as i 
+		where i.item_id = a.auction_item_id 
+		AND a.auction_id = b.bid_auction_id
+		AND a.end_time < curtime()
+		#AND a.reserve_price < b.bid_price
+		group by a.auction_id) as a INTO n;	
+
+SET i=0;
+WHILE i<n DO 
+
+	SELECT 
+		@reserve_price := reserve_price,
+		@bid_price := bid_price,
+		@seller_id := owner_user_id, 
+		@buyer_id := bidder_user_id,
+		@auction_id := auction_id 
+	FROM (SELECT *
+	FROM `auctions` as a, (select * from `bids` order by bid_price desc) as b, `items` as i 
+		where i.item_id = a.auction_item_id 
+		AND a.auction_id = b.bid_auction_id
+		AND a.end_time < curtime()
+		#AND a.reserve_price < b.bid_price
+		group by a.auction_id) as made limit i, 1;
+
+	IF @reserve_price < @bid_price THEN
+		UPDATE `auctions` SET is_complete = 2 WHERE auction_id = @auction_id;
+		INSERT IGNORE INTO `feedback` (`seller_id`, `feedback_auction_id`, `buyer_id`) 
+			VALUES (@seller_id, @auction_id, @buyer_id);
+	ELSE
+		UPDATE `auctions` SET is_complete = 1 WHERE auction_id = @auction_id;
+	END IF;
+
+
+
+  SET i = i + 1;
+END WHILE;
+End */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE feedback_for_auction
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `feedback_for_auction` */;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `feedback_for_auction`(IN feedback_auction_id INT(11))
 BEGIN
 	SELECT * FROM feedback WHERE feedback.feedback_auction_id = feedback_auction_id;
 END */;;
@@ -495,13 +578,13 @@ END */;;
 
 /*!50003 DROP PROCEDURE IF EXISTS `feedback_update` */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `feedback_update`(IN feedback_text VARCHAR(140), IN user_id INT(11), IN feedback_id INT(11))
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `feedback_update`(IN feedback_text VARCHAR(140), IN feedback_rating DECIMAL(5,2), IN user_id INT(11), IN feedback_auction_id INT(11))
 BEGIN
-	set @v1 = (select seller_id from feedback where feedback.feedback_id = feedback_id);
+	set @v1 = (select seller_id from feedback where feedback.feedback_auction_id = feedback_auction_id);
 	IF @v1 = user_id THEN
-	UPDATE feedback SET feedback.seller_text = feedback_text where feedback.feedback_id = feedback_id;
+		UPDATE feedback SET feedback.seller_text = feedback_text, seller_rating = feedback_rating where feedback.feedback_auction_id = feedback_auction_id;
 	ELSE
-	UPDATE feedback SET feedback.buyer_text = feedback_text where feedback.feedback_id = feedback_id;
+		UPDATE feedback SET feedback.buyer_text = feedback_text, buyer_rating = feedback_rating where feedback.feedback_auction_id = feedback_auction_id;
     END IF;
 END */;;
 
@@ -525,7 +608,7 @@ END */;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `hashtagories_search`(IN str varchar(20))
 BEGIN
 SELECT text FROM hashtagories
-WHERE text LIKE str;
+WHERE INSTR(text, str);
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
@@ -678,6 +761,18 @@ BEGIN
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE users_search
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `users_search` */;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `users_search`(in unstring varchar(20))
+BEGIN
+	SELECT username FROM users
+WHERE INSTR(username, unstring);
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
 # Dump of PROCEDURE users_self
 # ------------------------------------------------------------
 
@@ -723,6 +818,18 @@ BEGIN
         WHERE users.user_id = user_id;
     END IF;
 
+END */;;
+
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
+# Dump of PROCEDURE users_username
+# ------------------------------------------------------------
+
+/*!50003 DROP PROCEDURE IF EXISTS `users_username` */;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `users_username`(IN id INT(11))
+BEGIN
+	SELECT username FROM users
+    WHERE user_id LIKE id;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
