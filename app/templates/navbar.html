@@ -22,8 +22,18 @@
              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                  <ul class="nav navbar-nav navbar-right"> 
-
-                 <form class="navbar-form navbar-left">
+                    <div class="pull-left" style="margin-top: 0.5em;" angucomplete-alt id="ex1"
+                        placeholder="Search words or #tags"
+                        maxlength="50"
+                        pause="100"
+                        selected-object="search_filter"
+                        local-data="hashtagories"
+                        search-fields="text"
+                        title-field="text"
+                        minlength="1"
+                        input-class="form-control form-control-small"
+                        match-class="highlight"></div>
+<!--                 <form class="navbar-form navbar-left">
                  <div class="input-group stylish-input-group">
                      <input type="text" ng-model="search_query" class="form-control"  placeholder="Search" >
                      <span class="input-group-addon">
@@ -32,7 +42,7 @@
                          </button>  
                      </span>
                  </div>
-                 </form> 
+                 </form> -->
 
                      <li >
                          <a class="page-scroll" href="#/feed">Home</a>

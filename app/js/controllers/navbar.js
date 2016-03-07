@@ -148,11 +148,29 @@ angular.module('controllers.navbar', [])
         
         
     };
+    $scope.hashtagories = [];
+    get_hashtagories_list();
+    
+    function get_hashtagories_list() {
+        $http.get(PATH_TO_API + "hashtagories/all/" ).then(function(data){
 
+            $scope.hashtagories = data.data;
+        
+        }, function(data) { requestFailureFunction(data); });
+    }
+    
     // Search functionality
-    $rootScope.search_filter = function() {
-        $rootScope.filter = "SEARCH";
-        $location.path("/search").search({query: $scope.search_query});
+    $rootScope.search_filter = function(selected) {
+        if (selected) {
+            window.alert('You have selected ' + selected.title);
+            $rootScope.filter = "SEARCH";
+            $location.path("/search").search({query: selected.title});
+        } else {
+          console.log('cleared');
+            $rootScope.filter = "HOME";
+            $location.path("/feed").search({});
+        }
+
     };
        
     
@@ -164,7 +182,7 @@ angular.module('controllers.navbar', [])
         function get_watches() {
             $http.get(PATH_TO_API + 'watches/user_watches/?watch_user_id=' + sessionStorage.getItem('user_id') + '&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
 
-                alert(JSON.stringify(data));
+                //alert(JSON.stringify(data));
                 
                 $rootScope.watches = data.data;
                 

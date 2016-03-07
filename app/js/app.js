@@ -4,6 +4,7 @@
 angular.module('myApp', [
   
   // Directives
+  'angucomplete-alt',
   'angularUtils.directives.dirPagination',
   'directives.inputPopup',
   'directives.hashPopup',

@@ -1,5 +1,15 @@
 /* app css stylesheet */
 
+/*Autocomplete styling*/
+.highlight {
+    color: #ff0000;
+}
+
+#ex1_dropdown {
+  overflow-y: auto;
+  max-height: 250px;
+}
+
 .hash-card {
     background: white; 
     padding: 1em;

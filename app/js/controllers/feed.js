@@ -5,6 +5,16 @@ angular.module('controllers.feed', [])
 .controller('feedCtrl', ['$scope', '$http', '$rootScope', '$routeParams', function($scope, $http, $rootScope, $routeParams) {
 
     
+    //$scope.selectedCountry = {};
+    $scope.selectedCountry = function(selected) {
+        if (selected) {
+          window.alert('You have selected ' + selected.title);
+        } else {
+          console.log('cleared');
+        }
+    };
+    
+
     $scope.auctions = [];
 
     get_trending();
