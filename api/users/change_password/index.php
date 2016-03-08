@@ -10,8 +10,8 @@
     $post_data = validate_data("POST", array("user_id", "password", "new_password"));
     
     $user_id = $post_data['user_id']['value'];
-    $password = $post_data['password']['value'];
-    $new_password = $post_data['new_password']['value'];
+    $password = md5($post_data['password']['value']);
+    $new_password = md5($post_data['new_password']['value']);
     //$new_password_confirm = $_POST['new_password_confirm'];
 
     //echo $password;

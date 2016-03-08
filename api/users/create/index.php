@@ -11,7 +11,7 @@
     $firstname = $post_data['first_name']['value'];
     $lastname = $post_data['last_name']['value'];
     $email = $post_data['email']['value'];
-    $password = $post_data['password']['value'];
+    $password = md5($post_data['password']['value']);
  
     
     $result = db_cud_function(users_create($username, $firstname, $lastname, $email, $password)); 

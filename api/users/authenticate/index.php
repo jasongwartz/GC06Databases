@@ -8,7 +8,7 @@
     $post_data = validate_data("POST", array("username", "password"));
     
     $username = $post_data['username']['value'];
-    $password = $post_data['password']['value'];
+    $password = md5($post_data['password']['value']);
     
     $result = db_r_function(users_authenticate($username, $password));
 
