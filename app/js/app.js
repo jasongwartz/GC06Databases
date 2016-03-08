@@ -12,6 +12,8 @@ angular.module('myApp', [
   
   // Controllers
   'controllers.feed',
+  'controllers.following',
+  'controllers.search',
   'controllers.navbar',
   'controllers.account',
   'controllers.auction',

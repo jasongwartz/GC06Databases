@@ -45,14 +45,14 @@ angular.module('routes', ['ngRoute'])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/search', {
     templateUrl: 'views/feed.html',
-    controller: 'feedCtrl'
+    controller: 'searchCtrl'
   });
 }])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/following', {
     templateUrl: 'views/feed.html',
-    controller: 'feedCtrl'
+    controller: 'followingCtrl'
   });
 }])
 

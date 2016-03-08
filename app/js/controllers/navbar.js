@@ -169,34 +169,13 @@ angular.module('controllers.navbar', [])
             $rootScope.filter = "HOME";
             $location.path("/feed").search({});
         }
-
-    };
-       
+    };      
     
     
     if (logged_in()) {
         
         get_watches();
-        
-        function get_watches() {
-            $http.get(PATH_TO_API + 'watches/user_watches/?watch_user_id=' + sessionStorage.getItem('user_id') + '&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
-
-                //alert(JSON.stringify(data));
-                
-                $rootScope.watches = data.data;
-                
-                var auction_id = window.location.href.split('?')[1];
-                if (auction_id !== undefined) {
-                    $rootScope.isInWatches = isInWatches(auction_id);
-                    alert($rootScope.isInWatches + " " + auction_id);
-                }
-                
-
-            }, function() { 
-                $rootScope.log_out(); 
-            });
-        }
-        
+             
         $rootScope.isInWatches = function(id) {
             //alert("is in watches " + id);
             if (id !== undefined && $rootScope.watches !== undefined) {
@@ -249,10 +228,26 @@ angular.module('controllers.navbar', [])
                 get_watches();
 
             }, function(data) { requestFailureFunction(data); });   
-        };
-        
-   
-        
+        };    
     }
     
+    function get_watches() {
+        //alert("getting watches");
+        $http.get(PATH_TO_API + 'watches/user_watches/?watch_user_id=' + sessionStorage.getItem('user_id') + '&access_token=' + sessionStorage.getItem('access_token') ).then(function(data){
+
+            //alert(JSON.stringify(data));
+
+            $rootScope.watches = data.data;
+
+            var auction_id = window.location.href.split('auction?')[1];
+            if (auction_id !== undefined) {
+                $rootScope.isInWatches = isInWatches(auction_id);
+                alert($rootScope.isInWatches + " " + auction_id);
+            }
+
+
+        }, function() { 
+            $rootScope.log_out(); 
+        });
+    }    
 }]);
