@@ -9,3 +9,4 @@ tmp
 nbproject
 api/config.php
 app/config.js
+api/event/end_expired_auctions/emailconfig.php
