@@ -1,0 +1,49 @@
+<section>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <div class="card">
+                    <div class="card-block">
+                      <h1 class="card-title">Your bids</h1>
+                      <hr class="light">
+                    </div>
+                  </div>
+           </div>
+        </div> 
+        <div ng-repeat="bid in bids">
+
+            <div class="card hash-card col-lg-8 col-lg-offset-2 {{(bid.successful ? 'bg-sucess' : '')}}">
+                
+                
+                <input-popup ng-if="bid.successful" class="pull-right" popup-id="pay_{{bid.auction_id}}" title="popupTitle" inputs="inputs"
+                    submit-name="submitName(bid)" submit-fn="pay()"
+                    btn-class="btn btn-info fa fa-credit-card">     
+                </input-popup>
+                <!--<div class="pull-right text-success" style="margin-right: 0.5em; margin-top: 0.7em">SUCCESSFUL BID! PAY NOW!</div>-->
+                
+                <div class="row">
+                    <div class="col-sm-2">
+                        <img ng-if="bid.image_ref" height="100px" width="100px" ng-src="{{bid.image_ref}}" alt="item image"/>
+                        <img ng-if="!bid.image_ref" height="100px" width="100px" ng-src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png" alt="item image"/>
+                    </div>
+                    <div class="col-sm-8" style="margin-left: 1em">
+                        <h4>£{{bid.bid_price}}</h4>
+                        <a href="#/auction?{{bid.bid_id}}"><h4 class="card-title">@{{bid.username}}: {{bid.title}}</h4></a>
+                          <p class="card-text">
+                              {{bid.description}}
+                          </p>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <br/>
+
+        </div>
+        
+    </div>
+    
+</section>

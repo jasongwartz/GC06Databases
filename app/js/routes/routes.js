@@ -8,6 +8,13 @@ angular.module('routes', ['ngRoute'])
 }])
 
 .config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/bids', {
+    templateUrl: 'views/bids.html',
+    controller: 'bidsCtrl'
+  });
+}])
+
+.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/auction', {
     templateUrl: 'views/auction.html',
     controller: 'auctionCtrl'

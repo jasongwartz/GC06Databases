@@ -12,6 +12,7 @@ angular.module('myApp', [
   
   // Controllers
   'controllers.feed',
+  'controllers.bids',
   'controllers.following',
   'controllers.search',
   'controllers.navbar',
@@ -19,7 +20,6 @@ angular.module('myApp', [
   'controllers.auction',
   'controllers.feedback',
   'controllers.items',
-  'controllers.user',
   
   // Routes
   'routes'
