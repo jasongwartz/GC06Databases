@@ -11,39 +11,46 @@
                   </div>
            </div>
         </div> 
-        <div ng-repeat="bid in bids">
+        <div class=" col-lg-8 col-lg-offset-2 ">
+            <div ng-repeat="bid in bids">
 
-            <div class="card hash-card col-lg-8 col-lg-offset-2 {{(bid.successful ? 'bg-sucess' : '')}}">
+                <div class="card hash-card">
                 
-                
-                <input-popup ng-if="bid.successful" class="pull-right" popup-id="pay_{{bid.auction_id}}" title="popupTitle" inputs="inputs"
-                    submit-name="submitName(bid)" submit-fn="pay()"
-                    btn-class="btn btn-info fa fa-credit-card">     
-                </input-popup>
-                <!--<div class="pull-right text-success" style="margin-right: 0.5em; margin-top: 0.7em">SUCCESSFUL BID! PAY NOW!</div>-->
-                
-                <div class="row">
-                    <div class="col-sm-2">
-                        <img ng-if="bid.image_ref" height="100px" width="100px" ng-src="{{bid.image_ref}}" alt="item image"/>
-                        <img ng-if="!bid.image_ref" height="100px" width="100px" ng-src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png" alt="item image"/>
-                    </div>
-                    <div class="col-sm-8" style="margin-left: 1em">
-                        <h4>£{{bid.bid_price}}</h4>
-                        <a href="#/auction?{{bid.bid_id}}"><h4 class="card-title">@{{bid.username}}: {{bid.title}}</h4></a>
-                          <p class="card-text">
-                              {{bid.description}}
-                          </p>
+                    <div ng-if="bid.successful" class="ribbon-wrapper"><div class="ribbon-won">WON</div></div>
 
+                    <!--<div class="pull-right text-success" style="margin-right: 0.5em; margin-top: 0.7em">SUCCESSFUL BID! PAY NOW!</div>-->
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <img ng-if="bid.image_ref" height="100px" width="100px" ng-src="{{bid.image_ref}}" alt="item image"/>
+                            <img ng-if="!bid.image_ref" height="100px" width="100px" ng-src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png" alt="item image"/>
+
+                        </div>
+                        <div class="col-sm-8" style="margin-left: 1em">
+                            <h4>£{{bid.bid_price}} <small>at {{bid.bid_time}}
+                            <input-popup ng-if="bid.successful" 
+                                style="margin-top: 2px"
+                                popup-id="pay_{{bid.auction_id}}" title="popupTitle" inputs="inputs"
+                                submit-name="submitName(bid)" submit-fn="pay()"
+                                btn-class="btn btn-info fa fa-credit-card">     
+                            </input-popup>
+                                </small></h4>
+                            <a href="#/auction?{{bid.bid_id}}"><h4 class="card-title">@{{bid.username}}: {{bid.title}}
+                                    <br/><small> finishes in <time-difference date="bid.end_time"></time-difference></small></h4></a>
+                              <p class="card-text">
+                                  {{bid.description}}
+                              </p>
+
+                        </div>
                     </div>
+
+
+
                 </div>
-
-
+                <br/>
 
             </div>
-            <br/>
-
         </div>
-        
     </div>
     
 </section>

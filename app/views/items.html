@@ -5,7 +5,7 @@
             <div class="col-lg-8 col-lg-offset-2 text-center">
                 <div class="card">
                     <div class="card-block">
-                      <h1 class="card-title">Items</h1>
+                      <h1 class="card-title">Items and Auctions</h1>
                         <input-popup popup-id="items" title="popupTitle" inputs="inputs"
                             submit-name="submitName" submit-fn="add_item()"
                             btn-class="btn btn-block btn-info glyphicon glyphicon glyphicon-plus-sign">     
@@ -77,7 +77,7 @@
                 <div class="col-lg-10 col-lg-offset-1">
                     <div class="card hash-card" ng-click="(item.sold ? delete_item(item) : '')">
                    
-                            <div ng-if="item.sold" class="ribbon-wrapper-green"><div class="ribbon-green">SOLD</div></div>    
+                            <div ng-if="item.sold" class="ribbon-wrapper"><div class="ribbon-sold">SOLD</div></div>    
                             
                             <div ng-if="!item.sold" class="pull-right " style="padding: 0.25em;">
                                 <button ng-click="delete_item(item)" type="button" class="btn btn-info fa fa-times"></button>    
