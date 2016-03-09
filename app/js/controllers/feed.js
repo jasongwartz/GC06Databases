@@ -15,7 +15,12 @@ angular.module('controllers.feed', [])
         }, function(data) { requestFailureFunction(data); });        
         
     }
-
+    
+    $scope.go_to_trending_hashtag = function(hashtag) {
+        alert("going to "+hashtag);    
+    }
+    
+    
     $http.get(PATH_TO_API + 'auctions/retrieve_all').then(function(data){
     //        alert(data.data);
 
