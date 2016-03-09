@@ -104,7 +104,7 @@ angular.module('controllers.items', [])
     
         $scope.delete_item = function(item) {
             
-            if (confirm("Are you sure?")) {
+            if (confirm("Delete your item '" + item.title + "'?")) {
                 var post_data = $.param({
                         item_id: item.item_id
                     });
