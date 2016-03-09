@@ -16,6 +16,7 @@ angular.module('controllers.feed', [])
         
     }
 
+    
     $http.get(PATH_TO_API + 'auctions/retrieve_all').then(function(data){
     //        alert(data.data);
 

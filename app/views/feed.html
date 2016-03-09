@@ -18,7 +18,7 @@
                     
                   <h4 class="card-title" style="color: #6BB0FF">Trending hashtags</h4>
 
-                  <p ng-repeat="trend in trends track by $index">{{$index+1}}. {{trend.hashtagory_text}}</p>
+                  <p ng-repeat="trend in trends track by $index"><a ng-href="http://gc06.jasongwartz.com/app/#/search?query={{trend.hashtagory_text}}">{{$index+1}}. {{trend.hashtagory_text}}</a></p>
                   
                 </div>
             </div>
