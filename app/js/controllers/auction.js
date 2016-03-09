@@ -61,7 +61,7 @@ angular.module('controllers.auction', [])
         }).then(function(data){
 
             alert("Bid placed!");
-            get_bids();
+            get_bids(auction_id);
 //            alert("successful post! " + JSON.stringify(data));
 
         }, function(data) { //requestFailureFunction(data); 
