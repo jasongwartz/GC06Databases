@@ -28,7 +28,7 @@ angular.module('controllers.feedback', [])
             {
                 label: "Rating",
                 type: "range",
-                ngModel: feedback[buyerOrSeller + "rating"]
+                ngModel: (feedback[buyerOrSeller + "rating"] ? feedback[buyerOrSeller + "rating"] : 50)
             }
         ];            
     };
@@ -67,7 +67,7 @@ angular.module('controllers.feedback', [])
 
         $http.get(PATH_TO_API + 'feedback/for_user/?user_id='+ user_id ).then(function(data){
 
-            alert(JSON.stringify(data))
+            //alert(JSON.stringify(data))
             $scope.feedbacks = data.data;
         
         }, function(data) { requestFailureFunction(data); });

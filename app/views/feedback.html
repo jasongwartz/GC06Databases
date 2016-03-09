@@ -25,14 +25,15 @@
                 </div>
                 <div class="card hash-card" ng-repeat="feedback in feedbacks">
                     <div ng-if="feedback.buyer_id !== user_id">
-                        <h4 class="text-muted">@{{username}} <small>{{feedback.buyer_rating}}/100</small></h4>
+                        <h4 class="text-muted">@{{username}} by <a ng-href="#/feedback?{{feedback.seller_id}}">@{{feedback.other_username}}</a> <small ng-if="feedback.buyer_rating">{{feedback.buyer_rating}}/100</small> <small>(buyer)</small></h4>
                         <p> {{feedback.buyer_text}}</p>
+                        <p ng-if="!feedback.buyer_text"> NO FEEDBACK </p>
   
                     </div>
                     <div ng-if="feedback.seller_id !== user_id">
-                        <h4 class="text-muted">@{{username}} <small>{{feedback.seller_rating}}/100</small></h4>
+                        <h4 class="text-muted">@{{username}} by <a ng-href="#/feedback?{{feedback.buyer_id}}">@{{feedback.other_username}}</a> <small ng-if="feedback.seller_rating">{{feedback.seller_rating}}/100</small> <small>(seller)</small></h4>
                         <p> {{feedback.seller_text}}</p>
-  
+                        <p ng-if="!feedback.seller_text"> NO FEEDBACK </p>
                     </div>                    
                                          
                 </div>
@@ -53,9 +54,9 @@
                             setup-fn="setup_edit(feedback, 'buyer_')"
                             btn-class="btn btn-info fa fa-edit">     
                         </input-popup>
-                        <h4 class="text-muted">By @{{username}} <small>{{feedback.buyer_rating}}/100</small></h4>
+                        <h4 class="text-muted"><a ng-href="#/feedback?{{feedback.seller_id}}">@{{feedback.other_username}}</a> by @{{username}} <small ng-if="feedback.buyer_rating">{{feedback.buyer_rating}}/100</small> <small>(buyer)</small></h4>
                         <p> {{feedback.buyer_text}}</p>
-  
+                        <p ng-if="!feedback.buyer_text"> PLEASE LEAVE FEEDBACK </p>
                     </div>
                     <div ng-if="feedback.seller_id === user_id">
                         <input-popup ng-if="user_id === current_user_id" class="pull-right" popup-id="edit_{{feedback.feedback_auction_id}}" title="edit_popupTitle" inputs="edit_inputs"
@@ -63,9 +64,9 @@
                             setup-fn="setup_edit(feedback, 'seller_')"
                             btn-class="btn btn-info fa fa-edit">     
                         </input-popup>
-                        <h4 class="text-muted">By @{{username}} <small>{{feedback.seller_rating}}/100</small></h4>
+                        <h4 class="text-muted"><a ng-href="#/feedback?{{feedback.buyer_id}}">@{{feedback.other_username}}</a> by @{{username}} <small ng-if="feedback.seller_rating">{{feedback.seller_rating}}/100</small> <small>(seller)</small></h4>
                         <p> {{feedback.seller_text}}</p>
-  
+                        <p ng-if="!feedback.seller_text"> PLEASE LEAVE FEEDBACK </p>
                     </div>                    
                                          
                 </div>
