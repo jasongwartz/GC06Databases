@@ -45,7 +45,9 @@
                         </div>
                         <div class="col-sm-8" style="margin-left: 1em">
                             
-                            <a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">@{{auction.username}}: {{auction.title}} <br/><small> finishes in <time-difference date="auction.end_time"></time-difference></small></h4></a>
+                            <a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">@{{auction.username}}: {{auction.title}}
+                                <span style="float:right;">Current Bid: {{@auction.current_bid}}</span>
+                                <br/><small> finishes in <time-difference date="auction.end_time"></time-difference></small></h4></a>
                               <p class="card-text">
                                   {{auction.description}}
                               </p>
