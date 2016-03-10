@@ -1,10 +1,10 @@
 <section>
-    
+
     <div class="container-fluid">
 
         <div class="col-lg-3">
 
-<!--            <div class="card hash-card">
+            <!--            <div class="card hash-card">
                 <div class="card-block">
                   <h4 class="card-title">Name: {{user.first_name}} {{user.last_name}}</h4>
 
@@ -12,67 +12,66 @@
             </div>
             <br/>-->
             <div class="card hash-card">
-                <img height="100%" width="100%" src="img/hashtagories.png"/>
+                <img height="100%" width="100%" src="img/hashtagories.png" />
                 <div class="card-block">
                     <br/>
-                    
-                  <h4 class="card-title" style="color: #6BB0FF">Trending hashtags</h4>
 
-                  <p ng-repeat="trend in trends track by $index"><a ng-href="http://gc06.jasongwartz.com/app/#/search?query={{trend.hashtagory_text}}">{{$index+1}}. {{trend.hashtagory_text}}</a></p>
-                  
+                    <h4 class="card-title" style="color: #6BB0FF">Trending hashtags</h4>
+
+                    <p ng-repeat="trend in trends track by $index"><a ng-href="http://gc06.jasongwartz.com/app/#/search?query={{trend.hashtagory_text}}">{{$index+1}}. {{trend.hashtagory_text}}</a></p>
+
                 </div>
             </div>
-       </div>        
+        </div>
 
         <div class="col-lg-6">
             <div ng-if="logged_in" class="card hash-card">
                 <div class="card-block">
-                  <h4 class="card-title">Here are some auctions you might enjoy following.</h4>
-                  <p class="card-text">
-                     
-                  </p>
+                    <h4 class="card-title">Here are some auctions you might enjoy following.</h4>
+                    <p class="card-text">
+
+                    </p>
                 </div>
             </div>
-            <hr class="light"/>
-            
+            <hr class="light" />
+
             <div ng-repeat="auction in auctions">
-            
+
                 <div class="card hash-card">
                     <div class="row">
                         <div class="col-sm-2">
-                            <img ng-if="auction.image_ref" height="100px" width="100px" ng-src="{{auction.image_ref}}" alt="item image"/>
-                            <img ng-if="!auction.image_ref" height="100px" width="100px" ng-src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png" alt="item image"/>
+                            <img ng-if="auction.image_ref" height="100px" width="100px" ng-src="{{auction.image_ref}}" alt="item image" />
+                            <img ng-if="!auction.image_ref" height="100px" width="100px" ng-src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png" alt="item image" />
                         </div>
                         <div class="col-sm-8" style="margin-left: 1em">
-                            
+
                             <a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">@{{auction.username}}: {{auction.title}}
-                                <span style="float:right;">Current Bid: {{@auction.current_bid}}</span>
                                 <br/><small> finishes in <time-difference date="auction.end_time"></time-difference></small></h4></a>
-                              <p class="card-text">
-                                  {{auction.description}}
-                              </p>
-                            
+                            <p class="card-text">
+                                <span ng-show="{{auction.current_bid}}"> TOP BID: £{{auction.current_bid}}. </span> {{auction.description}}
+                            </p>
+
                         </div>
                     </div>
-             
-                    
+
+
 
                 </div>
                 <br/>
-            
+
             </div>
-            
-       </div> 
+
+        </div>
 
         <div class="col-lg-3">
             <div class="card hash-card text-muted">
-                
+
                 Hashtagories &copy; 2016
-               
+
             </div>
-        </div>  
-        
+        </div>
+
     </div>
 
-    
+
 </section>
