@@ -48,7 +48,7 @@
                             <a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">@{{auction.username}}: {{auction.title}}
                                 <br/><small> finishes in <time-difference date="auction.end_time"></time-difference></small></h4></a>
                             <p class="card-text">
-                                TOP BID: £{{auction.current_bid}}. {{auction.description}}
+                                <span ng-if="{{auction.current_bid}}>0"> TOP BID: £{{auction.current_bid}}. </span> {{auction.description}}
                             </p>
 
                         </div>
