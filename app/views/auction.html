@@ -26,7 +26,7 @@
                     <button ng-if="logged_in && isInWatches(auction.auction_id)" ng-click="remove_from_watchlist(auction)" class="pull-right btn btn-info fa fa-star"></button>
                     
                     <div class="card-block">
-                        <h3>Highest Bid: £{{(bids[0].bid_price ? bids[0].bid_price : "0")}}</h3>
+                        <h3>Highest Bid: £{{(bids[0].bid_price ? bids[0].bid_price : "0")}} <small ng-if="auction.is_complete === 1">(Closed)</small></h3>
                         <h4><time-difference date="auction.end_time"></time-difference> <small>at {{auction_end_time}}</small></h4>
                         
                         <div class="card-text text-center">
@@ -34,18 +34,24 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <input-popup ng-if="logged_in && root_user_id != auction.owner_user_id" popup-id="bids" title="popupTitle" inputs="inputs"
+                        <input-popup ng-if="logged_in && root_user_id != auction.owner_user_id && auction.is_complete !== 1"
+                            popup-id="bids" title="popupTitle" inputs="inputs"
                             submit-name="submitName" submit-fn="place_bid()"
                             btn-class="btn btn-block btn-info glyphicon glyphicon glyphicon-plus-sign">     
                         </input-popup>
-                        <button ng-if="!logged_in" 
+                        <button ng-if="!logged_in && auction.is_complete !== 1" 
                             class="btn btn-block btn-info glyphicon glyphicon glyphicon-plus-sign"
                             title="Please log in to bid."
                             disabled>     
                         </button>
-                        <button ng-if="logged_in && root_user_id == auction.owner_user_id" 
+                        <button ng-if="logged_in && root_user_id === auction.owner_user_id && auction.is_complete !== 1" 
                             class="btn btn-block btn-info glyphicon glyphicon glyphicon-plus-sign"
                             title="You can't bid on your own item."
+                            disabled>     
+                        </button>
+                        <button ng-if="auction.is_complete === 1" 
+                            class="btn btn-block btn-info glyphicon glyphicon glyphicon-plus-sign"
+                            title="Auction is closed."
                             disabled>     
                         </button>
                     </div>

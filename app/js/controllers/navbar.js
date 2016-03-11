@@ -107,7 +107,7 @@ angular.module('controllers.navbar', [])
             
             $rootScope.root_user_id = data.data.user_id;
             
-            alert( sessionStorage.getItem('user_id') );
+            //alert( sessionStorage.getItem('user_id') );
 
         }, function(data) { 
             alert(data.data.error);
