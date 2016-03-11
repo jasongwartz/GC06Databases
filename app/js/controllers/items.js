@@ -49,11 +49,6 @@ angular.module('controllers.items', [])
 
 
         get_all_items();
-
-
-
-
-
     }
 
     function get_all_items() {
