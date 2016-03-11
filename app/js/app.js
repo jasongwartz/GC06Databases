@@ -26,12 +26,12 @@ angular.module('myApp', [
   
 ]);
 
-function alert(str) {
-    //console.log(str);
-    
-    $('#alert_message').html(str);
-    $('#alert').modal('show');
-} 
+//function alert(str) {
+//    //console.log(str);
+//    
+//    $('#alert_message').html(str);
+//    $('#alert').modal('show');
+//} 
 
 function logged_in(set) {
     if (set === undefined) {

@@ -160,14 +160,18 @@ angular.module('controllers.navbar', [])
     
     // Search functionality
     $rootScope.search_filter = function(selected) {
-        if (selected) {
-            //window.alert('You have selected ' + selected.title);
-            $rootScope.filter = "SEARCH";
-            $location.path("/search").search({query: selected.title});
-        } else {
-            console.log('cleared');
-            $rootScope.filter = "HOME";
-            $location.path("/feed").search({});
+        //alert(JSON.stringify(selected));
+        
+        if (selected !== undefined) {
+            if (selected.title.length > 0) {
+                //window.alert('You have selected ' + selected.title);
+                $rootScope.filter = "SEARCH";
+                $location.path("/search").search({query: selected.title});
+            } else {
+                console.log('cleared');
+                $rootScope.filter = "HOME";
+                $location.path("/feed").search({});
+            }
         }
     };      
     
