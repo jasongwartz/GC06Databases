@@ -11,8 +11,13 @@ angular.module('directives.timeDifference', [])
         
         var dayDifference = parseInt(dateDifference/(24*3600000));
         
-        element.text( dayDifference +  " days, "  
+        if(dayDifference === 0) {
+             element.text(dateFilter(dateDifference, format));
+        } else {
+            element.text( dayDifference +  " days, "  
                 + dateFilter(dateDifference, format));
+            
+        }
     }
 
 //    scope.$watch(attrs.myCurrentTime, function(value) {
