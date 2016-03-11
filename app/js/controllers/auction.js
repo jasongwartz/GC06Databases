@@ -41,7 +41,7 @@ angular.module('controllers.auction', [])
     }
         
     $scope.place_bid = function() {
-        if ($scope.bids == undefined || $scope.inputs[0].ngModel > $scope.bids[0].bid_price)
+        if (JSON.stringify($scope.bids) == "[]" || $scope.inputs[0].ngModel > $scope.bids[0].bid_price)
             {
                 var post_data = $.param({
                 
