@@ -25,7 +25,7 @@ angular.module('controllers.auction', [])
     $http.get(PATH_TO_API + 'auctions/?auction_id='+ auction_id ).then(function(data){
 
         $scope.auction = data.data[0];
-        $scope.auction_end_time = dateFormatter($scope.auction.end_time);
+        $scope.auction_end_time = dateFormatter($scope.auction.end_time.replace(" ", "T"));
 //        alert(dateFormatter($scope.auction.end_time));
 //        $scope.bids = [{bid:"asdasd"}];
 
