@@ -41,8 +41,9 @@ angular.module('controllers.auction', [])
     }
         
     $scope.place_bid = function() {
-        
-        var post_data = $.param({
+        if $scope.inputs[0].ngModel > $scope.bids[0].bid_price
+            {
+                var post_data = $.param({
                 
                 bidder_user_id: sessionStorage.getItem("user_id"),
                 bid_auction_id: auction_id,
@@ -60,14 +61,19 @@ angular.module('controllers.auction', [])
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(data){
 
-            //alert("Bid placed!");
+            alert("Bid placed!");
             get_bids(auction_id);
-            alert(JSON.stringify(data));
 
         }, function(data) { //requestFailureFunction(data); 
             get_bids();
         });
 
+            }
+        else
+            {
+                alert("You must bid more than "+$scope.bids[0].bid_price)
+            }
+        
     };
     
 
