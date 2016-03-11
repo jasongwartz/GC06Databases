@@ -182,7 +182,7 @@ angular.module('controllers.navbar', [])
     $rootScope.search_filter = function(selected) {
         //alert(JSON.stringify(selected));
         
-        if (selected !== undefined) {
+        if (selected !== undefined && selected.title !== undefined) {
             if (selected.title.length > 0) {
                 //window.alert('You have selected ' + selected.title);
                 var params = get_params();
