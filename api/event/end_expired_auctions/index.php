@@ -28,7 +28,7 @@
         $buyer_mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
         $buyer_mail->Port = 587;                                    // TCP port to connect to
 
-        $buyer_mail->From = SENDER;
+        $buyer_mail->SetFrom(SENDER, 'Hashtagories');
         $buyer_mail->addAddress($auction['buyer_email']);  // VARIABLE
 
         $buyer_mail->Subject = 'You won the auction!';
@@ -53,7 +53,7 @@
         $seller_mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
         $seller_mail->Port = 587;                                    // TCP port to connect to
 
-        $seller_mail->From = SENDER;
+        $seller_mail->SetFrom(SENDER, 'Hashtagories');
         $seller_mail->addAddress($auction['seller_email']);  // VARIABLE
 
         $seller_mail->Subject = 'Your auction has closed!';
