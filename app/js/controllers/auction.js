@@ -36,6 +36,7 @@ angular.module('controllers.auction', [])
         $http.get(PATH_TO_API + 'bids/auction_bids?auction_id='+ auction_id ).then(function(data){
 
             $scope.bids = data.data;
+            alert(JSON.stringify($scope.bids))
 
         }, function(data) { requestFailureFunction(data); });
     }
