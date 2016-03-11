@@ -7,7 +7,7 @@ angular.module('directives.timeDifference', [])
         timeoutId;
 
     function updateTime() {
-        var dateDifference = (new Date(scope.date)-(new Date()));
+        var dateDifference = (new Date(scope.date.replace(" ", "T"))-(new Date()));
         
         var dayDifference = parseInt(dateDifference/(24*3600000));
         
