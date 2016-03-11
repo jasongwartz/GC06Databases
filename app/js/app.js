@@ -26,6 +26,13 @@ angular.module('myApp', [
   
 ]);
 
+function alert(str) {
+    //console.log(str);
+    
+    $('#alert_message').html(str);
+    $('#alert').modal('show');
+} 
+
 function logged_in(set) {
     if (set === undefined) {
         return JSON.parse(sessionStorage.getItem('logged_in'));
