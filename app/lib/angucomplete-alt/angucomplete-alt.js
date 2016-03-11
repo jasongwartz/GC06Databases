@@ -680,15 +680,10 @@
       scope.hoverRow = function(index) {
         scope.currentIndex = index;
       };
-      
-      scope.searchQuery = function(str, event) {
+             
+      scope.searchQuery = function(str, event) {        
           
-          if (event.keyCode === 13) {
-              
-          }
-          
-          
-          if (event.keyCode === 13) {
+          if (event.keyCode === 13 || event.keyCode === 32) {
               var ob = {
                 title: str  
               };
@@ -727,7 +722,7 @@
         //alert(str);
         
 //        if (str.indexOf(" ") > -1) {
-//            //scope.searchStr = str.split(" ")[1];
+//            scope.searchStr = str.split(" ")[1];
 //            console.log(scope.searchStr);
 //            //scope.searchStr 
 //            return str;

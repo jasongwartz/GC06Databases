@@ -25,13 +25,13 @@
                 </div>
                 <div class="card hash-card" ng-repeat="feedback in feedbacks">
                     <div ng-if="feedback.buyer_id !== user_id">
-                        <h4 class="text-muted">@{{username}} by <a ng-href="#/feedback?{{feedback.seller_id}}">@{{feedback.other_username}}</a> <small ng-if="feedback.buyer_rating">{{feedback.buyer_rating}}/100</small> <small>(buyer)</small></h4>
+                        <h4 class="text-muted">@{{username}} by <a ng-href="#/feedback?{{feedback.buyer_id}}">@{{feedback.other_username}}</a> <small ng-if="feedback.buyer_rating">{{feedback.buyer_rating}}/100</small> <small>(buyer)</small></h4>
                         <p> {{feedback.buyer_text}}</p>
                         <p ng-if="!feedback.buyer_text"> NO FEEDBACK </p>
   
                     </div>
                     <div ng-if="feedback.seller_id !== user_id">
-                        <h4 class="text-muted">@{{username}} by <a ng-href="#/feedback?{{feedback.buyer_id}}">@{{feedback.other_username}}</a> <small ng-if="feedback.seller_rating">{{feedback.seller_rating}}/100</small> <small>(seller)</small></h4>
+                        <h4 class="text-muted">@{{username}} by <a ng-href="#/feedback?{{feedback.seller_id}}">@{{feedback.other_username}}</a> <small ng-if="feedback.seller_rating">{{feedback.seller_rating}}/100</small> <small>(seller)</small></h4>
                         <p> {{feedback.seller_text}}</p>
                         <p ng-if="!feedback.seller_text"> NO FEEDBACK </p>
                     </div>                    
