@@ -2,7 +2,7 @@
 
 angular.module('controllers.feed', [])
 
-.controller('feedCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+.controller('feedCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.auctions = [];
 
@@ -12,7 +12,7 @@ angular.module('controllers.feed', [])
         var path = PATH_TO_API + "hashtagories/trending/";
         $http.get(path).then(function(data){
              $scope.trends = data.data;
-        }, function(data) { requestFailureFunction(data); });        
+        }, function(data) { /*requestFailureFunction(data);*/ });        
         
     }
 
@@ -22,7 +22,7 @@ angular.module('controllers.feed', [])
 
         $scope.auctions = data.data;
 
-    }, function(data) { requestFailureFunction(data); });    
+    }, function(data) { /*requestFailureFunction(data);*/ });    
     
 //    switch($rootScope.filter) { 
 //
