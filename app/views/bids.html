@@ -16,7 +16,7 @@
 
                 <div class="card hash-card">
                 
-                    <div ng-if="bid.successful" class="ribbon-wrapper"><div class="ribbon-won">WON</div></div>
+                    <div ng-if="bid.sold === root_user_id" class="ribbon-wrapper"><div class="ribbon-won">WON</div></div>
 
                     <!--<div class="pull-right text-success" style="margin-right: 0.5em; margin-top: 0.7em">SUCCESSFUL BID! PAY NOW!</div>-->
 
@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-sm-8" style="margin-left: 1em">
                             <h4>£{{bid.bid_price}} <small>at {{bid.bid_time}}
-                            <input-popup ng-if="bid.successful" 
+                            <input-popup ng-if="bid.sold === root_user_id" 
                                 style="margin-top: 2px"
                                 popup-id="pay_{{bid.auction_id}}" title="popupTitle" inputs="inputs"
                                 submit-name="submitName(bid)" submit-fn="pay()"
