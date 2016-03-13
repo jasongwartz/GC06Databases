@@ -5,8 +5,8 @@ bower_components/
 tmp
 .DS_Store
 .idea
-*/config.json
+**/config.json
 nbproject
 api/config.php
 app/config.js
-api/event/end_expired_auctions/emailconfig.php
+**/emailconfig.php

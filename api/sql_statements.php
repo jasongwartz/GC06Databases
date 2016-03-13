@@ -139,3 +139,7 @@ function hashtagories_tag_item($item_id, $hashtag){
 function event_end_expired_auctions(){
     return "CALL event_end_expired_auctions();";
 }
+
+function event_retrieve_watches(){
+    return "CALL event_retrieve_watches();";
+}

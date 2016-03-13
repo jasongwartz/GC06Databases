@@ -7,8 +7,8 @@
         
     include '../../sql_statements.php';
     include '../../helper.php';
-    include 'PHPMailer/PHPMailerAutoload.php';
-    include 'emailconfig.php';
+    include '../PHPMailer/PHPMailerAutoload.php';
+    include '../emailconfig.php';
 
     $result = db_r_function(event_end_expired_auctions());
     $data = json_decode($result, true);
