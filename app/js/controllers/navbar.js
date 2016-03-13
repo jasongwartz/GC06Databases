@@ -158,16 +158,43 @@ angular.module('controllers.navbar', [])
         }, function(data) { requestFailureFunction(data); });
     }
     
+    function get_params() {
+        var url = window.location.href;
+        if (url.indexOf("?") > -1) {
+            var qs = window.location.href.split('?')[1];
+
+            qs = qs.split('+').join(' ');
+
+            var params = {},
+                tokens,
+                re = /[?&]?([^=]+)=([^&]*)/g;
+
+            while (tokens = re.exec(qs)) {
+                params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+            }
+
+            return params;
+        } else {
+            return undefined;
+        }
+    }
     // Search functionality
     $rootScope.search_filter = function(selected) {
-        if (selected) {
-            //window.alert('You have selected ' + selected.title);
-            $rootScope.filter = "SEARCH";
-            $location.path("/search").search({query: selected.title});
-        } else {
-            console.log('cleared');
-            $rootScope.filter = "HOME";
-            $location.path("/feed").search({});
+        //alert(JSON.stringify(selected));
+        
+        if (selected !== undefined && selected.title !== undefined) {
+            if (selected.title.length > 0) {
+                //window.alert('You have selected ' + selected.title);
+                var params = get_params();
+                
+                //alert(params.query);(params ? params.query + " " : "") + 
+                $rootScope.filter = "SEARCH";
+                $location.path("/search").search({query: selected.title});
+            } else {
+                console.log('cleared');
+                $rootScope.filter = "HOME";
+                $location.path("/feed").search({});
+            }
         }
     };      
     

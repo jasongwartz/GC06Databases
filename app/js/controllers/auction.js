@@ -25,7 +25,7 @@ angular.module('controllers.auction', [])
     $http.get(PATH_TO_API + 'auctions/?auction_id='+ auction_id ).then(function(data){
 
         $scope.auction = data.data[0];
-        $scope.auction_end_time = dateFormatter($scope.auction.end_time);
+        $scope.auction_end_time = dateFormatter($scope.auction.end_time.replace(" ", "T"));
 //        alert(dateFormatter($scope.auction.end_time));
 //        $scope.bids = [{bid:"asdasd"}];
 
@@ -41,8 +41,9 @@ angular.module('controllers.auction', [])
     }
         
     $scope.place_bid = function() {
-        
-        var post_data = $.param({
+        if (JSON.stringify($scope.bids) == "[]" || $scope.inputs[0].ngModel > $scope.bids[0].bid_price)
+            {
+                var post_data = $.param({
                 
                 bidder_user_id: sessionStorage.getItem("user_id"),
                 bid_auction_id: auction_id,
@@ -62,12 +63,17 @@ angular.module('controllers.auction', [])
 
             alert("Bid placed!");
             get_bids(auction_id);
-//            alert("successful post! " + JSON.stringify(data));
 
         }, function(data) { //requestFailureFunction(data); 
             get_bids();
         });
 
+            }
+        else
+            {
+                alert("You must bid more than "+$scope.bids[0].bid_price)
+            }
+        
     };
     
 

@@ -22,7 +22,7 @@
 }(window, function (angular) {
   'use strict';
 
-  angular.module('angucomplete-alt', []).directive('angucompleteAlt', ['$q', '$parse', '$http', '$sce', '$timeout', '$templateCache', '$interpolate', function ($q, $parse, $http, $sce, $timeout, $templateCache, $interpolate) {
+  angular.module('angucomplete-alt', []).directive('angucompleteAlt', ['$q', '$parse', '$http', '$sce', '$timeout', '$templateCache', '$interpolate', '$rootScope', function ($q, $parse, $http, $sce, $timeout, $templateCache, $interpolate, $rootScope) {
     // keyboard events
     var KEY_DW  = 40;
     var KEY_RT  = 39;
@@ -45,8 +45,10 @@
 
     // Set the default template for this directive
     $templateCache.put(TEMPLATE_URL,
+        '<div>{{searchQueryString}}</div>' +
         '<div class="angucomplete-holder" ng-class="{\'angucomplete-dropdown-visible\': showDropdown}">' +
-        '  <input id="{{id}}_value" name="{{inputName}}" tabindex="{{fieldTabindex}}" ng-class="{\'angucomplete-input-not-empty\': notEmpty}" ng-model="searchStr" ng-disabled="disableInput" type="{{inputType}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)"/>' +
+       
+        '  <input id="{{id}}_value" name="{{inputName}}" tabindex="{{fieldTabindex}}" ng-class="{\'angucomplete-input-not-empty\': notEmpty}" ng-model="searchStr" type="{{inputType}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)" ng-keyup="searchQuery(searchStr, $event)"/>' +
         '  <div id="{{id}}_dropdown" class="angucomplete-dropdown" ng-show="showDropdown">' +
         '    <div class="angucomplete-searching" ng-show="searching" ng-bind="textSearching"></div>' +
         '    <div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0)" ng-bind="textNoResults"></div>' +
@@ -571,6 +573,8 @@
       function processResults(responseData, str) {
         var i, description, image, text, formattedText, formattedDesc;
 
+        //alert(JSON.stringify(responseData) + " " + str);
+
         if (responseData && responseData.length > 0) {
           scope.results = [];
 
@@ -678,9 +682,85 @@
       scope.hoverRow = function(index) {
         scope.currentIndex = index;
       };
+            
+        function stringLastWord() {
+            var arr = $rootScope.searchQueryString.split(" ");
+            
+            var out = arr[arr.length - 1];
+            //alert(JSON.stringify(arr));
+            arr.splice(arr.length - 1, 1);
+
+            $rootScope.searchQueryString = '';
+            
+            for (var i=0; i<arr.length; i++) {
+                $rootScope.searchQueryString += arr[i] + ' ';
+                
+            }
+            
+            $rootScope.searchQueryString =  $rootScope.searchQueryString.trim();
+            
+            return out;
+//            var outStr = '';
+//            for (var i=0; i<arr.length - 1; i++) {
+//                outStr += arr[i] + ' ';
+//                
+//            }
+//            return outStr;
+        }
+        $rootScope.searchQueryString = "";
+        scope.searchQuery = function(str, event) {        
+          //alert(str.length + " " + $rootScope.searchQueryString.length);
+          if ( (event.keyCode === 127 || event.keyCode === 8) &&
+            (str === undefined || str.length === 0) && $rootScope.searchQueryString.length > 0) {
+              
+              scope.searchStr = stringLastWord();
+              //alert(stringLastWord());
+          }
+          
+          if (event.keyCode === 32) {
+              if ( $rootScope.searchQueryString.length > 0)
+                   $rootScope.searchQueryString += " ";
+               $rootScope.searchQueryString += scope.searchStr;
+
+             var end = "";
+                if (str.indexOf(" ") > -1)
+                    end = $rootScope.searchQueryString;
+                else if ($rootScope.searchQueryString.length > 0)
+                    end = $rootScope.searchQueryString ;
+                else 
+                    end = str;
+                
+              var ob = {
+                title: end
+              };
+              
+                scope.selectedObject(ob);
+               
+          }
+          
+          if (event.keyCode === 13) {
+             var end = "";
+                if (str.indexOf(" ") > -1)
+                    end = $rootScope.searchQueryString;
+                else if ($rootScope.searchQueryString.length > 0)
+                    end = $rootScope.searchQueryString + " " + str;
+                else 
+                    end = str;
+                
+              var ob = {
+                title: end
+              };
+              
+                scope.selectedObject(ob);
+          
+          }
+          
+      };
 
       scope.selectResult = function(result) {
         // Restore original values
+        //alert(JSON.stringify(result) + " " + scope.searchStr);
+        
         if (scope.matchClass) {
           result.title = extractTitle(result.originalObject);
           result.description = extractValue(result.originalObject, scope.descriptionField);
@@ -696,7 +776,21 @@
         clearResults();
       };
 
+      scope.searchString = function(value) {
+          
+          
+      };
+
       scope.inputChangeHandler = function(str) {
+        //alert(str);
+        
+        if (str.indexOf(" ") > -1) {
+            scope.searchStr = str.split(" ")[1];
+            console.log(scope.searchStr);
+            //scope.searchStr 
+            return str;
+        }
+       
         if (str.length < minlength) {
           cancelHttpRequest();
           clearResults();
