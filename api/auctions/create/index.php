@@ -13,8 +13,6 @@
     $end_time  = $post_data['end_time']['value'];
     $reserve_price = $post_data['reserve_price']['value'];
 
-        echo auctions_create($auction_item_id, $start_time, $end_time, $reserve_price);
-    
     $result = db_cud_function(auctions_create($auction_item_id, $start_time, $end_time, $reserve_price));
     $data = json_decode($result);
     db_cud_function(watches_create($data['owner_user_id'], $data['auction_id']));
