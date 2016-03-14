@@ -16,7 +16,9 @@
         echo auctions_create($auction_item_id, $start_time, $end_time, $reserve_price);
     
     $result = db_cud_function(auctions_create($auction_item_id, $start_time, $end_time, $reserve_price));
-
+    $data = json_decode($result);
+    db_cud_function(watches_create($data['owner_user_id'], $data['auction_id']));
+    
     if ($result) {
         http_response_code(200);
         
