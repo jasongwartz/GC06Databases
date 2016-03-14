@@ -17,9 +17,9 @@
         print_r($auction);
         if($auction['successful']) {
             
-            $seller_text = "Congratulations, your item has sold to " . $auction['buyer_username'] . " for " . $auction['final_bid_price'] . "!\n\nAfter you have sent the item, please fill out some feedback here: " . $auction['seller_feedback_url'] . "\n\nThanks!\nHashtagories";
+            $seller_text = "Congratulations, your item has sold to " . $auction['buyer_username'] . " for " . $auction['final_bid_price'] . "!\n\nAfter you have sent the item, please fill out some feedback here: " . APP_URL . $auction['seller_feedback_url'] . "\n\nThanks!\nHashtagories";
 
-            $buyer_text = "Congratulations, you've purchased an item from " . $auction['seller_username'] . " for " . $auction['final_bid_price'] . "!\n\nAfter you have received the item, please fill out some feedback here: " . $auction['buyer_feedback_url'] . "\n\nThanks!\nHashtagories";
+            $buyer_text = "Congratulations, you've purchased an item from " . $auction['seller_username'] . " for " . $auction['final_bid_price'] . "!\n\nAfter you have received the item, please fill out some feedback here: " . APP_URL . $auction['buyer_feedback_url'] . "\n\nThanks!\nHashtagories";
             
             $buyer_mail = new PHPMailer;
 
