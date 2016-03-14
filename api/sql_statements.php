@@ -143,3 +143,7 @@ function event_end_expired_auctions(){
 function event_retrieve_watches(){
     return "CALL event_retrieve_watches();";
 }
+
+function hashtagories_clear(){
+    return "CALL hashtagories_clear();";
+}
