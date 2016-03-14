@@ -13,12 +13,13 @@
         </div> 
         <div class=" col-lg-8 col-lg-offset-2 ">
             <div ng-repeat="bid in bids">
-
+                <div class="row">
+                <div class="col-lg-12">    
                 <div class="card hash-card">
                     
-                    <div ng-if="bid.sold === bid.bidder_user_id" class="ribbon-wrapper"><div class="ribbon-won">WON</div></div>
-                    <div ng-if="bid.is_complete === '1' && bid.sold !== bid.bidder_user_id" class="ribbon-wrapper"><div class="ribbon-sold">CLOSED</div></div>
-
+                    <div ng-if="bid.is_complete === 1 && bid.sold === bid.bidder_user_id" class="ribbon-wrapper"><div class="ribbon-won">WON</div></div>
+                    <div ng-if="bid.is_complete === 1 && bid.sold !== bid.bidder_user_id" class="ribbon-wrapper"><div class="ribbon-sold">CLOSED</div></div>
+                    <!--<div ng-if="bid.is_complete === 1 && bid.sold !== bid.bidder_user_id" class="ribbon-wrapper">CLOSED</div>-->
                     <!--<div class="pull-right text-success" style="margin-right: 0.5em; margin-top: 0.7em">SUCCESSFUL BID! PAY NOW!</div>-->
 
                     <div class="row">
@@ -29,7 +30,7 @@
                         </div>
                         <div class="col-sm-8" style="margin-left: 1em">
                             <h4>£{{bid.bid_price}} <small>at {{bid.bid_time}}
-                            <input-popup ng-if="bid.is_complete === '1' && bid.sold !== bid.bidder_user_id" 
+                            <input-popup ng-if="bid.is_complete === 1 && bid.sold === bid.bidder_user_id" 
                                 style="margin-top: 2px"
                                 popup-id="pay_{{bid.auction_id}}" title="popupTitle" inputs="inputs"
                                 submit-name="submitName(bid)" submit-fn="pay()"
@@ -49,8 +50,10 @@
 
                 </div>
                 <br/>
-
+                </div>
+                </div>
             </div>
+            
         </div>
     </div>
     
