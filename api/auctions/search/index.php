@@ -5,7 +5,8 @@
     include '../../helper.php';
     
     $q = $_GET['query'];
-
+    $sort = $_GET['sort'];
+    $order = $_GET['sort_order'];
     
     $q_split = preg_split("/\s/", $q);
     
@@ -13,8 +14,11 @@
     $sort_order =  ($_GET['sort_order'] ? $_GET['sort_order'] : 0);
     $sort = ($_GET['sort'] ? $_GET['sort'] : 'views');
     
-    
-    $result = db_r_function(auctions_search($q_send, $sort_order, $sort));
+    if ($order) {
+       $result = db_r_function(auctions_search_desc($q_send, $sort));        
+    } else {
+       $result = db_r_function(auctions_search($q_send, $sort));
+    }
 
     if ($result) {
         http_response_code(200);
