@@ -7,7 +7,7 @@
 #
 # Host: auctions.cjfabur5dk4o.us-east-1.rds.amazonaws.com (MySQL 5.6.23-log)
 # Database: auction1
-# Generation Time: 2016-03-16 3:32:09 pm +0000
+# Generation Time: 2016-03-16 11:01:11 pm +0000
 # ************************************************************
 
 
@@ -58,7 +58,9 @@ VALUES
 	(15,107,1,'2016-03-14 13:38:37','2016-03-15 23:30:00',200.00,00000000007),
 	(20,139,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',3240.00,00000000000),
 	(21,140,0,'2016-03-14 19:15:27','2016-03-21 09:00:00',100.00,00000000007),
-	(25,141,0,'2016-03-02 17:13:55','2016-03-22 17:13:55',54720.00,00000000001);
+	(25,141,0,'2016-03-02 17:13:55','2016-03-22 17:13:55',54720.00,00000000001),
+	(26,142,0,'2016-03-16 15:32:22','2016-03-17 20:20:00',22.00,00000000001),
+	(28,143,0,'2016-03-16 18:40:37','2016-03-22 17:13:55',100.00,00000000007);
 
 /*!40000 ALTER TABLE `auctions` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -135,7 +137,10 @@ VALUES
 	(24,105,5.00,'2016-03-13 22:18:19',11),
 	(25,105,3.00,'2016-03-13 22:18:51',9),
 	(26,104,2.00,'2016-03-14 15:57:30',15),
-	(27,109,0.10,'2016-03-16 15:31:45',25);
+	(27,109,0.10,'2016-03-16 15:31:45',25),
+	(28,104,4.00,'2016-03-16 21:58:23',28),
+	(29,108,5.00,'2016-03-16 21:59:08',28),
+	(30,108,6.00,'2016-03-16 22:20:07',28);
 
 /*!40000 ALTER TABLE `bids` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -197,6 +202,7 @@ VALUES
 	('brogrammer'),
 	('camel'),
 	('figurine'),
+	('garage'),
 	('garagesale'),
 	('harrypotter'),
 	('hello'),
@@ -204,6 +210,7 @@ VALUES
 	('hipster'),
 	('hipstertable'),
 	('isatest'),
+	('isthisworking'),
 	('itsalwayssunny'),
 	('karate'),
 	('maths'),
@@ -211,9 +218,16 @@ VALUES
 	('ninja'),
 	('rootsandculture'),
 	('savethewhales'),
+	('spoon'),
 	('startupbro'),
 	('table'),
 	('test'),
+	('test2'),
+	('test3'),
+	('test5'),
+	('test7'),
+	('test8'),
+	('test9'),
 	('universe'),
 	('vegan'),
 	('vehicle'),
@@ -270,7 +284,14 @@ VALUES
 	(27,138,'harrypotter'),
 	(28,139,'table'),
 	(29,139,'hipster'),
-	(30,139,'hipstertable');
+	(30,139,'hipstertable'),
+	(33,142,'yolo'),
+	(34,142,'garage'),
+	(35,142,'spoon'),
+	(36,143,'hello'),
+	(37,143,'isthisworking'),
+	(44,144,'test8'),
+	(45,144,'test9');
 
 /*!40000 ALTER TABLE `item_hashtagories` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -315,7 +336,10 @@ VALUES
 	(138,104,'stuff','for the cloud #karate #yolo #harrypotter','http://www.qvidian.com/sites/default/files/the-cloud-SaaS-computing.jpg',105),
 	(139,1,'Table','A great hipster table, strong enough to support a crate of craft beer #table #hipster #hipstertable','http://diypalletfurniture.net/wp-content/uploads/2014/11/How-to-transform-a-pallet-into-a-hipster-table-for-the-living-room-12.jpg',0),
 	(140,106,'THEBEST','EVAAARRRRRR #GREAT #woohoo','http://diypalletfurniture.net/wp-content/uploads/2014/11/How-to-transform-a-pallet-into-a-hipster-table-for-the-living-room-12.jpg',0),
-	(141,106,'Dave Cameron','Who wants it? Anybody? I\'ll cut a deal? #garagesale #movingday','https://onmyfrontporch.files.wordpress.com/2014/08/david-cameron-012.jpg',0);
+	(141,106,'Dave Cameron','Who wants it? Anybody? I\'ll cut a deal? #garagesale #movingday','https://onmyfrontporch.files.wordpress.com/2014/08/david-cameron-012.jpg',0),
+	(142,109,'Stuff','#yolo #garage #spoon','http://andreklein.net/wp-content/uploads/2013/05/ak.gif',0),
+	(143,107,'BESTTITLE','#hello #isthisworking','http://brokenlink',0),
+	(144,107,'TESTER2','#test8 #test9','http://asdfasdf',0);
 
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -440,9 +464,9 @@ VALUES
 	('edward',101,'ed','m','email@email.com',''),
 	('dj',102,'dj','dj','dj.dj@dj.dj',''),
 	('aj',103,'aj','aj','aj@aj.com',''),
-	('oj',104,'oj','oj','jason.gwartz@gmail.com','d41d8cd98f00b204e980'),
-	('cj',105,'cj','cj','cj@cj.com','d41d8cd98f00b204e980'),
-	('jj',106,'JJ','JJJJ','jason.gwartz@gmail.com','d41d8cd98f00b204e980'),
+	('oj',104,'oj','oj','jason.gwartz@gmail.com','d41d8cd98f00b204e9800998ecf8427e'),
+	('cj',105,'cj','cj','cj@cj.com','d41d8cd98f00b204e9800998ecf8427e'),
+	('jj',106,'JJ','JJJJ','jason.gwartz@gmail.com','d41d8cd98f00b204e9800998ecf8427e'),
 	('pj',107,'PJ','PJPJ','jason.gwartz@gmail.com','d41d8cd98f00b204e9800998ecf8427e'),
 	('tester1',108,'tester','one','jason.gwartz@gmail.com','d41d8cd98f00b204e9800998ecf8427e'),
 	('aj',109,'aj','aj','ajaj@ajaj.com','d41d8cd98f00b204e9800998ecf8427e');
@@ -483,7 +507,12 @@ VALUES
 	(104,15),
 	(106,21),
 	(106,25),
-	(109,25);
+	(109,25),
+	(109,26),
+	(107,27),
+	(104,28),
+	(107,28),
+	(108,28);
 
 /*!40000 ALTER TABLE `watches` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -575,22 +604,19 @@ END */;;
 
 /*!50003 DROP PROCEDURE IF EXISTS `auctions_search` */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_search`(IN str varchar(100), IN sort_order boolean, IN sort varchar(10))
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_search`(IN str varchar(100), IN sort varchar(10))
 BEGIN
-    SELECT DISTINCT a.*, i.*, u.username
-    FROM item_hashtagories AS ih, auctions AS a, items AS i, users AS u
+    SELECT *
+    FROM item_hashtagories AS ih, auctions_retrieve_all AS a
 	
-    WHERE MATCH(ih.hashtagory_text) AGAINST(str IN BOOLEAN MODE)    
-		AND a.is_complete = 0
-		AND ih.tagged_item_id = i.item_id
-        AND a.auction_item_id = i.item_id
-        AND i.owner_user_id = u.user_id
-	
+    WHERE (str = '' OR MATCH(ih.hashtagory_text) AGAINST(str IN BOOLEAN MODE))
+    	AND ih.tagged_item_id = a.item_id
+    GROUP BY a.auction_id
     ORDER BY CASE sort
 				when 'start_time' then a.start_time
 				when 'end_time' then a.end_time
-				when 'popular' then a.views
-                when 'title' then i.title
+				when 'views' then a.views
+                when 'title' then a.title
 			END
         ;
 
@@ -602,25 +628,22 @@ END */;;
 
 /*!50003 DROP PROCEDURE IF EXISTS `auctions_search_desc` */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_search_desc`(IN str varchar(100), IN sort_order boolean, IN sort varchar(10))
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_search_desc`(IN str varchar(100), IN sort varchar(10))
 BEGIN
-    SELECT DISTINCT a.*, i.*, u.username
-    FROM item_hashtagories AS ih, auctions AS a, items AS i, users AS u
+    SELECT DISTINCT *
+    FROM item_hashtagories AS ih, auctions_retrieve_all AS a
 	
-    WHERE MATCH(ih.hashtagory_text) AGAINST(str IN BOOLEAN MODE)    
-		AND a.is_complete = 0
-		AND ih.tagged_item_id = i.item_id
-        AND a.auction_item_id = i.item_id
-        AND i.owner_user_id = u.user_id
-	
+    WHERE (str = '' OR MATCH(ih.hashtagory_text) AGAINST(str IN BOOLEAN MODE))
+    	AND ih.tagged_item_id = a.item_id
+    GROUP BY a.auction_id
     ORDER BY CASE sort
 				when 'start_time' then a.start_time
 				when 'end_time' then a.end_time
-				when 'popular' then a.views
-                when 'title' then i.title
-			END DESC
+				when 'views' then a.views
+                when 'title' then a.title
+			END
+            DESC
         ;
-
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;

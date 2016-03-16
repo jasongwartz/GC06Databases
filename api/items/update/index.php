@@ -13,7 +13,7 @@
     $description = $post_data['description']['value'];
     $image_ref = $post_data['image_ref']['value'];
     
-     preg_match_all("/#(\w+)/", $description, $tags);
+    preg_match_all("/#(\w+)/", $description, $tags);
    
     $result = db_cud_function(items_update($item_id, $title, $description, $image_ref));
     
