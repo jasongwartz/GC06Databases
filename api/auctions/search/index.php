@@ -5,12 +5,16 @@
     include '../../helper.php';
     
     $q = $_GET['query'];
+
     
     $q_split = preg_split("/\s/", $q);
     
     $q_send = "'" . join("* ", $q_split) . "*'";
+    $sort_order =  ($_GET['sort_order'] ? $_GET['sort_order'] : 0);
+    $sort = ($_GET['sort'] ? $_GET['sort'] : 'views');
     
-    $result = db_r_function(auctions_search($q_send));
+    
+    $result = db_r_function(auctions_search($q_send, $sort_order, $sort));
 
     if ($result) {
         http_response_code(200);

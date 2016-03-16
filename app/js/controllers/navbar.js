@@ -196,7 +196,38 @@ angular.module('controllers.navbar', [])
                 $location.path("/feed").search({});
             }
         }
-    };      
+    }; 
+    $rootScope.sort = "";
+    $rootScope.sortFn = function(str) {
+
+        var search = $location.search().query;
+
+        var params = {};
+
+        switch(str) {
+            case 'start_time':
+                params = {query: search, sort_order: 1, sort: 'start_time'};
+               
+                break; 
+            case 'end_time':
+                params = {query: search, sort_order: 1, sort: 'end_time'};
+                break;
+            case 'most_viewed':
+                params = {query: search, sort_order: 1, sort: 'views'};
+                break;
+            case 'title':
+                params = {query: search, sort_order: 1, sort: 'title'};
+                break;            
+        }
+        
+//         document.getElementById(str).checked = false;
+        
+        $location.path("/search").search(params);
+        
+//        document.getElementById(str).checked = true;
+    };
+    
+    
     
     
     if (logged_in()) {

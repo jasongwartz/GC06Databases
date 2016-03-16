@@ -68,8 +68,8 @@ function auctions_retrieve_all(){
     return "CALL auctions_retrieve_all();";
 }
 
-function auctions_search($query){
-    return "CALL auctions_search({$query});";
+function auctions_search($query, $sort_order, $sort){
+    return "CALL auctions_search({$query}, {$sort_order}, '{$sort}');";
 }
 
 function auctions_user_auctions($user_id){

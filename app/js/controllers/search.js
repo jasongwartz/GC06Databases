@@ -2,7 +2,15 @@
 
 angular.module('controllers.search', [])
 
-.controller('searchCtrl', ['$scope', '$http', '$rootScope', '$routeParams', function($scope, $http, $rootScope, $routeParams) {
+.controller('searchCtrl', ['$scope', '$http', '$rootScope', '$routeParams', '$location', function($scope, $http, $rootScope, $routeParams, $location) {
+
+    var id = $location.search().sort;
+
+    $('document').ready(function(){
+//        alert(id);
+        document.getElementById(id).checked = true;
+
+    });
 
     $scope.auctions = [];
 

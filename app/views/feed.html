@@ -63,14 +63,57 @@
             </div>
 
         </div>
+        
+            <div class="col-lg-3">
+                <div class="card hash-card text-muted">
+                    <div class="row">
+                        <div class="col-lg-12">
+                        Order by:
+                        </div>
+                    </div>
+                    
+                    <!--<form name="myForm" ng-click="sortFn(sort)">-->
+ 
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input id="start_time" type="radio" value="start_time" 
+                                    ng-click="sortFn('start_time')"> Start time
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                    <input id="end_time" type="radio" value="end_time"
+                              ng-click="sortFn('end_time')"> End time
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                    <input id="views" type="radio" value="most_viewed"
+                            ng-click="sortFn('most_viewed')"> Most viewed
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                    <input id="title" type="radio" value="title"
+                            ng-click="sortFn('title')"> By Title
+                        </div>
+                    </div>
+                    
 
-        <div class="col-lg-3">
-            <div class="card hash-card text-muted">
-
-                Hashtagories &copy; 2016
-
+                <!--</form>-->
+                </div>
             </div>
-        </div>
+            <br/>
+            
+            <div class="col-lg-3">
+                <div class="card hash-card text-muted">
+
+                    Hashtagories &copy; 2016
+
+                </div>
+            </div>
+            
+        
 
     </div>
 
