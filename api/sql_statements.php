@@ -68,8 +68,12 @@ function auctions_retrieve_all(){
     return "CALL auctions_retrieve_all();";
 }
 
-function auctions_search($query, $sort_order, $sort){
-    return "CALL auctions_search({$query}, {$sort_order}, '{$sort}');";
+function auctions_search($query, $sort){
+    return "CALL auctions_search({$query}, {$sort});";
+}
+
+function auctions_search_desc($query, $sort){
+    return "CALL auctions_search_desc({$query}, {$sort});";
 }
 
 function auctions_user_auctions($user_id){
@@ -142,4 +146,8 @@ function event_end_expired_auctions(){
 
 function event_retrieve_watches(){
     return "CALL event_retrieve_watches();";
+}
+
+function hashtagories_clear(){
+    return "CALL hashtagories_clear();";
 }

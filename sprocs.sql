@@ -1,30 +1,263 @@
+auctions_cancel
+# ------------------------------------------------------------
+
+# Cancels an auction by deleting it from the auction table. 
+
+PROCEDURE `auctions_cancel`(IN auction_id INT(11))
+BEGIN
+	DELETE FROM `auctions` WHERE auctions.auction_id = auction_id;
+END *
+
+
+auctions_close
+# ------------------------------------------------------------
+
+# Closes an auction (sets a boolean flag to 1)
+
+PROCEDURE `auctions_close`(IN auction_id INT)
+BEGIN
+    UPDATE auctions
+    SET is_complete=1
+    WHERE auctions.auction_id=auction_id;
+END *
+
+
+auctions_create
+# ------------------------------------------------------------
+
+# Starts an auction, using timestamps generated in the middle-layer (could have also used NOW() function). Reserve price needs to be cast from string input.
+
+PROCEDURE `auctions_create`(IN auction_item_id INT(11), IN start_time timestamp, IN end_time timestamp, IN reserve_price varchar(12))
+BEGIN
+    INSERT INTO `auctions` (auctions.auction_item_id, auctions.start_time, auctions.end_time, auctions.reserve_price)  
+    VALUES(auction_item_id, start_time, end_time, CAST(reserve_price AS DECIMAL(10,2)));
+    SELECT last_insert_id();
+END *
+
+
+auctions_retrieve_all
+# ------------------------------------------------------------
+
+# Shows a set of auction  objects with user name, item details and auction details, as well as highest bid. Highest bids needed to be selected into a subtable and then joined to cope with some auctions not having bids placed.
+
+PROCEDURE `auctions_retrieve_all`()
+BEGIN
+        select a.*, b.current_bid, i.*, u.username from auctions as a
+    Left Join (select bids.bid_auction_id, max(bids.bid_price) as `current_bid` from bids group by bid_auction_id) as b
+        ON a.auction_id = b.bid_auction_id
+    Left Join items as i
+        ON i.item_id = a.auction_item_id
+    Left JOIN users as u
+        ON u.user_id = i.owner_user_id
+    WHERE a.is_complete = 0
+    ORDER BY a.end_time ASC;
+END *
+
+
+auctions_search
+# ------------------------------------------------------------
+
+#Allows for a partial search of auctions, returning auction items with item and user details. 
+
+PROCEDURE `auctions_search`(IN str varchar(20))
+BEGIN
+    SELECT DISTINCT a.*, i.*, u.username
+    FROM item_hashtagories AS ih, auctions AS a, items AS i, users AS u
+	
+    WHERE MATCH(ih.hashtagory_text) AGAINST(str IN BOOLEAN MODE)    
+		AND a.is_complete = 0
+		AND ih.tagged_item_id = i.item_id
+        AND a.auction_item_id = i.item_id
+        AND i.owner_user_id = u.user_id;
+END *
+
+
+auctions_self
+# ------------------------------------------------------------
+
+# Returns the information about a particular auction (bids are pulled in seperately for display purposes)
+
+PROCEDURE `auctions_self`(IN auction_id INT(11))
+BEGIN
+SELECT items.*, users.username, auctions.* FROM `auctions`
+    LEFT JOIN `items` ON auctions.auction_item_id = items.item_id
+    LEFT JOIN `users` ON items.owner_user_id = users.user_id
+    WHERE auctions.auction_id = auction_id;
+END *
+
+
+auctions_user_auctions
+# ------------------------------------------------------------
+
+# Returns all auctions created by a particular user
+
+PROCEDURE `auctions_user_auctions`(IN user_id INT(11))
+BEGIN
+	SELECT * FROM `auctions` AS a, `items` AS i
+    WHERE a.is_complete = 0
+    AND a.auction_item_id = i.item_id
+    AND i.owner_user_id = user_id
+    ORDER BY `end_time` ASC;
+END *
+
+
+auctions_user_feed
+# ------------------------------------------------------------
+
+# Returns a feed of auctions relevant to the bids that they have made
+
+PROCEDURE `auctions_user_feed`(IN user_id INT(11))
+BEGIN
+	SELECT * FROM auctions as a
+	LEFT JOIN items as i ON a.auction_item_id = i.item_id
+	LEFT JOIN bids as b ON a.auction_id = b.bid_auction_id
+	WHERE b.bidder_user_id = user_id AND a.is_complete = 0
+    ORDER BY a.end_time ASC;
+END *
+
+
+bids_auction_bids
+# ------------------------------------------------------------
+
+# Returns the set of bids on any given auction
+
+PROCEDURE `bids_auction_bids`(IN bid_auction_id INT(11))
+BEGIN
+	SELECT * FROM bids WHERE bids.bid_auction_id = bid_auction_id
+    ORDER BY bids.bid_price DESC;
+END *
+
+
+bids_create
+# ------------------------------------------------------------
+
+# Procedure called when bid is placed on item. Bid value validation (that new bid is the higest) can be performed on the front-end
+
+PROCEDURE `bids_create`( IN bidder_user_id INT(11), IN bid_price VARCHAR(12), IN bid_auction_id INT)
+BEGIN
+INSERT INTO `bids` (bids.bidder_user_id, bids.bid_price, bids.bid_time, bids.bid_auction_id)
+    VALUES(bidder_user_id, CAST(bid_price AS DECIMAL(10,2)), NOW(), bid_auction_id);
+SELECT last_insert_id();
+END *
+
+
+bids_self
+# ------------------------------------------------------------
+
+# Returns the auction that a bid is related to
+
+PROCEDURE `bids_self`(IN bid_id INT(11))
+BEGIN
+	SELECT * FROM auctions AS a
+    LEFT JOIN items AS i ON a.auction_item_id = i.item_id
+    LEFT JOIN bids as b ON a.auction_id = b.bid_auction_id
+    WHERE b.bid_id = bid_id;
+END *
+
+
+bids_user_bids
+# ------------------------------------------------------------
+
+# Returns auction data objects on which a given user has bid (auction details, item deails and bid details)
+
+PROCEDURE `bids_user_bids`(IN user_id INT(11))
+BEGIN
+	SELECT * FROM auctions AS a
+    LEFT JOIN items AS i ON a.auction_item_id = i.item_id
+    LEFT JOIN bids AS b ON a.auction_id = b.bid_auction_id
+    WHERE user_id = b.bidder_user_id;
+END *
+
+
+event_end_expired_auctions
+# ------------------------------------------------------------
+
+PROCEDURE `event_end_expired_auctions`()
+BEGIN
+DECLARE n INT DEFAULT 0;
+DECLARE i INT DEFAULT 0;
+
+
+	SELECT count(*) FROM `auctions` WHERE end_time < now() INTO n;	
+
+SET i=0;
+WHILE i<n DO 
+
+	SELECT @auction_id := auction_id FROM `auctions` WHERE end_time < now() LIMIT i, 1;
+
+	UPDATE `auctions` SET is_complete = 1 WHERE auction_id = @auction_id;
+
+	SET i = i + 1;
+END WHILE;
+
+
+	SELECT count(*) FROM (SELECT *
+	FROM `auctions` as a, (select * from `bids` order by bid_price desc) as b, `items` as i 
+		where i.item_id = a.auction_item_id 
+		AND a.auction_id = b.bid_auction_id
+		AND a.end_time < curtime()
+		#AND a.reserve_price < b.bid_price
+		group by a.auction_id) as a INTO n;	
+
+SET i=0;
+WHILE i<n DO 
+
+	SELECT 
+		@reserve_price := reserve_price,
+		@bid_price := bid_price,
+		@seller_id := owner_user_id, 
+		@buyer_id := bidder_user_id,
+		@auction_id := auction_id 
+	FROM (SELECT *
+	FROM `auctions` as a, (select * from `bids` order by bid_price desc) as b, `items` as i 
+		where i.item_id = a.auction_item_id 
+		AND a.auction_id = b.bid_auction_id
+		AND a.end_time < curtime()
+		#AND a.reserve_price < b.bid_price
+		group by a.auction_id) as made limit i, 1;
+
+	IF @reserve_price < @bid_price THEN
+		UPDATE `auctions` SET is_complete = 2 WHERE auction_id = @auction_id;
+		INSERT IGNORE INTO `feedback` (`seller_id`, `feedback_auction_id`, `buyer_id`) 
+			VALUES (@seller_id, @auction_id, @buyer_id);
+	ELSE
+		UPDATE `auctions` SET is_complete = 1 WHERE auction_id = @auction_id;
+	END IF;
+
+
+
+  SET i = i + 1;
+END WHILE;
+End *
+
 
 feedback_for_auction
 # ------------------------------------------------------------
 
+# Returns all fields for feedback on a given auction based on auction ID
 
 
 PROCEDURE `feedback_for_auction`(IN feedback_auction_id INT(11))
 BEGIN
 	SELECT * FROM feedback WHERE feedback.feedback_auction_id = feedback_auction_id;
-END */;;
+END
 
 
 feedback_for_user
 # ------------------------------------------------------------
 
-
+# Returns all feedback for a user, both where they are a buyer or a seller. This was designed so that the system could display all of a user's feedback on one page.
 
 PROCEDURE `feedback_for_user`(IN user_id INT(11))
 BEGIN
 	SELECT * FROM feedback WHERE user_id = feedback.seller_id OR user_id = feedback.buyer_id;
-END */;;
+END
 
 
 feedback_update
 # ------------------------------------------------------------
 
-
+# Updates the feedback table with feedback left by the users. Contains switching logic to allow feedback to be sent to a single PHP endpoint. Once this stored procedure is activated it first identifies whether the user is leaving feedback as a buyer or a seller, then selectively updates the feedback table.
 
 PROCEDURE `feedback_update`(IN feedback_text VARCHAR(140), IN feedback_rating DECIMAL(5,2), IN user_id INT(11), IN feedback_auction_id INT(11))
 BEGIN
@@ -34,58 +267,59 @@ BEGIN
 	ELSE
 		UPDATE feedback SET feedback.buyer_text = feedback_text, buyer_rating = feedback_rating where feedback.feedback_auction_id = feedback_auction_id;
     END IF;
-END */;;
+END
 
 
 hashtagories_all
 # ------------------------------------------------------------
 
-
+# Returns all possible hashtagories, for the front end to auto-suggest existing hashtagories.
 
 PROCEDURE `hashtagories_all`()
 BEGIN
 SELECT text FROM hashtagories;
-END */;;
+END
 
 
 hashtagories_search
 # ------------------------------------------------------------
 
-
+# Searches the hashtagory table for hashtagories that partially match the input string, in order for tbe front-end to be able to search by hashtagory.
 
 PROCEDURE `hashtagories_search`(IN str varchar(20))
 BEGIN
 SELECT text FROM hashtagories
 WHERE INSTR(text, str);
-END */;;
+END
 
 
 hashtagories_self
 # ------------------------------------------------------------
 
-
+# Updates the hashtagory table if the user tags an item with a hashtagory that doesn't exist
 
 PROCEDURE `hashtagories_self`(IN hashtext VARCHAR(20))
 BEGIN
 	INSERT IGNORE INTO `hashtagories` values(hashtext);
-END */;;
+END
 
 
 hashtagories_tag_item
 # ------------------------------------------------------------
 
-
+# Adds a hashtagory to an item, allowing it to be searched at a later point. Structured so that if the hashtagory already exists, the operation will not crash and continue on to the second operation (actually tagging the item)
 
 PROCEDURE `hashtagories_tag_item`(IN item_id INT(11), IN hashtag varchar(20))
 BEGIN
     INSERT INTO hashtagories VALUES (hashtag);
 INSERT IGNORE INTO item_hashtagories (tagged_item_id, hashtagory_text) VALUES(item_id, hashtag);
-END */;;
+END
 
 
 hashtagories_trending
 # ------------------------------------------------------------
 
+# Returns a ranked and numbered list of hastagories based on their popularity (numbers of items that are associated to them). Takes advantage of the GROUP BY command and COUNT aggregate function to return a ranked, depulicated list
 
 
 PROCEDURE `hashtagories_trending`()
@@ -95,63 +329,63 @@ FROM items i, item_hashtagories ih, auctions a
 WHERE i.item_id = ih.tagged_item_id AND a.`auction_item_id` = i.`item_id` AND a.`is_complete` = 0
 GROUP BY ih.hashtagory_text ORDER BY count DESC
 LIMIT 10;
-END */;;
+END
 
 
 items_create
 # ------------------------------------------------------------
 
-
+# Creates an entry in the items table. Called every time an item is added to the system (note that hashtagorising has been encapsulated into a seperate stored procedure)
 
 PROCEDURE `items_create`(IN owner_user_id int(11), IN title varchar(50), IN description varchar(200))
 BEGIN
 	INSERT INTO `items` (`owner_user_id`, `title`, `description`)
     VALUES(owner_user_id, title, description);
     SELECT last_insert_id();
-END */;;
+END
 
 
 items_delete
 # ------------------------------------------------------------
 
-
+# Deletes an item from the database
 
 PROCEDURE `items_delete`(IN item_id INT(11))
 BEGIN
 	DELETE FROM `items` where items.item_id = item_id;
-END */;;
+END
 
 
 items_self
 # ------------------------------------------------------------
 
-
+# Returns all details regarding a single item. Uses GROUP_CONCAT to flatten the hashtagories (to which items have a 1..* relationship) into a single string for improved data transmission and display.
 
 PROCEDURE `items_self`(in item_id int(11))
 BEGIN
 	SELECT `item_id`, `owner_user_id`, `title`, `description`, GROUP_CONCAT(`hashtagory_text` ORDER BY `hashtagory_text` SEPARATOR ',') AS 'hashtagory_text'
     FROM `items`, `item_hashtagories`
     WHERE items.item_id = item_id AND item_hashtagories.tagged_item_id = item_id;
-END */;;
+END
 
 
 items_update
 # ------------------------------------------------------------
 
-
+# Updates description of item; note that hashtagory updates have been encapsulated into a seperate stored procedure
 
 PROCEDURE `items_update`(IN item_id int(11), IN title varchar(50), IN description varchar(200))
 BEGIN
 	UPDATE `items`
     SET items.title = title, items.description = description
     WHERE items.item_id = item_id;
-END */;;
+END
 
 
 items_user_items
 # ------------------------------------------------------------
 
-
+# Returns all items that a user owns, in order for them to review, delete or put them up for auction. Flattens hashtagories (to which items have a 1..* relationship) into a single string for display purposes.
 
 PROCEDURE `items_user_items`(IN owner_user_id INT(11))
 BEGIN
@@ -160,24 +394,24 @@ SELECT `item_id`, `owner_user_id`, `title`, `description`, GROUP_CONCAT(`hashtag
     ON I.item_id = IH.tagged_item_id
     WHERE I.owner_user_id = owner_user_id
     GROUP BY I.item_id;
-END */;;
+END
 
 
 users_authenticate
 # ------------------------------------------------------------
 
-
+#Authentictes users. Checks user name and hashed password against users table, only returns true if both match.
 
 PROCEDURE `users_authenticate`(IN username varchar(20), IN password varchar(20))
 BEGIN
 	select user_id from users where BINARY users.username = username AND BINARY users.password = password;
-END */;;
+END
 
 
 users_change_password
 # ------------------------------------------------------------
 
-
+#Two-step password change. New password validation done in front end, if new password is entered correctly twice, this store procedure is triggered. Checks first if old user name / password pair exists, then updates password field.
 
 PROCEDURE `users_change_password`(IN userid int(11), IN old_password varchar(20), IN new_password varchar(20))
 BEGIN
@@ -188,13 +422,13 @@ ELSE
 	SIGNAL SQLSTATE '45000'
     SET MESSAGE_TEXT = 'INCORRECT USER NAME AND/OR PASSWORD';
 END IF;
-END */;;
+END
 
 
 users_create
 # ------------------------------------------------------------
 
-
+#Creates a new user. Validates that no fields are empty in the front end, then inserts into user table
 
 PROCEDURE `users_create`(
 IN username varchar(10),
@@ -206,36 +440,36 @@ IN pass varchar(20)
 BEGIN
  INSERT INTO `users` (`username`, `first_name`, `last_name`, `email`, `password`)
  values (username, first_name, last_name, email, pass);
-END */;;
+END
 
 
 users_search
 # ------------------------------------------------------------
 
-
+# A search for all users whose usernames contain a substring that matches the input
 
 PROCEDURE `users_search`(in unstring varchar(20))
 BEGIN
 	SELECT username FROM users
 WHERE INSTR(username, unstring);
-END */;;
+END
 
 
 users_self
 # ------------------------------------------------------------
 
-
+# Returns all fields except for password of a particular user
 
 PROCEDURE `users_self`(IN user_id int(11))
 BEGIN
  SELECT users.username, users.user_id, users.first_name, users.last_name, users.email FROM `users` WHERE users.user_id = user_id;
-END */;;
+END
 
 
 users_update
 # ------------------------------------------------------------
 
-
+# Updates a user. First checks that the system is attempting to update a valide user. Accepts empty strings and does not update those fields.
 
 PROCEDURE `users_update`(
 IN user_id int,
@@ -266,50 +500,50 @@ BEGIN
         WHERE users.user_id = user_id;
     END IF;
 
-END */;;
+END
 
 
 users_username
 # ------------------------------------------------------------
 
-
+# Returns the user name of a user given their numerical ID.
 
 PROCEDURE `users_username`(IN id INT(11))
 BEGIN
 	SELECT username FROM users
     WHERE user_id LIKE id;
-END */;;
+END
 
 
 watches_create
 # ------------------------------------------------------------
 
-
+# Adds a 'watch' to the watches table when a user wishes to watch but not bid on an auction.
 
 PROCEDURE `watches_create`(IN watch_user_id INT(11), IN watch_auction_id INT(11))
 BEGIN
 	INSERT IGNORE INTO watches VALUES(watch_user_id, watch_auction_id);
     SELECT last_insert_id();
-END */;;
+END
 
 
 watches_delete
 # ------------------------------------------------------------
 
-
+# Removes a particular 'watch' when a user wishes to stop watching an item.
 
 PROCEDURE `watches_delete`(IN watch_user_id INT(11), IN watch_auction_id INT(11))
 BEGIN
 	DELETE FROM watches
     WHERE watches.watch_user_id = watch_user_id
     AND watches.watch_auction_id = watch_auction_id; 
-END */;;
+END
 
 
 watches_user_watches
 # ------------------------------------------------------------
 
-
+# Returns all auctions that a user is watching
 
 PROCEDURE `watches_user_watches`(IN user_id INT(11))
 BEGIN
@@ -317,14 +551,14 @@ BEGIN
     LEFT JOIN items AS i ON a.auction_item_id = i.item_id
     LEFT JOIN watches AS w ON a.auction_id = w.watch_auction_id
     WHERE w.watch_user_id = user_id;
-END */;;
+END
 
 
 DELIMITER ;
 
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+
+
+
