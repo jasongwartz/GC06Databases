@@ -17,7 +17,7 @@
    
     $result = db_cud_function(items_update($item_id, $title, $description, $image_ref));
     
-    db_cud_function(hashtagories-clear($item_id));
+    db_cud_function(hashtagories_clear($item_id));
 
 //    var_dump($result);
 //    var_dump($new_item);
