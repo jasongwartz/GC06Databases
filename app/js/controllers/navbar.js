@@ -230,10 +230,13 @@ angular.module('controllers.navbar', [])
                
                 break; 
             case 'end_time':
-                params = {query: search, sort_order: 1, sort: 'end_time'};
+                params = {query: search, sort_order: 0, sort: 'end_time'};
                 break;
             case 'most_viewed':
                 params = {query: search, sort_order: 1, sort: 'views'};
+                break;
+            case 'least_viewed':
+                params = {query: search, sort_order: 0, sort: 'views'};
                 break;
             case 'title_az':
                 params = {query: search, sort_order: 0, sort: 'title'};

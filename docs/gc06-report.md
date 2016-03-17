@@ -119,6 +119,7 @@ This effectively means that in every table in the database a value of a particul
 ### 3rd Normal Form
 
 
+
 ## Query Explainations
 
 #### auctions_cancel

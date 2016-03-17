@@ -4,11 +4,6 @@ angular.module('controllers.search', [])
 
 .controller('searchCtrl', ['$scope', 'http', '$rootScope', '$routeParams', '$location', function($scope, $http, $rootScope, $routeParams, $location) {
 
-
-    function loading(rootScope) {
-        $rootScope.progressbar.start();
-        setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
-    }
     var params = $location.search();
     var id = params.sort;
 
@@ -21,6 +16,15 @@ angular.module('controllers.search', [])
                 id += "_az";
             } else {
                 id += "_za";
+            }
+        }
+        rgx = /views/;
+        if (rgx.test(id)) {
+            
+            if (parseInt(params.sort_order) === 1) {
+                id += "_m";
+            } else {
+                id += "_l";
             }
         }
 //        alert(id);
