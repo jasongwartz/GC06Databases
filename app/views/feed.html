@@ -47,7 +47,8 @@
                         </div>
                         <div class="col-sm-8" style="margin-left: 1em">
 
-                            <h4 class="card-title"><a href="#/auction?{{auction.auction_id}}">@{{auction.username}}: {{auction.title}}</a>
+                            <h4 class="card-title"><a href="#/auction?{{auction.auction_id}}">{{auction.title}}</a>
+                                <small class="text-muted"> @{{auction.username}}</small>
                                 <br/><small class="text-muted"> Finishes in <time-difference date="auction.end_time"></time-difference>
                                 <span ng-show="{{auction.current_bid}}"><br/>Highest bid: £{{auction.current_bid}}</span></small></h4>
                             <p class="card-text">
