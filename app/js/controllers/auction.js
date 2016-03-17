@@ -4,6 +4,9 @@ angular.module('controllers.auction', [])
 
 .controller('auctionCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 
+    $rootScope.progressbar.start();
+    setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
+    
     $scope.popupTitle = "Make a bid!";
     $scope.inputs = [
         {

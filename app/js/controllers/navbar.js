@@ -1,7 +1,14 @@
 angular.module('controllers.navbar', [])
 
-.controller('navbarCtrl', ['$rootScope', '$http', '$location', '$route', '$scope', function($rootScope, $http, $location, $route, $scope) {
+.controller('navbarCtrl', ['$rootScope', '$http', '$location', '$route', '$scope', '$timeout', 'ngProgressFactory', 
+            function($rootScope, $http, $location, $route, $scope, $timeout, ngProgressFactory) {
 
+    $rootScope.progressbar = ngProgressFactory.createInstance();
+    $rootScope.progressbar.setColor('#1b95e0');
+//    $rootScope.progressbar.start();
+//    setTimeout(function() {$rootScope.progressbar.complete()}, 2000);
+    
+    
     $rootScope.logged_in = logged_in();
 
     $rootScope.reg_submitName = "Time to register!";
