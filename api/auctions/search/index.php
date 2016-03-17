@@ -1,14 +1,19 @@
 <?php
-// auctions/retrieve_all GET OK
+// auctions/search GET OK
 
     include '../../sql_statements.php';
     include '../../helper.php';
     
-    $q = $_GET['query'];
+    if (isset($_GET['query'])) {
+        $q = $_GET['query'];
     
-    $q_split = preg_split("/\s/", $q);
+        $q_split = preg_split("/\s/", $q);
     
-    $q_send = "'" . join("* ", $q_split) . "*'";
+        $q_send = "'" . join("* ", $q_split) . "*'";
+    } else {
+        $q_send = "''";
+    }
+    
     $sort_order =  ($_GET['sort_order'] ? $_GET['sort_order'] : 0);
     $sort = ($_GET['sort'] ? $_GET['sort'] : 'views');
     
