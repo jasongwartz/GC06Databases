@@ -106,13 +106,40 @@
   max-height: 250px;
 }
 
+h4,h3,h2,h1 {
+    color: #292f33 !important;
+}
+
+.hash-card-list {
+    border-radius: 7px;
+    background: #f5f8fa;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+}
+
+.hash-card-no-border {
+    background: #f5f8fa; 
+    padding: 1em;
+    border-radius: inherit;
+
+}
+
 .hash-card {
     background: #f5f8fa; 
     padding: 1em;
+    border-radius: inherit;
     border-radius: 7px;
     border-style: solid;
     border-width: 1px;
     border-color: lightgray;
+}
+
+.hash-card-division {
+    width: 100%;
+    border-style: solid;
+    border-width: 0px 1px 1px 1px;
+    border-color: lightgray;    
 }
 
 .top-buffer {
