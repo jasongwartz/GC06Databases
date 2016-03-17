@@ -234,9 +234,12 @@ angular.module('controllers.navbar', [])
             case 'most_viewed':
                 params = {query: search, sort_order: 1, sort: 'views'};
                 break;
-            case 'title':
-                params = {query: search, sort_order: 1, sort: 'title'};
+            case 'title_az':
+                params = {query: search, sort_order: 0, sort: 'title'};
                 break;            
+            case 'title_za':
+            params = {query: search, sort_order: 1, sort: 'title'};
+            break;            
         }
         
 //         document.getElementById(str).checked = false;
