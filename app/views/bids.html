@@ -12,10 +12,13 @@
            </div>
         </div> 
         <div class=" col-lg-8 col-lg-offset-2 ">
-            <div ng-repeat="bid in bids">
-                <div class="row">
-                <div class="col-lg-12">    
-                <div class="card hash-card">
+            
+            <div ng-if="bids.length > 0" class="hash-card-list">    
+            <div ng-repeat="bid in bids track by $index" style="border-radius: inherit">
+                <div class="row" style="border-radius: inherit">
+                <div class="col-lg-12" style="border-radius: inherit">    
+                <div ng-if="$index !== 0" class="hash-card-division"></div>
+                <div class="card hash-card-no-border">
                     
                     <div ng-if="bid.is_complete === 1 && bid.sold === bid.bidder_user_id" class="ribbon-wrapper"><div class="ribbon-won">WON</div></div>
                     <div ng-if="bid.is_complete === 1 && bid.sold !== bid.bidder_user_id" class="ribbon-wrapper"><div class="ribbon-sold">CLOSED</div></div>
@@ -37,11 +40,14 @@
                                 btn-class="btn btn-info fa fa-credit-card">     
                             </input-popup>
                                 </small></h4>
-                            <a href="#/auction?{{bid.bid_auction_id}}"><h4 class="card-title">@{{bid.username}}: {{bid.title}}
-                                    <br/><small> finishes in <time-difference date="bid.end_time"></time-difference></small></h4></a>
-                              <p class="card-text">
-                                  {{bid.description}}
-                              </p>
+                            
+                            <h4 class="card-title"><a href="#/auction?{{bid.auction_id}}">{{bid.title}}</a>
+                                <small class="text-muted"> @{{bid.username}}</small>
+                                <br/><small class="text-muted"> Finishes in <time-difference date="auction.end_time"></time-difference>
+                                <span ng-show="{{bid.current_bid}}"><br/>Highest bid: £{{bid.current_bid}}</span></small></h4>
+                            <p class="card-text">
+                                {{bid.description}}
+                            </p>
 
                         </div>
                     </div>
@@ -49,11 +55,13 @@
 
 
                 </div>
-                <br/>
+                <!--<br/>-->
                 </div>
                 </div>
             </div>
             
+            </div>
+            <br/>
         </div>
     </div>
     

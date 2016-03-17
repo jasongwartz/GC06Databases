@@ -20,41 +20,38 @@
         <div class="col-lg-6">  
             <h3 class="text-center">Auctions</h3>
             <hr/>
-        <div ng-repeat="item in auction_items">
+        <div ng-if="auction_items.length > 0" class="hash-card-list">    
+        <div ng-repeat="auction in auction_items track by $index"  style="border-radius: inherit">
             
-            <div class="row">   
+            <div class="row"  style="border-radius: inherit">   
 
-                <div class="col-lg-12">
-                    <a style="color:#000000 !important;
-                        text-decoration:none;"
-                        ng-href="#/auction?{{item.auction_id}}">
-                    <div class="card hash-card">
-                        
+                <div class="col-lg-12"  style="border-radius: inherit">
+                    <div ng-if="$index !== 0" class="hash-card-division"></div>
+                    <div class="card hash-card-no-border">
                         <div class="row">
                             <div class="col-sm-2">
-                                <img ng-if="item.image_ref" height="100%" width="100%" ng-src="{{item.image_ref}}"/>
-                                <img ng-if="!item.image_ref" height="100%" width="100%" ng-src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png"/>
+                                <img ng-if="auction.image_ref" height="100px" width="100px" ng-src="{{auction.image_ref}}" alt="item image" />
+                                <img ng-if="!auction.image_ref" height="100px" width="100px" ng-src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png" alt="item image" />
                             </div>
-                            <div class="col-sm-8">
-                                <h4>{{item.title}} <small class="text-muted">
-                                        (at auction ends in <time-difference date="item.end_time">
-                                            
-                                        </time-difference>)</small></h4>
+                            <div class="col-sm-8" style="margin-left: 1em">
 
-                                  
+                                <h4 class="card-title"><a href="#/auction?{{auction.auction_id}}">{{auction.title}}</a>
+                                    <small class="text-muted"> @{{auction.username}}</small>
+                                    <br/><small class="text-muted"> Finishes in <time-difference date="auction.end_time"></time-difference>
+                                    <span ng-show="{{auction.current_bid}}"><br/>Highest bid: £{{auction.current_bid}}</span></small></h4>
                                 <p class="card-text">
-                                    {{item.description}}
+                                    {{auction.description}}
                                 </p>
-                                
+
                             </div>
                         </div>
                     </div>
-                    </a>
                 </div> 
             </div>
             
             <br/>
         </div>        
+        </div>
         </div>
 
         
@@ -63,15 +60,17 @@
             <h3 class="text-center">Items</h3>
             <hr/>
             
-            <div class="col-lg-12 text-center">
+<!--            <div class="col-lg-12 text-center">
                 <dir-pagination-controls></dir-pagination-controls>
-            </div>
+            </div>-->
             
-        <div dir-paginate="item in items | itemsPerPage: 10">
-            <div class="row">   
+        <div ng-if="items.length > 0" class="hash-card-list">
+        <div ng-repeat="item in items track by $index" style="border-radius: inherit">
+            <div class="row" style="border-radius: inherit">   
 
-                <div class="col-lg-12">
-                    <div class="card hash-card">
+                <div class="col-lg-12" style="border-radius: inherit">
+                    <div ng-if="$index !== 0" class="hash-card-division"></div>
+                    <div class="card hash-card-no-border">
                    
                             <div ng-if="item.sold" class="ribbon-wrapper"><div class="ribbon-sold">SOLD</div></div>    
                             
@@ -114,12 +113,15 @@
             </div>
             <br/>
         </div>
-
-        <div class="col-lg-12 text-center">
-            <dir-pagination-controls></dir-pagination-controls>
+        
         </div>
+
+<!--        <div class="col-lg-12 text-center">
+            <dir-pagination-controls></dir-pagination-controls>
+        </div>-->
         </div>
     </div>
+        <br/>
     </div>
 
     
