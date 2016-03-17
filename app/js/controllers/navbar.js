@@ -1,7 +1,14 @@
 angular.module('controllers.navbar', [])
 
-.controller('navbarCtrl', ['$rootScope', '$http', '$location', '$route', '$scope', function($rootScope, $http, $location, $route, $scope) {
+.controller('navbarCtrl', ['$rootScope', '$http', '$location', '$route', '$scope', '$timeout', 'ngProgressFactory', 
+            function($rootScope, $http, $location, $route, $scope, $timeout, ngProgressFactory) {
 
+    $rootScope.progressbar = ngProgressFactory.createInstance();
+    $rootScope.progressbar.setColor('#1b95e0');
+//    $rootScope.progressbar.start();
+//    setTimeout(function() {$rootScope.progressbar.complete()}, 2000);
+    
+    
     $rootScope.logged_in = logged_in();
 
     $rootScope.reg_submitName = "Time to register!";
@@ -37,7 +44,7 @@ angular.module('controllers.navbar', [])
         
         var password = $rootScope.reg_inputs[4].ngModel
         
-        if (password.toLowerCase()!=password && password.match(/\d+/g)!=null && password.length>=8){
+        if (password.toLowerCase()!=password && password.toUpperCase()!=password && password.match(/\d+/g)!=null && password.length>=8){
         var post_data = $.param({
             username: $rootScope.reg_inputs[0].ngModel,
             first_name: $rootScope.reg_inputs[1].ngModel,
@@ -62,7 +69,7 @@ angular.module('controllers.navbar', [])
             
         }
         else{
-            alert("Please ensure that your password contains 1 capital, 1 numeric and is at least 8 characters long")
+            alert("Please ensure that your password contains 1 lower case, 1 capital, 1 numeric and is at least 8 characters long")
         }
         
         
@@ -234,9 +241,12 @@ angular.module('controllers.navbar', [])
             case 'most_viewed':
                 params = {query: search, sort_order: 1, sort: 'views'};
                 break;
-            case 'title':
-                params = {query: search, sort_order: 1, sort: 'title'};
+            case 'title_az':
+                params = {query: search, sort_order: 0, sort: 'title'};
                 break;            
+            case 'title_za':
+            params = {query: search, sort_order: 1, sort: 'title'};
+            break;            
         }
         
 //         document.getElementById(str).checked = false;

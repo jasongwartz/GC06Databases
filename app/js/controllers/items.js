@@ -2,7 +2,10 @@
 
 angular.module('controllers.items', [])
 
-.controller('itemsCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('itemsCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+
+    $rootScope.progressbar.start();
+    setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
 
     $scope.submitName = "Add item!";
     $scope.popupTitle = "Add an item!";

@@ -2,8 +2,11 @@
 
 angular.module('controllers.bids', [])
 
-.controller('bidsCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('bidsCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 
+    $rootScope.progressbar.start();
+    setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
+    
     $scope.submitName = function(bid) {
         return "Pay £" + bid.bid_price + " now!";
     };

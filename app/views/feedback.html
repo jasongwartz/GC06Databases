@@ -6,7 +6,7 @@
             <div class="col-lg-8 col-lg-offset-2 text-center">
                 <div class="card">
                     
-                    <h1 class="text-muted">@{{username}} <small>{{rating}}/100</small></h1>
+                    <h1 class="text-center">@{{username}} <small>{{rating}}/100</small></h1>
                     <hr class="light">
 
                   </div>
@@ -15,15 +15,15 @@
         
         <div class="row">
             <div class="col-lg-5 col-lg-offset-1">
-                <div class="card hash-card">
-                    <div class="card-block text-center">
-                        <h1 class="text-muted">Received Feedback</h1>
-                    </div>
-                    <hr/>
+                <h1 class="text-center">Received Feedback</h1>
+                <hr/>
+                
+                
+                <div class="hash-card-list"> 
+                <div ng-repeat="feedback in feedbacks track by $index"  style="border-radius: inherit">    
+                <div ng-if="$index !== 0" class="hash-card-division"></div>
+                <div class="card hash-card-no-border">
                     
- 
-                </div>
-                <div class="card hash-card" ng-repeat="feedback in feedbacks">
                     <div ng-if="feedback.buyer_id !== user_id">
                         <h4 class="text-muted">@{{username}} by <a ng-href="#/feedback?{{feedback.buyer_id}}">@{{feedback.other_username}}</a> <small ng-if="feedback.buyer_rating">{{feedback.buyer_rating}}/100</small> <small>(buyer)</small></h4>
                         <p> {{feedback.buyer_text}}</p>
@@ -37,16 +37,17 @@
                     </div>                    
                                          
                 </div>
-
+                </div>
+                </div>
             </div>
             <div class="col-lg-5">
-                <div class="card hash-card">
-                    <div class="card-block text-center">
-                        <h1 class="text-muted">Given Feedback</h1>
-                    </div>
-                    <hr/>
-                </div>
-                <div class="card hash-card" ng-repeat="feedback in feedbacks">
+                <h1 class="text-center">Given Feedback</h1>
+                <hr/>
+                
+                <div class="hash-card-list"> 
+                <div ng-repeat="feedback in feedbacks track by $index"  style="border-radius: inherit">    
+                <div ng-if="$index !== 0" class="hash-card-division"></div>
+                <div class="card hash-card-no-border">
 
                     <div ng-if="feedback.buyer_id === user_id">
                         <input-popup ng-if="user_id === current_user_id" class="pull-right" popup-id="edit_{{feedback.feedback_auction_id}}" title="edit_popupTitle" inputs="edit_inputs"
@@ -70,9 +71,12 @@
                     </div>                    
                                          
                 </div>
+                </div>
+                </div>
+                </div>
             </div>
         </div>   
-        
+        <br/>
     </div>
 
     

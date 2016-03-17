@@ -2,7 +2,10 @@
 
 angular.module('controllers.feedback', [])
 
-.controller('feedbackCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('feedbackCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+
+    $rootScope.progressbar.start();
+    setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
 
     var user_id = parseInt(window.location.href.split('?')[1]);
     

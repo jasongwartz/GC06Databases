@@ -22,16 +22,19 @@
   
   <link rel="stylesheet" href="fonts/bariol/bariol.css"/>
   <link rel="stylesheet" href="lib/angucomplete-alt/angucomplete-alt.css">
+  <link rel="stylesheet" href="bower_components/ngprogress/ngProgress.css">
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+  
 </head>
 <body ng-app="myApp" class="bg-main">
     
   <div ng-include src="'templates/navbar.html'"></div>
 
   <div ng-view></div>   
-      
+    
+  
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
 
@@ -40,6 +43,7 @@
   <script src="js/app.js"></script>
   
   <!-- Directives -->
+  <script src="bower_components/ngprogress/build/ngprogress.min.js"></script>
   <script src="lib/angucomplete-alt/angucomplete-alt.js"></script>
   <script src="lib/angularUtils/pagination/dirPagination.js"></script>
   <script src="js/directives/inputPopup.js"></script>

@@ -4,6 +4,9 @@ angular.module('controllers.search', [])
 
 .controller('searchCtrl', ['$scope', '$http', '$rootScope', '$routeParams', '$location', function($scope, $http, $rootScope, $routeParams, $location) {
 
+    $rootScope.progressbar.start();
+    setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
+
     var id = $location.search().sort;
 
     $('document').ready(function(){
