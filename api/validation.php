@@ -57,6 +57,11 @@
                 case "password":
 
                     $returnData["password"] = validate_password($postValue);
+                    
+                    if ($returnData["password"]["error"]) {
+                        
+                        $error = TRUE;
+                    }
                     //echo POST("password_confirmation");
                     break;
 
@@ -64,6 +69,10 @@
 
                     $returnData["new_password"] = validate_password($postValue);
                     //echo POST("password_confirmation");
+                    if ($returnData["password"]["error"]) {
+                        $error = TRUE;
+                    }
+                    
                     break;                
     //            case "username":
     //            case "first_name":

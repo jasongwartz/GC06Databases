@@ -98,15 +98,25 @@ angular.module('controllers.navbar', [])
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function(data){
 
-            $rootScope.logged_in = true;
+            if (!data.data.error) { 
+                $rootScope.logged_in = true;
+
+                sessionStorage.setItem('logged_in', JSON.stringify(true));
+
+                sessionStorage.setItem('access_token', data.data.access_token);
+                sessionStorage.setItem('user_id', JSON.stringify(data.data.user_id));
+
+                $rootScope.root_user_id = data.data.user_id;
             
-            sessionStorage.setItem('logged_in', JSON.stringify(true));
-            
-            sessionStorage.setItem('access_token', data.data.access_token);
-            sessionStorage.setItem('user_id', JSON.stringify(data.data.user_id));
-            
-            $rootScope.root_user_id = data.data.user_id;
-            
+            } else {
+                var str = "";
+                
+                for (var i=0; i<data.data.error.length; i++) {
+                    str += data.data.error[i];
+                }
+                
+                alert(str);
+            }
             //alert( sessionStorage.getItem('user_id') );
 
         }, function(data) { 

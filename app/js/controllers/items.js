@@ -214,7 +214,7 @@ angular.module('controllers.items', [])
         };
         
         $scope.add_item = function() {
-            alert("Submitting form! " + $scope.inputs[0].ngModel);
+            //alert("Submitting form! " + $scope.inputs[0].ngModel);
             var post_data = $.param({
 
                     owner_user_id: sessionStorage.getItem('user_id'),
@@ -233,9 +233,21 @@ angular.module('controllers.items', [])
                 data: post_data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function(data){
-                alert(JSON.stringify(data))
-                alert("Item added!"); //Needs to be here...
-                get_items();
+                
+                if (!data.data.error) {
+                //alert(JSON.stringify(data))
+                    alert("Item added!"); //Needs to be here...
+                    get_items();
+                
+                } else {
+                    var str = "Please fill in all fields.";
+
+//                    for (var i=0; i<data.data.error.length; i++) {
+//                        str += data.data.error[i] + "\n";
+//                    }
+
+                    alert(str);
+                }
 
             }, function(data) { //requestFailureFunction(data); 
 //                alert(JSON.stringify(data))

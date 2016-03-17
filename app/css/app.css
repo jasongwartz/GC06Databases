@@ -107,16 +107,40 @@
 }
 
 .hash-card {
-    background: white; 
+    background: #f5f8fa; 
     padding: 1em;
-    border-radius: 3px;
+    border-radius: 7px;
     border-style: solid;
     border-width: 1px;
     border-color: lightgray;
 }
 
+.top-buffer {
+    margin-top: 10px;
+}
+
+.text-muted {
+    color: #8899a6 !important;
+}
+/*.navabar {
+    border-style: solid;
+    border-bottom: 3px black;    
+}*/
+/*.navbar-header {
+    border-style: solid;
+    border-bottom: thick dotted lightgrey;
+}*/
+
+p {
+    color: #284456;
+}
+
+img {
+    border-radius: 5px;
+}
+
 .bg-main {
-    background: whitesmoke;
+    background: #E9F1F8; //#f5f8fa; //
 }
 
 

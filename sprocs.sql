@@ -172,63 +172,162 @@ END *
 event_end_expired_auctions
 # ------------------------------------------------------------
 
+# Ends all expired auctions and returns the data on the auctions such as the 
+# buyer, seller, name, winning bid etc...
+
 PROCEDURE `event_end_expired_auctions`()
 BEGIN
+
+DECLARE reserve_price_tmp INT DEFAULT 0;
+DECLARE highest_bid_tmp decimal(10,2) DEFAULT 0;
+DECLARE auction_id_tmp INT DEFAULT 0;
+
+DECLARE item_title_tmp varchar(200) DEFAULT 0;
+DECLARE item_id_tmp INT DEFAULT 0;
+
+DECLARE seller_url_tmp varchar(200) DEFAULT 0;
+DECLARE buyer_url_tmp varchar(200) DEFAULT 0;
+DECLARE seller_username_tmp varchar(200) DEFAULT 0;
+DECLARE buyer_username_tmp varchar(200) DEFAULT 0;
+DECLARE seller_email_tmp varchar(200) DEFAULT 0;
+DECLARE buyer_email_tmp varchar(200) DEFAULT 0;
+DECLARE seller_id_tmp INT DEFAULT 0;
+DECLARE buyer_id_tmp INT DEFAULT 0;
+
+DECLARE successful_tmp INT DEFAULT 0;
+
 DECLARE n INT DEFAULT 0;
 DECLARE i INT DEFAULT 0;
 
+	# Drops the temporary table if it exists. Then creates it.
+	DROP TABLE IF EXISTS `tmp_end_expired_auctions`;
+	CREATE TABLE `tmp_end_expired_auctions` (
+	  `auction_id` int(11) NOT NULL,
+	  `seller_username` varchar(200) DEFAULT NULL,
+	  `seller_email` varchar(200) DEFAULT NULL,
+	  `seller_feedback_url` varchar(50) DEFAULT NULL,
+	  `buyer_username` varchar(200) DEFAULT NULL,
+	  `buyer_email` varchar(200) DEFAULT NULL,
+	  `buyer_feedback_url` varchar(50) DEFAULT NULL,
+	  `item_title` varchar(200) DEFAULT NULL,
+	  `final_bid_price` varchar(200) DEFAULT NULL,
+	  `successful` varchar(200) DEFAULT NULL,
+	  PRIMARY KEY (`auction_id`)
+	) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-	SELECT count(*) FROM `auctions` WHERE end_time < now() INTO n;	
+	SELECT count(*) FROM `auctions` WHERE end_time < now() AND is_complete=0 INTO n;	
 
-SET i=0;
-WHILE i<n DO 
+	# This loops through the unclosed auctions in the auctions table select values
+	# from other tables. It evaluates whether an auction failed or was successful
+	# every loop inserts a row to the tmp table.
+	SET i=0;
+	WHILE i<n DO 
 
-	SELECT @auction_id := auction_id FROM `auctions` WHERE end_time < now() LIMIT i, 1;
+		# Auction table selects. Gets the auction_id, reserver_price and item_id.
+		SELECT auction_id, reserve_price, auction_item_id  FROM `auctions` 
+		WHERE end_time < now() AND is_complete=0 ORDER BY auction_id LIMIT i, 1 
+			INTO auction_id_tmp, reserve_price_tmp, item_id_tmp;
 
-	UPDATE `auctions` SET is_complete = 1 WHERE auction_id = @auction_id;
+		# Bids table selects. Gets the highest_bid on an item, and the user_id
+		# of that bid.
+		SELECT bid_price, bidder_user_id FROM `bids`
+		WHERE bid_auction_id = auction_id_tmp ORDER BY bid_price DESC LIMIT 1
+			INTO highest_bid_tmp, buyer_id_tmp;
 
-	SET i = i + 1;
-END WHILE;
+		# Items table selects. Gets the user_id of the seller and the items title.
+		SELECT owner_user_id, title FROM `items` 
+		WHERE item_id = item_id_tmp INTO seller_id_tmp, item_title_tmp;
 
-
-	SELECT count(*) FROM (SELECT *
-	FROM `auctions` as a, (select * from `bids` order by bid_price desc) as b, `items` as i 
-		where i.item_id = a.auction_item_id 
-		AND a.auction_id = b.bid_auction_id
-		AND a.end_time < curtime()
-		#AND a.reserve_price < b.bid_price
-		group by a.auction_id) as a INTO n;	
-
-SET i=0;
-WHILE i<n DO 
-
-	SELECT 
-		@reserve_price := reserve_price,
-		@bid_price := bid_price,
-		@seller_id := owner_user_id, 
-		@buyer_id := bidder_user_id,
-		@auction_id := auction_id 
-	FROM (SELECT *
-	FROM `auctions` as a, (select * from `bids` order by bid_price desc) as b, `items` as i 
-		where i.item_id = a.auction_item_id 
-		AND a.auction_id = b.bid_auction_id
-		AND a.end_time < curtime()
-		#AND a.reserve_price < b.bid_price
-		group by a.auction_id) as made limit i, 1;
-
-	IF @reserve_price < @bid_price THEN
-		UPDATE `auctions` SET is_complete = 2 WHERE auction_id = @auction_id;
-		INSERT IGNORE INTO `feedback` (`seller_id`, `feedback_auction_id`, `buyer_id`) 
-			VALUES (@seller_id, @auction_id, @buyer_id);
-	ELSE
-		UPDATE `auctions` SET is_complete = 1 WHERE auction_id = @auction_id;
-	END IF;
+		# Users table selects seller. Gets seller username and email.
+		SELECT username, email FROM `users`
+		WHERE user_id = seller_id_tmp INTO seller_username_tmp, seller_email_tmp;
 
 
+		# If it was successful and there is a buyer user_id
+		IF buyer_id_tmp > 0 THEN
+			# Users table selects buyer. Gets buyer username and email. 
+			SELECT username, email FROM `users`
+			WHERE user_id = buyer_id_tmp INTO buyer_username_tmp, buyer_email_tmp;
 
-  SET i = i + 1;
-END WHILE;
-End *
+		END IF;
+
+		# If successful auction: create feedback, set successful to 1
+		IF highest_bid_tmp >= reserve_price_tmp AND highest_bid_tmp > 0 THEN
+			
+			# Create feedback
+			INSERT IGNORE INTO `feedback`
+				(`seller_id`,
+				`feedback_auction_id`,
+				`buyer_id`)
+				VALUES
+				(seller_id_tmp,
+				auction_id_tmp,
+				buyer_id_tmp);
+
+			# Sold field in items is set to the buyer id.
+			UPDATE `items` SET sold = buyer_id_tmp WHERE item_id = item_id_tmp;
+	
+			# Sets successful.
+			SET successful_tmp = 1;
+			SET seller_url_tmp = CONCAT('#/feedback?', seller_id_tmp);
+			SET buyer_url_tmp = CONCAT('#/feedback?', buyer_id_tmp);
+
+		ELSE 
+
+			SET successful_tmp = 0;
+
+		END IF;
+
+		# Inserts all the values into the tmp table.
+		INSERT INTO `tmp_end_expired_auctions`
+		(`auction_id`,
+		`seller_username`,
+		`seller_email`,
+		`seller_feedback_url`,
+		`buyer_username`,
+		`buyer_email`,
+		`buyer_feedback_url`,
+		`item_title`,
+		`final_bid_price`,
+		`successful`)
+		VALUES
+		(auction_id_tmp,
+		seller_username_tmp,
+		seller_email_tmp,
+		seller_url_tmp,
+		buyer_username_tmp,
+		buyer_email_tmp,
+		buyer_url_tmp,
+		item_title_tmp,
+		highest_bid_tmp,
+		successful_tmp);
+
+		SET i = i + 1;
+	END WHILE;
+
+	# Gets row count of tmp table.
+	SELECT count(*) FROM `tmp_end_expired_auctions` INTO n;
+
+	# Loops through the tmp table finally updating the is_complete in auctions table
+	# to 1.
+	SET i=0;
+	WHILE i<n DO 
+	
+		SELECT auction_id FROM `tmp_end_expired_auctions` LIMIT i,1 INTO auction_id_tmp;
+		
+		# Closes every expired auction
+		UPDATE `auctions` SET is_complete = 1 WHERE auction_id = auction_id_tmp;
+		
+		SET i = i + 1;
+	END WHILE;
+
+	# Finally does an output select that is returned to the user.
+	SELECT * FROM `tmp_end_expired_auctions`;
+
+	# Drops the tmp table.
+	DROP TABLE IF EXISTS `tmp_end_expired_auctions`;
+	
+End
 
 
 feedback_for_auction
