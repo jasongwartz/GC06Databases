@@ -114,10 +114,10 @@ A database is in 3rd normal form if it meets 3 criteria:
 All of our eight tables contain only atomic values meaning that there are not any elements in any of the tables where the data can be split up. i.e. username is atomic, email is atomic, an item_description is atomic. The database is in first normal form.
 
 ### 2nd Normal Form
-This effectively means that in every table in the database a value of a particular non-key field cannot be uniquely identified via another non-key or group of non-key fields. 
+This means that in every table in the database a value of a particular non-key field cannot be uniquely identified via another non-key or group of non-key fields. 
 
 ### 3rd Normal Form
-
+A transitive dependency is when a non-key attribute, C, is dependent on another attribute, A, via an attribute, B. Our database contains no transitive dependencies as we puts all attributes that are functionally dependent as primary keys in different tables. 
 
 
 ## Query Explainations
