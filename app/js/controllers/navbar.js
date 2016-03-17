@@ -37,7 +37,7 @@ angular.module('controllers.navbar', [])
         
         var password = $rootScope.reg_inputs[4].ngModel
         
-        if (password.toLowerCase()!=password && password.match(/\d+/g)!=null && password.length>=8){
+        if (password.toLowerCase()!=password && password.toUpperCase()!=password && password.match(/\d+/g)!=null && password.length>=8){
         var post_data = $.param({
             username: $rootScope.reg_inputs[0].ngModel,
             first_name: $rootScope.reg_inputs[1].ngModel,
@@ -62,7 +62,7 @@ angular.module('controllers.navbar', [])
             
         }
         else{
-            alert("Please ensure that your password contains 1 capital, 1 numeric and is at least 8 characters long")
+            alert("Please ensure that your password contains 1 lower case, 1 capital, 1 numeric and is at least 8 characters long")
         }
         
         
