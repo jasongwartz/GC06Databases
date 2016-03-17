@@ -7,9 +7,20 @@ angular.module('controllers.search', [])
     $rootScope.progressbar.start();
     setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
 
-    var id = $location.search().sort;
+    var params = $location.search();
+    var id = params.sort;
 
     $('document').ready(function(){
+//        alert(id);
+        var rgx = /title/;
+        if (rgx.test(id)) {
+            
+            if (parseInt(params.sort_order) === 0) {
+                id += "_az";
+            } else {
+                id += "_za";
+            }
+        }
 //        alert(id);
         document.getElementById(id).checked = true;
 
