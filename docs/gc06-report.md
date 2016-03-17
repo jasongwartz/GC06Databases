@@ -72,13 +72,12 @@ This chart shows
 
 In addition to the standard schema definitions, our schema also makes use of the following techniques:
 
+- MySQL `STORED PROCEDURES`
+    - Every query used in the application is implemented through one or more stored procedures. This provides additional safety from SQL injection, as well as allowing the database engine to optimise the procedure's query plan. Additionally, many API endpoints utilise the same stored procedure, meaning any query changes or adjustments can be made in a single location; this provides an efficient layer of abstraction.
 - A MySQL `VIEW`, entitled `auctions_retrieve_all`
     - This view is used frequently to retrieve composited information about all current auctions, or a subset of all current auctions (a search)
 - MySQL `FULLTEXT` binary searching, on the `item_hashtagories` table
     - This was employed to allow matching of multiple partial strings to multiple partial values (eg. a search for "table chair", modified to "table\* chair\*" will return any item tagged with "table" or "chair", as well as "tables", "tabletop", or "chairs". `FULLTEXT` searching required an additional index on the given column.
-- MySQL `STORED PROCEDURES`
-    - Every query used in the application is implemented through one or more stored procedures. This provides additional safety from SQL injection, as well as allowing the database engine to optimise the procedure's query plan. Additionally, many API endpoints utilise the same stored procedure, meaning any query changes or adjustments can be made in a single location; this provides an efficient layer of abstraction.
-    
 
 ## Application Architecture
 
@@ -88,18 +87,20 @@ This project takes advantage of several modern web architecture paradigms and in
     - Our system is designed in several layers to provide appropriate abstraction and encapsulation, allowing for easier debugging and design changes. The application layers are:
         - An AngularJS browser-based single-page application
         - A PHP HTTP REST API (that's a lot of acronyms: PHP HyperText Preprocessor HyperText Transfer Protocol Representative State Transfer Application Programming Interface)
+        - A MySQL database with stored procedures
 
 - Utilising cloud services
     - For the entirety of development, our app has been hosted on Amazon Web Services virtual servers. In order to aid in rapid deployment, a script was developed to automatically update the server-hosted application when a new commit was pushed on Github.
     
 - Distributed functionality
-    - asdf
+    - In designing the system deployment, inspiration was taken from contemporary, scalable deployment practices. In many large web applications, the web server and database server are seperate physical or virtual machines, often replicated several times over, with traffic routed via a load balancer. We used the industry-standard Amazon Web Services tools replicate this structure in our application: the web application and REST API are hosted on an Amazon EC2 (Elastic Cloud Compute) virtual server, and the MySQL database is hosted on an Amazon RDS (Relational Database Service) virtual server. 
     
 - RESTful HTTP API design
-    - api api api
+    - Inspired by other prolific web APIs, we designed the PHP API in a REST standard format. This involves a series of nested endpoints, organised in a tree structure; each endpoint performs a given database operation, manipulating the retrieved data if necessary, and returning it to the caller. These endpoints are often parameterised (using URL parameters) to retrieve specific data sets. In our project, an example URL request might be:
+          GET api/auctions/search?query=table
     
 - Task automation using CRON
-    - automaton
+    - There are two tasks that need to be completed once per minute in order to maintain the system's core functionality: completing expired auctions (including emailing the seller and the winning bidder and opening the feedback portal), and notifying "watchers" of auctions about new bids. Both of these tasks can be triggered via an API endpoint - the PHP script runs the necessary stored procedure (which performs most of the required logic), and then sends any required emails. In order to run these tasks regularly, the server uses the Unix application `cron` to, every minute, send an HTTP request via `curl` to each of these endpoints.
     
 
 
