@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: auctions.cjfabur5dk4o.us-east-1.rds.amazonaws.com (MySQL 5.6.23-log)
+# Host: db.jasongwartz.com (MySQL 5.6.27-log)
 # Database: auction1
-# Generation Time: 2016-03-16 11:01:11 pm +0000
+# Generation Time: 2016-03-17 12:56:20 am +0000
 # ************************************************************
 
 
@@ -34,7 +34,8 @@ CREATE TABLE `auctions` (
   `reserve_price` decimal(10,2) NOT NULL,
   `views` int(11) unsigned zerofill NOT NULL DEFAULT '00000000000',
   PRIMARY KEY (`auction_id`),
-  KEY `auction_item_id` (`auction_item_id`)
+  KEY `auction_item_id` (`auction_item_id`),
+  CONSTRAINT `auction_item` FOREIGN KEY (`auction_item_id`) REFERENCES `items` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `auctions` WRITE;
@@ -104,7 +105,9 @@ CREATE TABLE `bids` (
   `bid_auction_id` int(11) NOT NULL,
   PRIMARY KEY (`bid_id`),
   KEY `bidder_user_id` (`bidder_user_id`),
-  KEY `bid_auction_id` (`bid_auction_id`)
+  KEY `bid_auction_id` (`bid_auction_id`),
+  CONSTRAINT `bid_auction` FOREIGN KEY (`bid_auction_id`) REFERENCES `auctions` (`auction_id`),
+  CONSTRAINT `bidder` FOREIGN KEY (`bidder_user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `bids` WRITE;
@@ -161,7 +164,10 @@ CREATE TABLE `feedback` (
   `buyer_rating` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`feedback_auction_id`),
   KEY `seller_id` (`seller_id`),
-  KEY `buyer_id` (`buyer_id`)
+  KEY `buyer_id` (`buyer_id`),
+  CONSTRAINT `buyer` FOREIGN KEY (`buyer_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `feedback_auction` FOREIGN KEY (`feedback_auction_id`) REFERENCES `auctions` (`auction_id`),
+  CONSTRAINT `seller` FOREIGN KEY (`seller_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `feedback` WRITE;
@@ -185,55 +191,57 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `hashtagories`;
 
 CREATE TABLE `hashtagories` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `text` varchar(20) NOT NULL,
-  PRIMARY KEY (`text`),
-  FULLTEXT KEY `text` (`text`)
+  PRIMARY KEY (`id`),
+  KEY `text` (`text`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `hashtagories` WRITE;
 /*!40000 ALTER TABLE `hashtagories` DISABLE KEYS */;
 
-INSERT INTO `hashtagories` (`text`)
+INSERT INTO `hashtagories` (`id`, `text`)
 VALUES
-	(''),
-	('0'),
-	('alternativetransport'),
-	('bananas'),
-	('brogrammer'),
-	('camel'),
-	('figurine'),
-	('garage'),
-	('garagesale'),
-	('harrypotter'),
-	('hello'),
-	('heman'),
-	('hipster'),
-	('hipstertable'),
-	('isatest'),
-	('isthisworking'),
-	('itsalwayssunny'),
-	('karate'),
-	('maths'),
-	('movingday'),
-	('ninja'),
-	('rootsandculture'),
-	('savethewhales'),
-	('spoon'),
-	('startupbro'),
-	('table'),
-	('test'),
-	('test2'),
-	('test3'),
-	('test5'),
-	('test7'),
-	('test8'),
-	('test9'),
-	('universe'),
-	('vegan'),
-	('vehicle'),
-	('winnersalwayswin'),
-	('working'),
-	('yolo');
+	(2,''),
+	(3,'0'),
+	(4,'alternativetransport'),
+	(1,'banana'),
+	(5,'bananas'),
+	(6,'brogrammer'),
+	(7,'camel'),
+	(8,'figurine'),
+	(9,'garage'),
+	(10,'garagesale'),
+	(11,'harrypotter'),
+	(12,'hello'),
+	(13,'heman'),
+	(14,'hipster'),
+	(15,'hipstertable'),
+	(16,'isatest'),
+	(17,'isthisworking'),
+	(18,'itsalwayssunny'),
+	(19,'karate'),
+	(20,'maths'),
+	(21,'movingday'),
+	(22,'ninja'),
+	(23,'rootsandculture'),
+	(24,'savethewhales'),
+	(25,'spoon'),
+	(26,'startupbro'),
+	(27,'table'),
+	(28,'test'),
+	(29,'test2'),
+	(30,'test3'),
+	(31,'test5'),
+	(32,'test7'),
+	(33,'test8'),
+	(34,'test9'),
+	(35,'universe'),
+	(36,'vegan'),
+	(37,'vehicle'),
+	(38,'winnersalwayswin'),
+	(39,'working'),
+	(40,'yolo');
 
 /*!40000 ALTER TABLE `hashtagories` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -246,12 +254,14 @@ DROP TABLE IF EXISTS `item_hashtagories`;
 
 CREATE TABLE `item_hashtagories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `tagged_item_id` int(11) DEFAULT NULL,
-  `hashtagory_text` varchar(20) DEFAULT NULL,
+  `tagged_item_id` int(11) NOT NULL,
+  `hashtagory_text` varchar(20) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
+  KEY `hash_text_idx` (`hashtagory_text`),
+  KEY `item_tag` (`tagged_item_id`),
   FULLTEXT KEY `hashtagory_text` (`hashtagory_text`),
-  FULLTEXT KEY `hashtagory_text_2` (`hashtagory_text`),
-  FULLTEXT KEY `hashtagory_text_3` (`hashtagory_text`)
+  CONSTRAINT `hash_text` FOREIGN KEY (`hashtagory_text`) REFERENCES `hashtagories` (`text`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `item_tag` FOREIGN KEY (`tagged_item_id`) REFERENCES `items` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `item_hashtagories` WRITE;
@@ -310,7 +320,8 @@ CREATE TABLE `items` (
   `image_ref` varchar(255) DEFAULT NULL,
   `sold` int(1) DEFAULT '0',
   PRIMARY KEY (`item_id`),
-  KEY `owner_user_id` (`owner_user_id`)
+  KEY `owner_user_id` (`owner_user_id`),
+  CONSTRAINT `item_owner` FOREIGN KEY (`owner_user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `items` WRITE;
@@ -484,7 +495,9 @@ CREATE TABLE `watches` (
   `watch_user_id` int(11) NOT NULL,
   `watch_auction_id` int(11) NOT NULL,
   PRIMARY KEY (`watch_user_id`,`watch_auction_id`),
-  KEY `watch_auction_id` (`watch_auction_id`)
+  KEY `watch_auction_id` (`watch_auction_id`),
+  CONSTRAINT `watch_auction` FOREIGN KEY (`watch_auction_id`) REFERENCES `auctions` (`auction_id`),
+  CONSTRAINT `watch_user` FOREIGN KEY (`watch_user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `watches` WRITE;
@@ -493,15 +506,10 @@ LOCK TABLES `watches` WRITE;
 INSERT INTO `watches` (`watch_user_id`, `watch_auction_id`)
 VALUES
 	(104,7),
-	(1,8),
-	(1,9),
 	(105,9),
-	(1,10),
 	(105,10),
-	(1,11),
 	(105,11),
 	(105,12),
-	(1,14),
 	(104,14),
 	(105,14),
 	(104,15),
@@ -509,7 +517,6 @@ VALUES
 	(106,25),
 	(109,25),
 	(109,26),
-	(107,27),
 	(104,28),
 	(107,28),
 	(108,28);
