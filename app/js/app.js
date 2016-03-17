@@ -5,6 +5,8 @@ angular.module('myApp', [
   
   'ngProgress',
   
+  'services.http',
+  
   // Directives
   'angucomplete-alt',
   'angularUtils.directives.dirPagination',

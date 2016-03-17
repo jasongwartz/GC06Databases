@@ -2,11 +2,13 @@
 
 angular.module('controllers.search', [])
 
-.controller('searchCtrl', ['$scope', '$http', '$rootScope', '$routeParams', '$location', function($scope, $http, $rootScope, $routeParams, $location) {
+.controller('searchCtrl', ['$scope', 'http', '$rootScope', '$routeParams', '$location', function($scope, $http, $rootScope, $routeParams, $location) {
 
-    $rootScope.progressbar.start();
-    setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
 
+    function loading(rootScope) {
+        $rootScope.progressbar.start();
+        setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
+    }
     var params = $location.search();
     var id = params.sort;
 
@@ -31,6 +33,25 @@ angular.module('controllers.search', [])
     get_trending();
     get_search();
 
+//        var post_data = $.param({
+//            username: "asdasdads",
+//            password: "asdasd"
+//        });
+//
+//        var url = PATH_TO_API + 'users/authenticate/';
+//        //alert(post_data + " to " + url);
+//        $http({
+//            method: 'POST',
+//            url: url,
+//            data: post_data,
+//            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+//        }).then(function(data){
+//
+//            alert("success");
+//
+//        }, function(data) { 
+//            alert(data.data.error);
+//        });
 
     function get_trending() {
         var path = PATH_TO_API + "hashtagories/trending/";

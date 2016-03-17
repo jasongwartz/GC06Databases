@@ -2,10 +2,7 @@
 
 angular.module('controllers.following', [])
 
-.controller('followingCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
-
-    $rootScope.progressbar.start();
-    setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
+.controller('followingCtrl', ['$scope', 'http', '$rootScope', function($scope, $http, $rootScope) {
 
     $scope.auctions = [];
 
