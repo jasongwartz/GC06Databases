@@ -1,32 +1,125 @@
 # GC06 Database Design Report
-### YouTube Video Link
+## YouTube Video Link
 
 [Link to YouTube Video](https://www.youtube.com)
 
-### Entity Relationship Diagram
+## Entity Relationship Diagram
 
 ![alt text](auction-erd.png "Auction ERD")
 
 
-### Database Schema Listing
-Users username
+## Database Schema Listing
 
-### Database 3rd Normal form analysis
-A database is in 3rd normal form if it meets 3 critia
+### Tables
+(Notes in brackets; PK - Primary Key, FK - Foreign Key)
+
+- users
+    - user_id (PK)
+    - username
+    - first_name
+    - last_name
+    - email
+    - password (hashed)
+- items
+    - item_id (PK)
+    - owner_user_id (FK)
+    - title
+    - description
+    - image_ref
+    - sold
+- hashtagories
+    - id (PK)
+    - text (indexed)
+- item_hashtagories
+    - id (PK)
+    - tagged_item_id (FK)
+    - hashtagory_text (FK, FULLTEXT indexed)
+- auctions
+    - auction_id (PK)
+    - auction_item_id (FK)
+    - is_complete
+    - start_time
+    - end_time
+    - reserve_price
+    - views
+- bids
+    - bid_id (PK)
+    - bidder_user_id (FK)
+    - bid_price
+    - bid_time
+    - bid_auction_id (FK)
+- watches
+    - watch_user_id (PK, FK)
+    - watch_auction_id (PK, FK)
+- feedback
+    - feedback_auction_id (PK, FK)
+    - seller_id (FK)
+    - buyer_id (FK)
+    - buyer_text
+    - seller_text
+    - buyer_rating
+    - seller_rating
+
+### Foreign Key Relationships
+
+The database features a number of foreign key constraints to ensure referential integrity. The foreign key relationships are summarised in the following chart, a reduced ERD showing only the properties of each entity which are involved in constraints:
+
+![fk-chart](Fk-diagram.jpeg)
+
+This chart shows 
+
+### Additional Schema Details
+
+In addition to the standard schema definitions, our schema also makes use of the following techniques:
+
+- A MySQL `VIEW`, entitled `auctions_retrieve_all`
+    - This view is used frequently to retrieve composited information about all current auctions, or a subset of all current auctions (a search)
+- MySQL `FULLTEXT` binary searching, on the `item_hashtagories` table
+    - This was employed to allow matching of multiple partial strings to multiple partial values (eg. a search for "table chair", modified to "table\* chair\*" will return any item tagged with "table" or "chair", as well as "tables", "tabletop", or "chairs". `FULLTEXT` searching required an additional index on the given column.
+- MySQL `STORED PROCEDURES`
+    - Every query used in the application is implemented through one or more stored procedures. This provides additional safety from SQL injection, as well as allowing the database engine to optimise the procedure's query plan. Additionally, many API endpoints utilise the same stored procedure, meaning any query changes or adjustments can be made in a single location; this provides an efficient layer of abstraction.
+    
+
+## Application Architecture
+
+This project takes advantage of several modern web architecture paradigms and industry best practices. While some were functionally unnecessary at the scale of this project, designing for expansion or scalability is 
+
+- Multi-level system achitecture
+    - Our system is designed in several layers to provide appropriate abstraction and encapsulation, allowing for easier debugging and design changes. The application layers are:
+        - An AngularJS browser-based single-page application
+        - A PHP HTTP REST API (that's a lot of acronyms: PHP HyperText Preprocessor HyperText Transfer Protocol Representative State Transfer Application Programming Interface)
+
+- Utilising cloud services
+    - For the entirety of development, our app has been hosted on Amazon Web Services virtual servers. In order to aid in rapid deployment, a script was developed to automatically update the server-hosted application when a new commit was pushed on Github.
+    
+- Distributed functionality
+    - asdf
+    
+- RESTful HTTP API design
+    - api api api
+    
+- Task automation using CRON
+    - automaton
+    
+
+
+
+## Normalisation Analysis
+A database is in 3rd normal form if it meets 3 criteria:
 1. It contains only atomic values.
 2. All non-key attributes are fully functional dependent on the primary key.
 3. There is no transitive functional dependency.
 
-#### 1st Normal Form
+### 1st Normal Form
 All of our eight tables contain only atomic values meaning that there are not any elements in any of the tables where the data can be split up. i.e. username is atomic, email is atomic, an item_description is atomic. The database is in first normal form.
 
-#### 2nd Normal Form
+### 2nd Normal Form
 This effectively means that in every table in the database a value of a particular non-key field cannot be uniquely identified via another non-key or group of non-key fields. 
 
+### 3rd Normal Form
 
 
-
-### Query Explainations
+## Query Explainations
 
 #### auctions_cancel
 Cancels an auction by deleting it from the auction table. 
