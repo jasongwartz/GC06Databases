@@ -4,21 +4,23 @@
 
         <div class="col-lg-3">
 
-            <!--            <div class="card hash-card">
-                <div class="card-block">
-                  <h4 class="card-title">Name: {{user.first_name}} {{user.last_name}}</h4>
-
-                </div>
-            </div>
-            <br/>-->
             <div class="card hash-card">
                 <img height="100%" width="100%" src="img/hashtagories.png" />
+            </div>
+            
+            <div class="card hash-card top-buffer">
+                
                 <div class="card-block">
-                    <br/>
+                   
 
-                    <h4 class="card-title" style="color: #6BB0FF">Trending hashtags</h4>
-
-                    <p ng-repeat="trend in trends track by $index"><a ng-href="#/search?query={{trend.hashtagory_text}}">{{$index+1}}. {{trend.hashtagory_text}}</a></p>
+                    <h4 class="card-title" style="color: #66757f">Trends</h4>
+                        
+                    <p ng-repeat="trend in trends track by $index" 
+                       style="color: #0084B4; font-weight: bold;">
+                        <a ng-href="#/search?query={{trend.hashtagory_text}}">#{{trend.hashtagory_text}}</a>
+                        <br/>
+                        <small class="text-muted">{{trend.count}} Auctions</small>
+                    </p>
 
                 </div>
             </div>
@@ -45,9 +47,9 @@
                         </div>
                         <div class="col-sm-8" style="margin-left: 1em">
 
-                            <a href="#/auction?{{auction.auction_id}}"><h4 class="card-title">@{{auction.username}}: {{auction.title}}
-                                <br/><small> Finishes in <time-difference date="auction.end_time"></time-difference>
-                                <span ng-show="{{auction.current_bid}}"><br/>Highest bid: £{{auction.current_bid}}</span></small></h4></a>
+                            <h4 class="card-title"><a href="#/auction?{{auction.auction_id}}">@{{auction.username}}: {{auction.title}}</a>
+                                <br/><small class="text-muted"> Finishes in <time-difference date="auction.end_time"></time-difference>
+                                <span ng-show="{{auction.current_bid}}"><br/>Highest bid: £{{auction.current_bid}}</span></small></h4>
                             <p class="card-text">
                                 {{auction.description}}
                             </p>
