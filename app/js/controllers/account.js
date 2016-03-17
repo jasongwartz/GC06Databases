@@ -2,10 +2,7 @@
 
 angular.module('controllers.account', [])
 
-.controller('accountCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
-
-    $rootScope.progressbar.start();
-    setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
+.controller('accountCtrl', ['$scope', 'http', '$rootScope', function($scope, $http, $rootScope) {
     
     $scope.detailsPopupTitle = "Edit Personal Details";
     $scope.detailsInputs = [

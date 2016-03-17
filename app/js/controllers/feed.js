@@ -2,11 +2,8 @@
 
 angular.module('controllers.feed', [])
 
-.controller('feedCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+.controller('feedCtrl', ['$scope', 'http', '$rootScope', function($scope, $http, $rootScope) {
 
-    $rootScope.progressbar.start();
-    setTimeout(function() {$rootScope.progressbar.complete();}, 2000);
-    
     $scope.auctions = [];
 
     get_trending();
