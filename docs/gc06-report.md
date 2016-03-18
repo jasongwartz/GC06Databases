@@ -22,6 +22,8 @@
 
 This report highlights the implementation of a peer-to-peer online auction system, called **Hashtagories**. The interaction model is based largely on Twitter; product descriptions are limited to 140 characters, and bids on an auction appear like Twitter @-replies. Descriptions include hashtags, which make up the main categorisation and search index.
 
+The live hosted version of the application can be viewed at [http://gc06.jasongwartz.com/app/](http://gc06.jasongwartz.com/app/).
+
 ### Main Features
 - Users can add an item to their profile, giving it a title and description (including hashtags)
 - A registered item can be put up for auction, with a reserve price (hidden from other users) and end date
