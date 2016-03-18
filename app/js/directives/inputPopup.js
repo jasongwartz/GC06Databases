@@ -37,13 +37,18 @@ angular.module('directives.inputPopup', [])
             }
             
             scope.charCount = function(index) {
-                console.log(scope.inputs[index].ngModel.length);
-                var charsLeft = scope.inputs[index].validation.limit - scope.inputs[index].ngModel.length;
-//                if (charsLeft >= 0)
+                
+                if (scope.inputs[index].validation) {
+                    console.log(scope.inputs[index].ngModel.length);
+
+                    var charsLeft = scope.inputs[index].validation.limit - scope.inputs[index].ngModel.length;
+    //                if (charsLeft >= 0)
                     scope.inputs[index].validation.count = charsLeft;
-                if (charsLeft === 0) {
-                    alert("Maximum of " +  scope.inputs[index].validation.limit +" characters!");
-                    scope.inputs[index].validation.count = 0;
+                    
+                    if (charsLeft === 0) {
+                        alert("Maximum of " +  scope.inputs[index].validation.limit +" characters!");
+                        scope.inputs[index].validation.count = 0;
+                    }
                 }
                     
             };
