@@ -28,7 +28,8 @@ angular.module('controllers.search', [])
             }
         }
 //        alert(id);
-        document.getElementById(id).checked = true;
+        if (document.getElementById(id))
+            document.getElementById(id).checked = true;
 
     });
 
