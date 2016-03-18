@@ -168,18 +168,6 @@ END
 ```
 
 
-#### auctions_close
-//KILL
-Closes an auction (sets a boolean flag to 1).
-```SQL
-PROCEDURE `auctions_close`(IN auction_id INT)
-BEGIN
-    UPDATE auctions
-    SET is_complete=1
-    WHERE auctions.auction_id=auction_id;
-END
-```
-
 #### auctions_create
 Starts an auction, using timestamps generated in the middle-layer (could have also used NOW() function). Reserve price needs to be cast from string input.
 ```SQL
@@ -516,17 +504,6 @@ BEGIN
 End
 ```
 
-#### event_reset_auctions
-Event for resetting auctions to uncomplete (for testing)
-//KILL
-```SQL
-PROCEDURE `event_reset_auctions`()
-BEGIN
-
-	UPDATE `auctions` SET is_complete = 0 WHERE auction_id > 0;
-
-END
-```
 
 #### event_retrieve_watches
 Event that retrieves a user's watchlist with all relevant information (bid price, user id, item information). Used for periodic updates on a user's watchlist.
