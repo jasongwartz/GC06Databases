@@ -37,8 +37,11 @@ This report highlights the implementation of a peer-to-peer online auction syste
 ## Entity Relationship Diagram
 Figure 1 shows the entity relationship diagram that was used in the final production of Hashtagories. It contains 8 tables.
 
-.
+\newpage
+
 ![Auction Entity Relationship Diagram](auction-erd.png "Auction ERD")
+
+\newpage
 
 ## Database Schema Listing
 
