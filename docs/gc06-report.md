@@ -633,8 +633,10 @@ Adds a hashtagory to an item, allowing it to be searched at a later point. Struc
 ``` SQL
 PROCEDURE `hashtagories_tag_item`(IN item_id INT(11), IN hashtag varchar(20))
 BEGIN
-    INSERT IGNORE INTO hashtagories (text) VALUES(hashtag);
-	INSERT IGNORE INTO item_hashtagories (tagged_item_id, hashtagory_text) VALUES(item_id, hashtag);
+IF NOT EXISTS(SELECT 1 FROM hashtagories WHERE text = hashtag) THEN
+INSERT INTO hashtagories (text) VALUES(hashtag);
+INSERT INTO item_hashtagories (tagged_item_id, hashtagory_text) VALUES(item_id, hashtag);
+END IF;
 END
 ```
 

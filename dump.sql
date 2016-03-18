@@ -7,7 +7,7 @@
 #
 # Host: db.jasongwartz.com (MySQL 5.6.27-log)
 # Database: auction1
-# Generation Time: 2016-03-17 12:56:20 am +0000
+# Generation Time: 2016-03-18 4:14:45 pm +0000
 # ************************************************************
 
 
@@ -45,23 +45,39 @@ INSERT INTO `auctions` (`auction_id`, `auction_item_id`, `is_complete`, `start_t
 VALUES
 	(2,102,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',200.00,00000000004),
 	(3,107,1,'2016-02-26 15:34:08','2016-02-29 06:02:00',20000.00,00000000000),
-	(4,111,0,'2016-03-02 17:13:55','2016-04-04 19:20:00',3039.00,00000000013),
+	(4,111,1,'2016-03-02 17:13:55','2016-03-18 14:52:00',3039.00,00000000013),
 	(5,104,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',0.00,00000000000),
 	(6,103,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',0.00,00000000017),
 	(7,112,1,'2016-03-07 20:55:31','2016-03-09 23:30:00',2000.00,00000000022),
 	(8,113,1,'2016-03-07 23:04:44','2016-03-08 21:00:00',550.00,00000000003),
-	(9,131,0,'2016-03-09 16:14:02','2016-03-20 09:00:00',20.00,00000000029),
-	(10,132,0,'2016-03-09 16:17:24','2016-03-20 23:01:00',21.00,00000000007),
-	(11,133,0,'2016-03-09 17:20:57','2016-03-20 09:02:00',1.00,00000000022),
+	(9,131,1,'2016-03-09 16:14:02','2016-03-18 14:59:00',20.00,00000000031),
+	(10,132,0,'2016-03-09 16:17:24','2016-03-20 23:01:00',21.00,00000000073),
+	(11,133,0,'2016-03-09 17:20:57','2016-03-20 09:02:00',1.00,00000000027),
 	(12,134,1,'2016-03-11 11:50:38','2016-03-12 04:05:00',60.00,00000000007),
 	(13,136,1,'2016-03-11 17:15:52','2016-03-12 03:34:00',99999999.99,00000000001),
 	(14,138,1,'2016-03-11 18:18:05','2016-03-12 02:21:00',29.00,00000000016),
 	(15,107,1,'2016-03-14 13:38:37','2016-03-15 23:30:00',200.00,00000000007),
 	(20,139,1,'0000-00-00 00:00:00','0000-00-00 00:00:00',3240.00,00000000000),
-	(21,140,0,'2016-03-14 19:15:27','2016-03-21 09:00:00',100.00,00000000007),
-	(25,141,0,'2016-03-02 17:13:55','2016-03-22 17:13:55',54720.00,00000000001),
-	(26,142,0,'2016-03-16 15:32:22','2016-03-17 20:20:00',22.00,00000000001),
-	(28,143,0,'2016-03-16 18:40:37','2016-03-22 17:13:55',100.00,00000000007);
+	(21,140,1,'2016-03-14 19:15:27','2016-03-18 14:52:00',100.00,00000000008),
+	(25,141,1,'2016-03-02 17:13:55','2016-03-18 14:52:00',54720.00,00000000001),
+	(26,142,1,'2016-03-16 15:32:22','2016-03-17 20:20:00',22.00,00000000004),
+	(28,143,1,'2016-03-16 18:40:37','2016-03-18 15:06:00',100.00,00000000007),
+	(29,139,0,'2016-03-17 15:04:35','2016-03-19 20:00:00',2000.00,00000000016),
+	(30,108,1,'2016-03-17 15:12:07','2016-03-18 14:52:00',2000.00,00000000000),
+	(31,145,1,'2016-03-18 12:49:14','2016-03-18 14:52:00',22.00,00000000001),
+	(32,146,1,'2016-03-18 12:55:54','2016-03-18 14:52:00',22.00,00000000019),
+	(33,147,0,'2016-03-18 13:03:04','2016-03-30 11:34:00',30.00,00000000001),
+	(34,148,0,'2016-03-18 15:09:15','2016-03-20 16:30:00',100000.00,00000000002),
+	(35,155,0,'2016-03-18 15:20:07','2016-03-22 18:45:00',5.00,00000000000),
+	(37,150,0,'2016-03-18 15:22:39','2016-03-20 22:03:00',900.00,00000000000),
+	(38,149,0,'2016-03-18 15:22:49','2016-03-20 23:03:00',1.00,00000000000),
+	(39,158,0,'2016-03-18 15:24:21','2016-03-30 15:30:00',10000.00,00000000001),
+	(40,157,0,'2016-03-18 15:24:20','2016-03-18 23:02:00',21.00,00000000000),
+	(41,156,0,'2016-03-18 15:24:58','2016-03-18 23:58:00',94.00,00000000000),
+	(42,154,0,'2016-03-18 15:25:33','2016-03-18 23:59:00',123.00,00000000000),
+	(43,153,0,'2016-03-18 15:25:57','2016-03-18 23:01:00',56.00,00000000000),
+	(44,151,0,'2016-03-18 15:26:36','2016-03-18 20:02:00',21.00,00000000002),
+	(45,152,0,'2016-03-18 15:31:38','2016-03-18 23:01:00',201.00,00000000000);
 
 /*!40000 ALTER TABLE `auctions` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -143,7 +159,11 @@ VALUES
 	(27,109,0.10,'2016-03-16 15:31:45',25),
 	(28,104,4.00,'2016-03-16 21:58:23',28),
 	(29,108,5.00,'2016-03-16 21:59:08',28),
-	(30,108,6.00,'2016-03-16 22:20:07',28);
+	(30,108,6.00,'2016-03-16 22:20:07',28),
+	(31,1,123.00,'2016-03-17 10:55:04',26),
+	(32,107,5.00,'2016-03-17 16:00:28',29),
+	(33,115,6.00,'2016-03-18 13:29:08',11),
+	(34,116,21.00,'2016-03-18 15:53:14',39);
 
 /*!40000 ALTER TABLE `bids` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -176,10 +196,13 @@ LOCK TABLES `feedback` WRITE;
 INSERT INTO `feedback` (`seller_id`, `seller_text`, `seller_rating`, `feedback_auction_id`, `buyer_id`, `buyer_text`, `buyer_rating`)
 VALUES
 	(2,'asdasd',50.00,2,1,'asdasdsad',50.00),
+	(102,NULL,NULL,4,104,NULL,NULL),
 	(37,NULL,NULL,6,1,'This guy was a 10/10 amateur!!!!!',5.00),
 	(1,'The punk didn\'t even leave me a number rating!!',14.00,7,104,'What a doof',0.00),
 	(1,'This is some pretty good feedback bro.',69.00,8,102,NULL,NULL),
-	(104,NULL,NULL,14,105,NULL,NULL);
+	(104,NULL,NULL,14,105,NULL,NULL),
+	(106,NULL,NULL,21,104,NULL,NULL),
+	(109,NULL,NULL,26,1,'sdasdasdasdasdddd\ndddddddddddddddddddddd\nddddddddddddddddddddddd\nddddddddddddddddddddd\n ddddddddddddddddddddd dddddddddddddddddddddddddddddd',71.00);
 
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -202,33 +225,61 @@ LOCK TABLES `hashtagories` WRITE;
 
 INSERT INTO `hashtagories` (`id`, `text`)
 VALUES
-	(2,''),
 	(3,'0'),
 	(4,'alternativetransport'),
+	(83,'americagreatagain'),
+	(73,'attack'),
 	(1,'banana'),
 	(5,'bananas'),
+	(54,'bcnf'),
+	(46,'beautiful'),
 	(6,'brogrammer'),
+	(51,'browncoats'),
+	(89,'byo'),
 	(7,'camel'),
+	(42,'cantfeelmyface'),
+	(50,'canttakethesky'),
+	(58,'cups'),
+	(87,'dreams'),
+	(65,'drone'),
+	(90,'evil'),
+	(81,'expectus'),
 	(8,'figurine'),
 	(9,'garage'),
 	(10,'garagesale'),
+	(68,'hacker'),
 	(11,'harrypotter'),
 	(12,'hello'),
 	(13,'heman'),
+	(85,'highenergy'),
 	(14,'hipster'),
 	(15,'hipstertable'),
+	(41,'ifuckingloveit'),
 	(16,'isatest'),
 	(17,'isthisworking'),
 	(18,'itsalwayssunny'),
+	(53,'johndowellrocks'),
 	(19,'karate'),
+	(48,'keepfloatin'),
+	(84,'makethempayforit'),
 	(20,'maths'),
 	(21,'movingday'),
+	(63,'mugs'),
 	(22,'ninja'),
+	(49,'nopowerintheverse'),
+	(86,'plane'),
+	(88,'rocket'),
 	(23,'rootsandculture'),
 	(24,'savethewhales'),
+	(76,'security'),
+	(71,'shoottokill'),
 	(25,'spoon'),
+	(52,'sql'),
 	(26,'startupbro'),
+	(45,'summer'),
+	(44,'sunny'),
 	(27,'table'),
+	(59,'tea'),
 	(28,'test'),
 	(29,'test2'),
 	(30,'test3'),
@@ -236,12 +287,23 @@ VALUES
 	(32,'test7'),
 	(33,'test8'),
 	(34,'test9'),
+	(56,'thatcher'),
+	(60,'tools'),
+	(64,'UAV'),
+	(55,'uclisthebest'),
+	(61,'undead'),
 	(35,'universe'),
+	(82,'USA'),
 	(36,'vegan'),
 	(37,'vehicle'),
+	(77,'weareanonymous'),
+	(78,'wearelegion'),
+	(80,'wedonotforget'),
+	(79,'wedonotforgive'),
 	(38,'winnersalwayswin'),
 	(39,'working'),
-	(40,'yolo');
+	(66,'yolo'),
+	(62,'zombie');
 
 /*!40000 ALTER TABLE `hashtagories` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -301,7 +363,55 @@ VALUES
 	(36,143,'hello'),
 	(37,143,'isthisworking'),
 	(44,144,'test8'),
-	(45,144,'test9');
+	(45,144,'test9'),
+	(46,147,'ifuckingloveit'),
+	(47,147,'cantfeelmyface'),
+	(48,147,'yolo'),
+	(49,148,'sunny'),
+	(50,148,'summer'),
+	(51,148,'beautiful'),
+	(52,148,'dreams'),
+	(53,149,'keepfloatin'),
+	(54,149,'nopowerintheverse'),
+	(55,149,'canttakethesky'),
+	(56,149,'browncoats'),
+	(57,150,'sql'),
+	(58,150,'johndowellrocks'),
+	(59,150,'bcnf'),
+	(60,150,'uclisthebest'),
+	(61,151,'thatcher'),
+	(62,151,'mugs'),
+	(63,151,'cups'),
+	(64,151,'tea'),
+	(65,152,'tools'),
+	(66,152,'undead'),
+	(67,152,'zombie'),
+	(68,152,'mugs'),
+	(69,153,'UAV'),
+	(70,153,'drone'),
+	(71,153,'yolo'),
+	(72,153,'zombie'),
+	(73,154,'hacker'),
+	(74,154,'USA'),
+	(75,154,'security'),
+	(76,154,'shoottokill'),
+	(77,155,'plane'),
+	(78,155,'attack'),
+	(79,155,'dreams'),
+	(80,156,'hacker'),
+	(81,156,'security'),
+	(82,156,'weareanonymous'),
+	(83,156,'wearelegion'),
+	(84,156,'wedonotforgive'),
+	(85,156,'wedonotforget'),
+	(86,156,'expectus'),
+	(87,157,'USA'),
+	(88,157,'americagreatagain'),
+	(89,157,'makethempayforit'),
+	(90,157,'highenergy'),
+	(91,158,'plane'),
+	(92,158,'dreams'),
+	(93,158,'rocket');
 
 /*!40000 ALTER TABLE `item_hashtagories` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -332,9 +442,9 @@ VALUES
 	(102,9,'a new name','I am so good at making up descriptions',NULL,0),
 	(103,37,'arcu. Vestibulum ut','vulputate, lacus. Cras interdum. Nunc sollicitudin commodo ipsum. Suspendisse non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis,',NULL,2),
 	(104,9,'more stuff','and more descriptions',NULL,0),
-	(107,1,'Stuff','things and such','https://pbs.twimg.com/profile_images/609991041471660032/OUDxYbMf.jpg',0),
+	(107,1,'Stuff','things and such #sdads','https://pbs.twimg.com/profile_images/609991041471660032/OUDxYbMf.jpg',0),
 	(108,1,'A cunch of bunts','sdafsd #yolo',NULL,0),
-	(111,102,'My stuff','is good',NULL,0),
+	(111,102,'My stuff','is good',NULL,104),
 	(112,1,'Mint condition He man figurine','He man figurine 10 years old #figurine #heman #universe #winnersalwayswin','http://www.mwctoys.com/images/review_motuc1_1.jpg',104),
 	(113,1,'Camel','Really nice camel, well behaved and it almost never spits in your face. #camel #vehicle #alternativetransport #savethewhales','https://img.buzzfeed.com/buzzfeed-static/static/2013-10/enhanced/webdr02/25/12/enhanced-buzz-31258-1382717179-0.jpg?no-auto',102),
 	(131,104,'Day Man','FIGHTER OF THE NIGHT MAN #itsonlysuny #friendship #german #winnersalwayswin','https://img.buzzfeed.com/buzzfeed-static/static/2013-10/enhanced/webdr01/14/20/enhanced-buzz-2646-1381796229-3.jpg',0),
@@ -346,11 +456,25 @@ VALUES
 	(137,105,'an item','stuff #yolo #karate','http://i.imgur.com/cFrSofo.jpg',0),
 	(138,104,'stuff','for the cloud #karate #yolo #harrypotter','http://www.qvidian.com/sites/default/files/the-cloud-SaaS-computing.jpg',105),
 	(139,1,'Table','A great hipster table, strong enough to support a crate of craft beer #table #hipster #hipstertable','http://diypalletfurniture.net/wp-content/uploads/2014/11/How-to-transform-a-pallet-into-a-hipster-table-for-the-living-room-12.jpg',0),
-	(140,106,'THEBEST','EVAAARRRRRR #GREAT #woohoo','http://diypalletfurniture.net/wp-content/uploads/2014/11/How-to-transform-a-pallet-into-a-hipster-table-for-the-living-room-12.jpg',0),
+	(140,106,'THEBEST','EVAAARRRRRR #GREAT #woohoo','http://diypalletfurniture.net/wp-content/uploads/2014/11/How-to-transform-a-pallet-into-a-hipster-table-for-the-living-room-12.jpg',104),
 	(141,106,'Dave Cameron','Who wants it? Anybody? I\'ll cut a deal? #garagesale #movingday','https://onmyfrontporch.files.wordpress.com/2014/08/david-cameron-012.jpg',0),
-	(142,109,'Stuff','#yolo #garage #spoon','http://andreklein.net/wp-content/uploads/2013/05/ak.gif',0),
+	(142,109,'Stuff','#yolo #garage #spoon','http://andreklein.net/wp-content/uploads/2013/05/ak.gif',1),
 	(143,107,'BESTTITLE','#hello #isthisworking','http://brokenlink',0),
-	(144,107,'TESTER2','#test8 #test9','http://asdfasdf',0);
+	(144,107,'TESTER2','#test8 #test9','http://asdfasdf',0),
+	(145,115,'awwww yeaaah character counters','fucking nice one ed! #angularninja #agilesamurai #buzzwooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooord','http://i.imgur.com/IEl6yJl.gifv',0),
+	(146,115,'just a very normal test','I like sproccoli #yolo #karate #itsalwayssunny','http://imgur.com/gallery/y2dAcic',0),
+	(147,115,'Trying to fix tagging','because #ifuckingloveit #cantfeelmyface #yolo','http://media-cdn.tripadvisor.com/media/photo-s/07/9a/d3/77/linguado-com-molho-de.jpg',0),
+	(148,107,'Beautiful rainbow','For sale - one beautiful rainbow! free delivery. #sunny #summer #beautiful #dreams','http://free-screensavers-backgrounds.com/wp-content/uploads/2010/12/rainbow-field.jpg',0),
+	(149,116,'Firefly-class freighter','In good condition. Front viewport smashed. Some blood on pilot\'s chair #keepfloatin #nopowerintheverse #canttakethesky #browncoats','http://www.thinkgeek.com/images/products/additional/large/eb82_serenity_desk_model_detail2.jpg',0),
+	(150,116,'Private Lessons with John Dowell','Database lessons from the best in the biz #sql #johndowellrocks #bcnf #uclisthebest','http://www0.cs.ucl.ac.uk/people/photos/J.Dowell.jpg',0),
+	(151,116,'Mugret Thatcher','Because who doesn\'t like a pun you can drink from #thatcher #mugs #cups #tea','http://ecx.images-amazon.com/images/I/717zNd1vj7L._SY355_.jpg',0),
+	(152,116,'Zombie Survival Kit','For keeping those pesky undead at bay. Includes free mug #tools #undead #zombie #mugs','http://images.mentalfloss.com/sites/default/files/styles/insert_main_wide_image/public/800zombiesurvival_kit.jpg',0),
+	(153,116,'Killer Drone','Really helpful for killing zombies. Answers to Killbot and Blasty #UAV #drone #yolo #zombie','http://cdn.thedailybeast.com/content/dailybeast/articles/2014/09/12/can-killer-drones-stop-school-shootings/jcr:content/image.crop.800.500.jpg/47018691.cached.jpg',0),
+	(154,116,'Ed Snowden\'s Location','Purchase the location and daily movements of Ed Snowden for the best assassination ever! #hacker #USA #security #shoottokill','https://upload.wikimedia.org/wikipedia/commons/6/60/Edward_Snowden-2.jpg',0),
+	(155,107,'Genuine F16 fighter jet!','Great condition, slightly used. Selling because I\'m moving and don\'t have room in the new place. #plane #attack #dreams','http://2.bp.blogspot.com/_EegeyTwduvU/St1YV_JHOmI/AAAAAAAAA9s/oIBr_PJCwfk/s320/f-16c-19990601-f-0073c-005.jpg',0),
+	(156,116,'Guy Fawkes mask','For all you 1337 H4x0rz out there #hacker #security #weareanonymous #wearelegion #wedonotforgive #wedonotforget #expectus','http://i.ebayimg.com/00/s/NTAwWDUwMA==/z/3F0AAOxyaTxTVkPs/$_3.JPG?set_id=2',0),
+	(157,116,'Donald Trump Wig','Be just like the future leader of the free world #USA #americagreatagain #makethempayforit #highenergy','http://cdns.yournewswire.com/wp-content/uploads/2015/12/donald-trump-caterpillar.jpg',0),
+	(158,106,'X15 Rocket Plane - mediocre condition','Like new X15 rocket plane, quality American craftsmanship. Can\'t get you off this planet, but pretty close. #plane #dreams #rocket #byo-fuel','http://welldonestuff.com/wp-content/uploads/2014/07/X-15-Aircraft-10.jpg',0);
 
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -477,10 +601,13 @@ VALUES
 	('aj',103,'aj','aj','aj@aj.com',''),
 	('oj',104,'oj','oj','jason.gwartz@gmail.com','d41d8cd98f00b204e9800998ecf8427e'),
 	('cj',105,'cj','cj','cj@cj.com','d41d8cd98f00b204e9800998ecf8427e'),
-	('jj',106,'JJ','JJJJ','jason.gwartz@gmail.com','d41d8cd98f00b204e9800998ecf8427e'),
-	('pj',107,'PJ','PJPJ','jason.gwartz@gmail.com','d41d8cd98f00b204e9800998ecf8427e'),
-	('tester1',108,'tester','one','jason.gwartz@gmail.com','d41d8cd98f00b204e9800998ecf8427e'),
-	('aj',109,'aj','aj','ajaj@ajaj.com','d41d8cd98f00b204e9800998ecf8427e');
+	('jj',106,'JJ','JJJJ','jason.gwartz@gmail.com','2ac9cb7dc02b3c0083eb70898e549b63'),
+	('pj',107,'PJ','PJPJ','jason.gwartz@gmail.com','2ac9cb7dc02b3c0083eb70898e549b63'),
+	('tester1',108,'tester','one','jason.gwartz@gmail.com','2ac9cb7dc02b3c0083eb70898e549b63'),
+	('aj',109,'aj','aj','ajaj@ajaj.com','d41d8cd98f00b204e9800998ecf8427e'),
+	('testuser1',114,'edtest','mtest','ed@ed.com','1586eab0b1f5007f11f426053dce3df2'),
+	('fj',115,'fjfj','fjfj','fj@fj.com','3ef204775d4f12f4e96543837d7de0b2'),
+	('alphabob',116,'alpha','bob','alpha.bob@gmail.com','f5f28ae5ebca1a1fd3c3dd2debaf1f7b');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -509,6 +636,7 @@ VALUES
 	(105,9),
 	(105,10),
 	(105,11),
+	(115,11),
 	(105,12),
 	(104,14),
 	(105,14),
@@ -516,10 +644,30 @@ VALUES
 	(106,21),
 	(106,25),
 	(109,25),
+	(1,26),
 	(109,26),
 	(104,28),
 	(107,28),
-	(108,28);
+	(108,28),
+	(1,29),
+	(107,29),
+	(115,29),
+	(1,30),
+	(115,31),
+	(115,32),
+	(115,33),
+	(107,34),
+	(107,35),
+	(116,37),
+	(116,38),
+	(106,39),
+	(116,39),
+	(116,40),
+	(116,41),
+	(116,42),
+	(116,43),
+	(116,44),
+	(116,45);
 
 /*!40000 ALTER TABLE `watches` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -611,7 +759,7 @@ END */;;
 
 /*!50003 DROP PROCEDURE IF EXISTS `auctions_search` */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_search`(IN str varchar(100), IN sort varchar(10))
+/*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_search`(IN str varchar(100), IN sort varchar(12))
 BEGIN
     SELECT *
     FROM item_hashtagories AS ih, auctions_retrieve_all AS a
@@ -676,10 +824,8 @@ END */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `auctions_user_auctions`(IN user_id INT(11))
 BEGIN
-	SELECT * FROM `auctions` AS a, `items` AS i
-    WHERE a.is_complete = 0
-    AND a.auction_item_id = i.item_id
-    AND i.owner_user_id = user_id
+	SELECT * FROM `auctions_retrieve_all` AS a
+	WHERE a.owner_user_id = user_id
     ORDER BY `end_time` ASC;
 END */;;
 
@@ -1063,8 +1209,10 @@ END */;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION"*/;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`auctioneer`@`%`*/ /*!50003 PROCEDURE `hashtagories_tag_item`(IN item_id INT(11), IN hashtag varchar(20))
 BEGIN
-INSERT IGNORE INTO hashtagories VALUES (hashtag);
+IF NOT EXISTS(SELECT 1 FROM hashtagories WHERE text = hashtag) THEN
+INSERT INTO hashtagories (text) VALUES(hashtag);
 INSERT INTO item_hashtagories (tagged_item_id, hashtagory_text) VALUES(item_id, hashtag);
+END IF;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;;
