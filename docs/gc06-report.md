@@ -139,14 +139,14 @@ By analysing the attributes in tables of the database we ensured that none of th
 
 | Attribute Name        | 1st Normal Form | 2nd Normal Form | 3rd Normal Form |
 |-----------------------|-----------------|-----------------|-----------------|
-| **users**             | ✓               | ✓               | ✓               |
-| **items**             | ✓               | ✓               | ✓               |
-| **hashtagories**      | ✓               | ✓               | ✓               |
-| **item_hashtagories** | ✓               | ✓               | ✓               |
-| **auctions**          | ✓               | ✓               | ✓               |
-| **bids**              | ✓               | ✓               | ✓               |
-| **watches**           | ✓               | ✓               | ✓               |
-| **feedback**          | ✓               | ✓               | ✓               | 
+| **users**             | yes             | yes             | yes             |
+| **items**             | yes             | yes             | yes             |
+| **hashtagories**      | yes             | yes             | yes             |
+| **item_hashtagories** | yes             | yes             | yes             |
+| **auctions**          | yes             | yes             | yes             |
+| **bids**              | yes             | yes             | yes             |
+| **watches**           | yes             | yes             | yes             |
+| **feedback**          | yes             | yes             | yes             | 
 
 
 
