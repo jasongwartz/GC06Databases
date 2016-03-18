@@ -1,4 +1,7 @@
 # GC06 Database Design Report
+### By Jason Gwartz, Jan Klug and Edward Mothershaw
+\newpage
+
 
 ## Project Overview
 
@@ -14,7 +17,7 @@ This report highlights the implementation of a peer-to-peer online auction syste
 
 ## YouTube Video Link
 
-[Link to YouTube Video](https://www.youtube.com)
+[Link to YouTube Video](https://www.youtube.com/watch?v=izUbymUykH4&feature=em-upload_owner)
 
 ## Entity Relationship Diagram
 
