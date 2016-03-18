@@ -32,7 +32,7 @@ This report highlights the implementation of a peer-to-peer online auction syste
 
 ## YouTube Video Link
 
-[https://www.youtube.com/watch?v=izUbymUykH4&feature=em-upload_owner](https://www.youtube.com/watch?v=izUbymUykH4&feature=em-upload_owner)
+[https://www.youtube.com/watch?v=izUbymUykH4](https://www.youtube.com/watch?v=izUbymUykH4)
 
 ## Entity Relationship Diagram
 Figure 1 shows the entity relationship diagram that was used in the final production of Hashtagories. It contains 8 tables.
@@ -523,12 +523,14 @@ BEGIN
         # Gets row count of tmp table.
         SELECT count(*) FROM `tmp_end_expired_auctions` INTO n;
 
-        # Loops through the tmp table finally updating the is_complete in auctions table
+        # Loops through the tmp table finally updating the is_complete 
+        # in auctions table
         # to 1.
         SET i=0;
         WHILE i<n DO 
 
-            SELECT auction_id FROM `tmp_end_expired_auctions` LIMIT i,1 INTO auction_id_tmp;
+            SELECT auction_id FROM `tmp_end_expired_auctions` LIMIT i,1 
+                INTO auction_id_tmp;
 
             # Closes every expired auction
             UPDATE `auctions` SET is_complete = 1 WHERE auction_id = auction_id_tmp;
@@ -602,30 +604,33 @@ END
 #### feedback_update
 Updates the feedback table with feedback left by the users. Contains switching logic to allow feedback to be sent to a single PHP endpoint. Once this stored procedure is activated it first identifies whether the user is leaving feedback as a buyer or a seller, then selectively updates the feedback table. Also validates the feedback score to be within the 0-100 range
 ``` SQL
-PROCEDURE `feedback_update`(IN feedback_text VARCHAR(140), IN feedback_rating DECIMAL(5,2), IN user_id INT(11), IN feedback_auction_id INT(11))
+PROCEDURE `feedback_update`(IN feedback_text VARCHAR(140), IN 
+    feedback_rating DECIMAL(5,2), IN user_id INT(11), IN 
+    feedback_auction_id INT(11))
 BEGIN
 
-	# Feedback validation
-	IF feedback_rating <= 100 AND feedback_rating >= 0 THEN
+    # Feedback validation
+    IF feedback_rating <= 100 AND feedback_rating >= 0 THEN
     #Check whether the feedback being left is by the buyer or the seller
-		set @v1 = (SELECT seller_id
-        FROM feedback
-        WHERE feedback.feedback_auction_id = feedback_auction_id);
-		
-		IF @v1 = user_id THEN
-			UPDATE feedback
-            SET feedback.seller_text = feedback_text,
-            seller_rating = feedback_rating
-            WHERE feedback.feedback_auction_id = feedback_auction_id;
-		ELSE
-			UPDATE feedback
-            SET feedback.buyer_text = feedback_text,
-            buyer_rating = feedback_rating
-            WHERE feedback.feedback_auction_id = feedback_auction_id;
-		END IF;
-	ELSE
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Feedback rating out of range!';
-	END IF;
+            set @v1 = (SELECT seller_id
+    FROM feedback
+    WHERE feedback.feedback_auction_id = feedback_auction_id);
+
+            IF @v1 = user_id THEN
+                    UPDATE feedback
+        SET feedback.seller_text = feedback_text,
+        seller_rating = feedback_rating
+        WHERE feedback.feedback_auction_id = feedback_auction_id;
+            ELSE
+                    UPDATE feedback
+        SET feedback.buyer_text = feedback_text,
+        buyer_rating = feedback_rating
+        WHERE feedback.feedback_auction_id = feedback_auction_id;
+            END IF;
+    ELSE
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Feedback rating 
+            out of range!';
+    END IF;
 END
 ```
 
@@ -670,7 +675,8 @@ END
 #### hashtagories_tag_item
 Adds a hashtagory to an item, allowing it to be searched at a later point. Structured so that if the hashtagory already exists, the operation will not crash and continue on to the second operation (actually tagging the item).
 ``` SQL
-PROCEDURE `hashtagories_tag_item`(IN item_id INT(11), IN hashtag varchar(20))
+PROCEDURE `hashtagories_tag_item`(IN item_id INT(11), IN 
+    hashtag varchar(20))
 BEGIN
 IF NOT EXISTS(SELECT 1 FROM hashtagories WHERE text = hashtag) THEN
 INSERT INTO hashtagories (text) VALUES(hashtag);
@@ -740,8 +746,8 @@ IN title varchar(50),
 IN description varchar(200))
 BEGIN
 	UPDATE `items`
-    SET items.title = title, items.description = description, items.image_ref = image_ref
-    WHERE items.item_id = item_id;
+    SET items.title = title, items.description = description, 
+    items.image_ref = image_ref WHERE items.item_id = item_id;
 END
 ```
 
@@ -786,7 +792,8 @@ BEGIN
     FROM  `users` where BINARY users.password = old_password
     AND users.user_id = userid);
     IF @v1 = userid THEN
-        UPDATE `users` SET `password`= new_password WHERE `user_id` = userid;
+        UPDATE `users` SET `password`= new_password WHERE `user_id`
+         = userid;
     ELSE
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'INCORRECT USER NAME AND/OR PASSWORD';
@@ -805,7 +812,8 @@ IN email varchar(50),
 IN pass varchar(20)
 )
 BEGIN
-    INSERT INTO `users` (`username`, `first_name`, `last_name`, `email`, `password`)
+    INSERT INTO `users` (`username`, `first_name`, `last_name`, 
+    `email`, `password`)
     values (username, first_name, last_name, email, pass);
 END
 ```
