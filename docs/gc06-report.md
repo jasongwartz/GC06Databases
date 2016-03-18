@@ -1,7 +1,22 @@
 # GC06 Database Design Report
 ### By Jason Gwartz, Jan Klug and Edward Mothershaw
+#### Group 37
 \newpage
 
+# Table of Contents
+
+
+
+### 1. [Project Overview](#example)
+### 2. [YouTube Video Link](#example2)
+### 3. [Entity Relationship Diagram](#third-example)
+### 4. [Database Schema Listing](#third-example)
+### 5. [Application Architecture](#third-example)
+### 6. [Normalistation Analysis](#third-example)
+### 7. [Query Explainations](#third-example)
+
+
+\newpage
 
 ## Project Overview
 
@@ -20,8 +35,9 @@ This report highlights the implementation of a peer-to-peer online auction syste
 [Link to YouTube Video](https://www.youtube.com/watch?v=izUbymUykH4&feature=em-upload_owner)
 
 ## Entity Relationship Diagram
+Figure 1 shows the entity relationship diagram that was used in the final production of Hashtagories. It contains 8 tables.
 
-![alt text](auction-erd.png "Auction ERD")
+![Auction Entity Relationship Diagram](auction-erd.png "Auction ERD")
 
 
 ## Database Schema Listing
