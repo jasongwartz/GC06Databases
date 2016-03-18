@@ -14,14 +14,18 @@
         </div>
         <div class="modal-body">
             <!--<p ng-repeat="input in inputs">{{input}}. Some text in the modal.</p>-->
-            <div class="row" ng-repeat="input in inputs" style="margin-top:10px;">
+            <div class="row" ng-repeat="input in inputs track by $index" style="margin-top:10px;">
                 <div class="col-sm-10 col-sm-offset-1 input-group">
                     <span class="input-group-addon">{{input.label}}</span>
                     <div ng-switch="input.type">
-                        <textarea ng-model="input.ngModel" ng-switch-when="textarea" value="{{input.value}}" class="form-control" rows="5"></textarea>                    
-                        <input ng-model="input.ngModel" ng-switch-default type="{{input.type}}" value="{{input.value}}" class="form-control" aria-label="">
+                        <textarea ng-model="input.ngModel" ng-switch-when="textarea" value="{{input.value}}" class="form-control" rows="5" ng-change="charCount($index)" 
+                   maxlength="{{input.validation.limit}}"></textarea>                    
+                        <input ng-model="input.ngModel" ng-switch-default type="{{input.type}}" value="{{input.value}}" class="form-control" aria-label="" ng-keyup="charCount($index)">
                     </div>
-                </div>           
+                                        
+                </div>
+                <div ng-if="input.validation">{{input.validation.text}}: {{(input.validation.count ? input.validation.count : input.validation.count)}}</div>
+                
             </div>
             
         </div>

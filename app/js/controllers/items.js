@@ -13,7 +13,8 @@ angular.module('controllers.items', [])
         },
         {
             label: "Item description",
-            type: "textarea"
+            type: "textarea",
+            validation: {limit: 10, text: "Characters left" }
         },
         {
             label: "Item image ref",
