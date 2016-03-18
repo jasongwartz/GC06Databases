@@ -32,7 +32,7 @@ This report highlights the implementation of a peer-to-peer online auction syste
 
 ## YouTube Video Link
 
-[Link to YouTube Video](https://www.youtube.com/watch?v=izUbymUykH4&feature=em-upload_owner)
+[https://www.youtube.com/watch?v=izUbymUykH4&feature=em-upload_owner](https://www.youtube.com/watch?v=izUbymUykH4&feature=em-upload_owner)
 
 ## Entity Relationship Diagram
 Figure 1 shows the entity relationship diagram that was used in the final production of Hashtagories. It contains 8 tables.
