@@ -120,18 +120,18 @@ This project takes advantage of several modern web architecture paradigms and in
 
 ## Normalisation Analysis
 A database is in 3rd normal form if it meets 3 criteria:
-1. It contains only atomic values.
+1. It contains only atomic values and there are no repeating groups.
 2. All non-key attributes are fully functional dependent on the primary key.
 3. There is no transitive functional dependency.
 
 ### 1st Normal Form
-All of our eight tables contain only atomic values meaning that there are not any elements in any of the tables where the data can be split up. i.e. username is atomic, email is atomic, an item_description is atomic. The database is in first normal form.
+All of our eight tables contain only atomic values meaning that there are no elements in any of the tables where the data can be further broken up. i.e. username is atomic, email is atomic, an item_description is atomic. The database is in first normal form. Also, any groups related to an entity have been separated in a separate table such as a the hashtagories table. 
 
 ### 2nd Normal Form
-This means that in every table in the database a value of a particular non-key field cannot be uniquely identified via another non-key or group of non-key fields. 
+This means that in every table in the database a value of a particular non-key field cannot be uniquely identified via another non-key or group of non-key fields. Attribute B is dependent on attribute A, but not on a proper subset of A, then B is fully functional dependent on A. For example, item_description can not be uniquely identified by an proper subset of the item_id such as title or owner_user_id. 
 
 ### 3rd Normal Form
-A transitive dependency is when a non-key attribute, C, is dependent on another attribute, A, via an attribute, B. Our database contains no transitive dependencies as we puts all attributes that are functionally dependent as primary keys in different tables. 
+A transitive dependency is when a non-key attribute, C, is dependent on another attribute, A, via an attribute, B. Our database contains no transitive dependencies as we put all key attributes that are functional dependent on another attribute as primary keys in different tables. One transitive dependency may have occurred if we stored the hashtagories_text on the items table, as then the hashtagories_text would've been dependent on item_id via item_description and therefore transitively dependent. To avoid this we separated an items hashtagories tags into a separate table. 
 
 ### Table of normalisation
 By analysing the attributes in tables of the database we ensured that none of the attributes break the rules of normalisation. As the table below indicates, all the tables in the database meet all the requirements of 3rd normalisation. 
