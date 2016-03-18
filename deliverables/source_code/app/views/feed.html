@@ -1,0 +1,145 @@
+<section>
+
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-lg-3">
+
+            <div class="hash-card-list">
+            <div class="card hash-card-no-border">
+                <img href="http://gc06.jasongwartz.com/app/#/feed" height="100%" width="100%" src="img/hashtagories.png" />
+            </div>
+            <div class="hash-card-division"></div>
+            <div class="card hash-card-no-border top-buffer">
+                
+                <div class="card-block">
+                   
+
+                    <h4 class="card-title" style="color: #66757f">Trends</h4>
+                        
+                    <p ng-repeat="trend in trends track by $index" 
+                       style="color: #0084B4; font-weight: bold;">
+                        <a ng-href="#/search?query={{trend.hashtagory_text}}">#{{trend.hashtagory_text}}</a>
+                        <br/>
+                        <small class="text-muted">{{trend.count}} Auctions</small>
+                    </p>
+
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+<!--            <div ng-if="//logged_in" class="card hash-card">
+                <div class="card-block">
+                    <h4 class="card-title">Here are some auctions you might enjoy following.</h4>
+                    <p class="card-text">
+
+                    </p>
+                </div>
+            </div>
+            <hr class="light" />-->
+            <div ng-if="auctions.length > 0" class="hash-card-list">
+                <div ng-repeat="auction in auctions track by $index" style="border-radius: inherit">
+                
+                    <div ng-if="$index !== 0" class="hash-card-division"></div>
+                    <div class="card hash-card-no-border">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img ng-if="auction.image_ref" height="100px" width="100px" ng-src="{{auction.image_ref}}" alt="item image" />
+                                <img ng-if="!auction.image_ref" height="100px" width="100px" ng-src="http://www.mariowiki.com/images/thumb/0/02/Question_Block_NSMB.png/120px-Question_Block_NSMB.png" alt="item image" />
+                            </div>
+                            <div class="col-sm-8" style="margin-left: 1em">
+
+                                <h4 class="card-title"><a href="#/auction?{{auction.auction_id}}">{{auction.title}}</a>
+                                    <small class="text-muted"> @{{auction.username}}</small>
+                                    <br/><small class="text-muted"> Finishes in <time-difference date="auction.end_time"></time-difference>
+                                    <span ng-show="{{auction.current_bid}}"><br/>Highest bid: £{{auction.current_bid}}</span></small></h4>
+                                <p class="card-text">
+                                    {{auction.description}}
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            
+
+            </div>
+            <!--<br/>-->
+        </div>
+        
+        <div class="col-lg-3">
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                <div class="card hash-card text-muted">
+                    <div class="row">
+                        <div class="col-lg-12">
+                        Order by:
+                        </div>
+                    </div>
+                    
+                    <!--<form name="myForm" ng-click="sortFn(sort)">-->
+ 
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input id="start_time" type="radio" value="start_time" 
+                                    ng-click="sortFn('start_time')"> Start time
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                    <input id="end_time" type="radio" value="end_time"
+                              ng-click="sortFn('end_time')"> End time
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                    <input id="views_m" type="radio" value="most_viewed"
+                            ng-click="sortFn('most_viewed')"> Most viewed
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                    <input id="views_l" type="radio" value="least_viewed"
+                            ng-click="sortFn('least_viewed')"> Least viewed
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                    <input id="title_az" type="radio" value="title"
+                            ng-click="sortFn('title_az')"> By Title (A-Z)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                    <input id="title_za" type="radio" value="title"
+                            ng-click="sortFn('title_za')"> By Title (Z-A)
+                        </div>
+                    </div>
+                    
+
+                <!--</form>-->
+                </div>
+            </div>
+            </div>
+            <!--</div>-->
+            <br/>
+            <div class="row">
+            <div class="col-lg-12">
+                <div class="card hash-card text-muted">
+
+                    Hashtagories &copy; 2016
+
+                </div>
+            </div>
+            
+            </div>
+
+    </div>
+    </div>
+    <br/>
+
+
+</section>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Hashtagories</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="icon" 
+      type="image/ico" 
+      href="img/favicon_hashtagories.ico">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="lib/bootstrap-3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="lib/bootstrap-3.3.6/css/bootstrap-theme.min.css">
+  
+  <link rel="stylesheet" href="fonts/bariol/bariol.css"/>
+  <link rel="stylesheet" href="lib/angucomplete-alt/angucomplete-alt.css">
+  <link rel="stylesheet" href="lib/ngprogress/ngProgress.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+  
+</head>
+<body ng-app="myApp" class="bg-main">
+    
+  <div ng-include src="'templates/navbar.html'"></div>
+
+  <div ng-view></div>   
+    
+  
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+
+  <!-- Configuration & App Root -->
+  <script src="config.js"></script>
+  <script src="js/app.js"></script>
+  
+  <!-- Directives -->
+  <script src="lib/ngprogress/build/ngprogress.min.js"></script>
+  <script src="lib/angucomplete-alt/angucomplete-alt.js"></script>
+  <script src="lib/angularUtils/pagination/dirPagination.js"></script>
+  <script src="js/directives/inputPopup.js"></script>
+  <script src="js/directives/hashPopup.js"></script>
+  <script src="js/directives/timeDifference.js"></script>
+  
+  <!-- Services -->
+  <script src="js/services/http.js"></script>
+  
+  <!-- Controllers -->
+  <script src="js/controllers/search.js"></script>
+  <script src="js/controllers/following.js"></script>
+  <script src="js/controllers/navbar.js"></script>
+  <script src="js/controllers/items.js"></script>
+  <script src="js/controllers/auction.js"></script>
+  <script src="js/controllers/feed.js"></script>
+  <script src="js/controllers/feedback.js"></script>
+  <script src="js/controllers/account.js"></script>
+  <script src="js/controllers/bids.js"></script>
+  
+  <!-- Routes -->
+  <script src="js/routes/routes.js"></script>
+  
+  <!-- Angular Components -->
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+  
+  <!-- Bootstrap -->
+  <script src="lib/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+  
+</body>
+</html>
