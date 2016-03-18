@@ -14,7 +14,7 @@ angular.module('controllers.items', [])
         {
             label: "Item description",
             type: "textarea",
-            validation: {limit: 10, text: "Characters left" }
+            validation: {limit: 140, text: "Characters left" }
         },
         {
             label: "Item image ref",
@@ -173,7 +173,8 @@ angular.module('controllers.items', [])
                 {
                     label: "Item description",
                     type: "textarea",
-                    ngModel: item.description
+                    ngModel: item.description,
+                    validation: {limit: 140, text: "Characters left" }
                 },
                 {
                     label: "Item image ref",
