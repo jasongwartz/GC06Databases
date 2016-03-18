@@ -323,11 +323,11 @@ angular.module('controllers.navbar', [])
 
             $rootScope.watches = data.data;
 
-            var auction_id = window.location.href.split('auction?')[1];
-            if (auction_id !== undefined) {
-                $rootScope.isInWatches = isInWatches(auction_id);
-                alert($rootScope.isInWatches + " " + auction_id);
-            }
+//            var auction_id = window.location.href.split('auction?')[1];
+//            if (auction_id !== undefined) {
+//                $rootScope.isInWatches = isInWatches(auction_id);
+//                alert($rootScope.isInWatches + " " + auction_id);
+//            }
 
 
         }, function() { 

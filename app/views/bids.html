@@ -43,7 +43,7 @@
                             
                             <h4 class="card-title"><a href="#/auction?{{bid.auction_id}}">{{bid.title}}</a>
                                 <small class="text-muted"> @{{bid.username}}</small>
-                                <br/><small class="text-muted"> Finishes in <time-difference date="auction.end_time"></time-difference>
+                                
                                 <span ng-show="{{bid.current_bid}}"><br/>Highest bid: £{{bid.current_bid}}</span></small></h4>
                             <p class="card-text">
                                 {{bid.description}}
