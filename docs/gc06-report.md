@@ -133,6 +133,22 @@ This means that in every table in the database a value of a particular non-key f
 ### 3rd Normal Form
 A transitive dependency is when a non-key attribute, C, is dependent on another attribute, A, via an attribute, B. Our database contains no transitive dependencies as we puts all attributes that are functionally dependent as primary keys in different tables. 
 
+### Table of normalisation
+By analysing the attributes in tables of the database we ensured that none of the attributes have break the rules of normalisation, as the table below shows that all the tables meet all the requirements of 3rd normalisation. 
+
+
+| Attribute Name        | 1st Normal Form | 2nd Normal Form | 3rd Normal Form |
+|-----------------------|-----------------|-----------------|-----------------|
+| **users**             | ✓               | ✓               | ✓               |
+| **items**             | ✓               | ✓               | ✓               |
+| **hashtagories**      | ✓               | ✓               | ✓               |
+| **item_hashtagories** | ✓               | ✓               | ✓               |
+| **auctions**          | ✓               | ✓               | ✓               |
+| **bids**              | ✓               | ✓               | ✓               |
+| **watches**           | ✓               | ✓               | ✓               |
+| **feedback**          | ✓               | ✓               | ✓               | 
+
+
 
 ## Query Explainations
 
