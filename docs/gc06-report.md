@@ -1,4 +1,17 @@
 # GC06 Database Design Report
+
+## Project Overview
+
+This report highlights the implementation of a peer-to-peer online auction system, called **Hashtagories**. The interaction model is based largely on Twitter; product descriptions are limited to 140 characters, and bids on an auction appear like Twitter @-replies. Descriptions include hashtags, which make up the main categorisation and search index.
+
+### Main Features
+- Users can add an item to their profile, giving it a title and description (including hashtags)
+- A registered item can be put up for auction, with a reserve price (hidden from other users) and end date
+- Users can search for items up for auction based on their hashtags
+- A user can place a bid on an item up for auction
+- At the end time, the auction closes - the seller and highest bidder are notified, and both are invited to leave feedback
+- Users can 'watch' an auction, where they will be notified when new bids are placed
+
 ## YouTube Video Link
 
 [Link to YouTube Video](https://www.youtube.com)
@@ -11,7 +24,7 @@
 ## Database Schema Listing
 
 ### Tables
-(Notes in brackets; PK - Primary Key, FK - Foreign Key)
+(Notes in brackets; PK = Primary Key, FK = Foreign Key)
 
 - users
     - user_id (PK)
@@ -66,7 +79,7 @@ The database features a number of foreign key constraints to ensure referential 
 
 ![fk-chart](Fk-diagram.jpeg)
 
-This chart shows 
+This chart shows the sequence of foreign key dependencies. As can be seen, the `users` and the `hashtagories` tables are the only table with no foreign key dependencies, and the `item_hashtagories` table is composed entirely of foreign key fields. 
 
 ### Additional Schema Details
 
